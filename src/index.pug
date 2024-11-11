@@ -10,5 +10,49 @@ html(lang="ru")
     body
         include ./parts/header.pug
         main
+            .form-container
+                .form-title Личные данные
+                form.lead-form(action="/" method="POST")
+                    .lead-form__group
+                        label.lead-form__label(for="firstname") Имя
+                        input.lead-form__control(type="text", name="firstrname", id="firstname")
+                        .messages
+                    .lead-form__group
+                        label.lead-form__label(for="lastname") Фамилия
+                        input.lead-form__control(type="text", name="lastname", id="lastname")
+                        .messages
+                    .lead-form__group
+                        label.lead-form__label(for="middlename") Отчество
+                        input.lead-form__control(type="text", name="middlename", id="middlename")
+                        .messages
+                    .lead-form__group
+                        label.lead-form__label(for="gender") Пол
+                        input.lead-form__control(type="text", name="gender", id="gender")
+                        .messages
+                    .lead-form__group
+                        label.lead-form__label(for="birthday") День рождения
+                        input.lead-form__control(type="text", name="birthday", id="birthday")
+                        .messages
+                    .lead-form__group
+                        label.lead-form__label(for="phone") Мобильный телефон
+                        input.lead-form__control(type="text", name="phone", id="phone")
+                        .messages
+                    .lead-form__edit Редактировать данные
+                    .lead-form__check
+                        input.lead-form__control(type="checkbox", name="politic", id="politic")
+                        label.lead-form__label(for="politic") Cогласен с условиями 
+                            a(href="#") Политики конфиденциальности
+                    .lead-form__check
+                        input.lead-form__control(type="checkbox", name="politic", id="politic")
+                        label.lead-form__label(for="politic") Даю 
+                            a(href="#") Согласие
+                            |  на хранение и обработку персональных данных
+                    .lead-form__check
+                        input.lead-form__control(type="checkbox", name="politic", id="politic")
+                        label.lead-form__label(for="politic") Даю 
+                            a(href="#") Согласие
+                            |  на предоставление кредитного отчета
+                    .lead-form__group
+                        input.lead-form__button(type="submit" value="Далее")
 
         include ./parts/footer.pug

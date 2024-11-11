@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <title>МСИ (Yoowhils)</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <nav class="header-nav">
+          <div class="logo">
+            <div class="logo__img"><a href="/"><img src="./img/logo.svg"></a></div>
+            <div class="logo__text">Ваши возможности лизинга</div>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <div class="form-container">
+        <div class="form-title">Предмет лизинга</div>
+        <form class="lead-form" action="/" method="POST">
+          <div class="lead-form__check">
+            <input class="lead-form__control" type="checkbox" name="decided" id="decided">
+            <label class="lead-form__label" for="decided">Не определился с предметом лизинга</label>
+          </div>
+          <div class="lead-form__group">
+            <label class="lead-form__label" for="link">Ссылка на автомобиль</label>
+            <input class="lead-form__control" type="text" name="link" id="link">
+            <div class="messages"></div>
+          </div>
+          <div class="lead-form__group">
+            <label class="lead-form__label" for="model">Марка</label>
+            <input class="lead-form__control" type="text" name="model" id="model">
+            <div class="messages"></div>
+          </div>
+          <div class="lead-form__group">
+            <label class="lead-form__label" for="price">Стоимость ($)</label>
+            <input class="lead-form__control" type="text" name="price" id="price">
+            <div class="messages"></div>
+          </div>
+          <div class="lead-form__group">
+            <label class="lead-form__label" for="term">Срок лизинга</label>
+            <input class="lead-form__control" type="text" name="term" id="term">
+            <div class="messages"></div>
+          </div>
+          <div class="lead-form__group">
+            <label class="lead-form__label" for="down_payment">Срок лизинга</label>
+            <input class="lead-form__control" type="text" name="down_payment" id="down_payment">
+            <div class="messages"></div>
+          </div>
+          <div class="back"><a href="#">Назад</a></div>
+          <div class="lead-form__group">
+            <input class="lead-form__button" type="submit" value="Далее">
+          </div>
+        </form>
+      </div>
+    </main>
+    <footer></footer>
+  </body>
+</html>

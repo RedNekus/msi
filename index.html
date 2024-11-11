@@ -17,7 +17,59 @@
         </nav>
       </div>
     </header>
-    <main></main>
+    <main>
+      <div class="form-container">
+        <div class="form-title">Личные данные</div>
+        <form class="lead-form" action="/" method="POST">
+          <div class="lead-form__group">
+            <label class="lead-form__label" for="firstname">Имя</label>
+            <input class="lead-form__control" type="text" name="firstrname" id="firstname">
+            <div class="messages"></div>
+          </div>
+          <div class="lead-form__group">
+            <label class="lead-form__label" for="lastname">Фамилия</label>
+            <input class="lead-form__control" type="text" name="lastname" id="lastname">
+            <div class="messages"></div>
+          </div>
+          <div class="lead-form__group">
+            <label class="lead-form__label" for="middlename">Отчество</label>
+            <input class="lead-form__control" type="text" name="middlename" id="middlename">
+            <div class="messages"></div>
+          </div>
+          <div class="lead-form__group">
+            <label class="lead-form__label" for="gender">Пол</label>
+            <input class="lead-form__control" type="text" name="gender" id="gender">
+            <div class="messages"></div>
+          </div>
+          <div class="lead-form__group">
+            <label class="lead-form__label" for="birthday">День рождения</label>
+            <input class="lead-form__control" type="text" name="birthday" id="birthday">
+            <div class="messages"></div>
+          </div>
+          <div class="lead-form__group">
+            <label class="lead-form__label" for="phone">Мобильный телефон</label>
+            <input class="lead-form__control" type="text" name="phone" id="phone">
+            <div class="messages"></div>
+          </div>
+          <div class="lead-form__edit">Редактировать данные</div>
+          <div class="lead-form__check">
+            <input class="lead-form__control" type="checkbox" name="politic" id="politic">
+            <label class="lead-form__label" for="politic">Cогласен с условиями <a href="#">Политики конфиденциальности</a></label>
+          </div>
+          <div class="lead-form__check">
+            <input class="lead-form__control" type="checkbox" name="politic" id="politic">
+            <label class="lead-form__label" for="politic">Даю <a href="#">Согласие</a> на хранение и обработку персональных данных</label>
+          </div>
+          <div class="lead-form__check">
+            <input class="lead-form__control" type="checkbox" name="politic" id="politic">
+            <label class="lead-form__label" for="politic">Даю <a href="#">Согласие</a> на предоставление кредитного отчета</label>
+          </div>
+          <div class="lead-form__group">
+            <input class="lead-form__button" type="submit" value="Далее">
+          </div>
+        </form>
+      </div>
+    </main>
     <footer></footer>
   </body>
 </html>

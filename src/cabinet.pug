@@ -1,0 +1,45 @@
+doctype html
+html(lang="ru")
+    head
+        title МСИ (Yoowhils)
+        meta(charset="utf-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
+        block scripts    
+        block styles
+            link(rel='stylesheet', type='text/css', href='/css/style.css')
+    body
+        include ./parts/header.pug
+        main
+            .form-container
+                .form-title Предмет лизинга
+                form.lead-form(action="/" method="POST")
+                    .lead-form__check
+                        input.lead-form__control(type="checkbox", name="decided", id="decided")
+                        label.lead-form__label(for="decided") Не определился с предметом лизинга
+                    .lead-form__group
+                        label.lead-form__label(for="link") Ссылка на автомобиль
+                        input.lead-form__control(type="text", name="link", id="link")
+                        .messages
+                    .lead-form__group
+                        label.lead-form__label(for="model") Марка
+                        input.lead-form__control(type="text", name="model", id="model")
+                        .messages
+                    .lead-form__group
+                        label.lead-form__label(for="price") Стоимость ($)
+                        input.lead-form__control(type="text", name="price", id="price")
+                        .messages
+                    .lead-form__group
+                        label.lead-form__label(for="term") Срок лизинга
+                        input.lead-form__control(type="text", name="term", id="term")
+                        .messages
+                    .lead-form__group
+                        label.lead-form__label(for="down_payment") Срок лизинга
+                        input.lead-form__control(type="text", name="down_payment", id="down_payment")
+                        .messages
+                    .back
+                        a(href="#") Назад
+                    .lead-form__group
+                        input.lead-form__button(type="submit" value="Далее")
+
+
+        include ./parts/footer.pug

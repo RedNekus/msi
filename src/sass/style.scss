@@ -20,6 +20,12 @@ img {
 a {
 
 }
+.form-container {
+  max-width: 570px;
+  margin: 0 auto;
+  border-radius: 30px;
+  padding: 40px;
+}
 
 @import 'header';
 @import 'footer';

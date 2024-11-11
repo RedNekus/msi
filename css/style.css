@@ -1,0 +1,16 @@
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+.form-container {
+  max-width: 570px;
+  margin: 0 auto;
+  border-radius: 30px;
+  padding: 40px;
+}
