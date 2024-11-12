@@ -4,54 +4,72 @@
     <title>МСИ (Yoowhils)</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.cdnfonts.com/css/tt-norms-pro" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
   </head>
   <body>
     <header>
-      <div class="container">
-        <nav class="header-nav">
+      <nav class="header-nav">
+        <div class="container">
           <div class="logo">
-            <div class="logo__img"><a href="/"><img src="./img/logo.svg"></a></div>
-            <div class="logo__text">Ваши возможности лизинга</div>
+            <div class="logo__img"><a href="/"><img src="./img/logo.svg" alt="Ваши возможности лизинга"></a></div>
           </div>
-        </nav>
-      </div>
+        </div>
+      </nav>
     </header>
+    <div class="container">
+      <div class="nav-block">
+        <ul class="breadcrumbs">
+          <li class="breadcrumbs__item"><a class="breadcrumbs__link" href="#">Заявки</a></li>
+          <li class="breadcrumbs__item"><span>Подать заявку на лизинг</span></li>
+        </ul>
+        <div class="cabinet">
+          <div class="cabinet__title">
+            <div class="cabinet__logo">AA</div>
+            <div class="cabinet__text">Ваш профиль</div>
+          </div>
+          <div class="cabinet__content"></div>
+        </div>
+      </div>
+    </div>
     <main>
       <div class="form-container">
-        <div class="form-title">Предмет лизинга</div>
+        <div class="form-container__title">Предмет лизинга</div>
         <form class="lead-form" action="/" method="POST">
           <div class="lead-form__check">
-            <input class="lead-form__control" type="checkbox" name="decided" id="decided">
-            <label class="lead-form__label" for="decided">Не определился с предметом лизинга</label>
+            <input class="lead-form__check-input" type="checkbox" name="decided" id="decided">
+            <label class="lead-form__check-label" for="decided">Не определился с предметом лизинга</label>
           </div>
-          <div class="lead-form__group">
-            <label class="lead-form__label" for="link">Ссылка на автомобиль</label>
-            <input class="lead-form__control" type="text" name="link" id="link">
+          <fieldset class="lead-form__group">
+            <legend class="lead-form__label" for="link">Ссылка на автомобиль</legend>
+            <input class="lead-form__control" type="text" name="link" id="link" placeholder="*Ссылка">
             <div class="messages"></div>
-          </div>
-          <div class="lead-form__group">
-            <label class="lead-form__label" for="model">Марка</label>
-            <input class="lead-form__control" type="text" name="model" id="model">
+          </fieldset>
+          <fieldset class="lead-form__group">
+            <legend class="lead-form__label" for="model">Марка</legend>
+            <input class="lead-form__control" type="text" name="model" id="model" placeholder="*Марка">
             <div class="messages"></div>
-          </div>
-          <div class="lead-form__group">
-            <label class="lead-form__label" for="price">Стоимость ($)</label>
-            <input class="lead-form__control" type="text" name="price" id="price">
+          </fieldset>
+          <fieldset class="lead-form__group">
+            <legend class="lead-form__label" for="price">Стоимость ($)</legend>
+            <input class="lead-form__control" type="text" name="price" id="price" placeholder="*1000">
             <div class="messages"></div>
-          </div>
-          <div class="lead-form__group">
-            <label class="lead-form__label" for="term">Срок лизинга</label>
-            <input class="lead-form__control" type="text" name="term" id="term">
+          </fieldset>
+          <fieldset class="lead-form__group">
+            <legend class="lead-form__label" for="term">Срок лизинга</legend>
+            <input class="lead-form__control" type="text" name="term" id="term" placeholder="*3 года">
             <div class="messages"></div>
-          </div>
-          <div class="lead-form__group">
-            <label class="lead-form__label" for="down_payment">Срок лизинга</label>
-            <input class="lead-form__control" type="text" name="down_payment" id="down_payment">
+          </fieldset>
+          <fieldset class="lead-form__group">
+            <legend class="lead-form__label" for="down_payment">Срок лизинга</legend>
+            <input class="lead-form__control" type="text" name="down_payment" id="down_payment" placeholder="*10%">
             <div class="messages"></div>
-          </div>
-          <div class="back"><a href="#">Назад</a></div>
-          <div class="lead-form__group">
+          </fieldset>
+          <div class="lead-form__back"><a href="#">Назад</a></div>
+          <div class="lead-form__bottom">
             <input class="lead-form__button" type="submit" value="Далее">
           </div>
         </form>

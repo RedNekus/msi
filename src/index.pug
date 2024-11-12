@@ -6,9 +6,19 @@ html(lang="ru")
         meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
         block scripts    
         block styles
+            link(href="https://fonts.cdnfonts.com/css/tt-norms-pro" rel="stylesheet")
+            link(rel="preconnect" href="https://fonts.googleapis.com")
+            link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
+            link(href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet")
             link(rel='stylesheet', type='text/css', href='/css/style.css')
     body
         include ./parts/header.pug
+        .container
+            ul.breadcrumbs
+                li
+                    a Заявки
+                li
+                    span Подать заявку на лизинг
         main
             .form-container
                 .form-title Личные данные
@@ -39,20 +49,20 @@ html(lang="ru")
                         .messages
                     .lead-form__edit Редактировать данные
                     .lead-form__check
-                        input.lead-form__control(type="checkbox", name="politic", id="politic")
+                        input.lead-form__check-input(type="checkbox", name="politic", id="politic")
                         label.lead-form__label(for="politic") Cогласен с условиями 
                             a(href="#") Политики конфиденциальности
                     .lead-form__check
-                        input.lead-form__control(type="checkbox", name="politic", id="politic")
+                        input.lead-form__check-input(type="checkbox", name="politic", id="politic")
                         label.lead-form__label(for="politic") Даю 
                             a(href="#") Согласие
                             |  на хранение и обработку персональных данных
                     .lead-form__check
-                        input.lead-form__control(type="checkbox", name="politic", id="politic")
+                        input.lead-form__check-input(type="checkbox", name="politic", id="politic")
                         label.lead-form__label(for="politic") Даю 
                             a(href="#") Согласие
                             |  на предоставление кредитного отчета
-                    .lead-form__group
+                    .lead-form__bottom
                         input.lead-form__button(type="submit" value="Далее")
 
         include ./parts/footer.pug

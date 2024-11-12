@@ -6,40 +6,55 @@ html(lang="ru")
         meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
         block scripts    
         block styles
+            link(href="https://fonts.cdnfonts.com/css/tt-norms-pro" rel="stylesheet")
+            link(rel="preconnect" href="https://fonts.googleapis.com")
+            link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
+            link(href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet")
             link(rel='stylesheet', type='text/css', href='/css/style.css')
     body
         include ./parts/header.pug
+        .container
+            .nav-block
+                ul.breadcrumbs
+                    li.breadcrumbs__item
+                        a.breadcrumbs__link(href="#") Заявки
+                    li.breadcrumbs__item
+                        span Подать заявку на лизинг
+                .cabinet
+                    .cabinet__title
+                        .cabinet__logo AA
+                        .cabinet__text Ваш профиль
+                    .cabinet__content
         main
             .form-container
-                .form-title Предмет лизинга
+                .form-container__title Предмет лизинга
                 form.lead-form(action="/" method="POST")
                     .lead-form__check
-                        input.lead-form__control(type="checkbox", name="decided", id="decided")
-                        label.lead-form__label(for="decided") Не определился с предметом лизинга
-                    .lead-form__group
-                        label.lead-form__label(for="link") Ссылка на автомобиль
-                        input.lead-form__control(type="text", name="link", id="link")
+                        input.lead-form__check-input(type="checkbox", name="decided", id="decided")
+                        label.lead-form__check-label(for="decided") Не определился с предметом лизинга
+                    fieldset.lead-form__group
+                        legend.lead-form__label(for="link") Ссылка на автомобиль
+                        input.lead-form__control(type="text", name="link", id="link", placeholder="*Ссылка")
                         .messages
-                    .lead-form__group
-                        label.lead-form__label(for="model") Марка
-                        input.lead-form__control(type="text", name="model", id="model")
+                    fieldset.lead-form__group
+                        legend.lead-form__label(for="model") Марка
+                        input.lead-form__control(type="text", name="model", id="model", placeholder="*Марка")
                         .messages
-                    .lead-form__group
-                        label.lead-form__label(for="price") Стоимость ($)
-                        input.lead-form__control(type="text", name="price", id="price")
+                    fieldset.lead-form__group
+                        legend.lead-form__label(for="price") Стоимость ($)
+                        input.lead-form__control(type="text", name="price", id="price", placeholder="*1000")
                         .messages
-                    .lead-form__group
-                        label.lead-form__label(for="term") Срок лизинга
-                        input.lead-form__control(type="text", name="term", id="term")
+                    fieldset.lead-form__group
+                        legend.lead-form__label(for="term") Срок лизинга
+                        input.lead-form__control(type="text", name="term", id="term", placeholder="*3 года")
                         .messages
-                    .lead-form__group
-                        label.lead-form__label(for="down_payment") Срок лизинга
-                        input.lead-form__control(type="text", name="down_payment", id="down_payment")
+                    fieldset.lead-form__group
+                        legend.lead-form__label(for="down_payment") Срок лизинга
+                        input.lead-form__control(type="text", name="down_payment", id="down_payment", placeholder="*10%")
                         .messages
-                    .back
+                    .lead-form__back
                         a(href="#") Назад
-                    .lead-form__group
+                    .lead-form__bottom
                         input.lead-form__button(type="submit" value="Далее")
-
 
         include ./parts/footer.pug
