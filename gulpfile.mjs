@@ -10,23 +10,23 @@ const sass = gulpSass(dartSass);
 function buildStyles() {
   return gulp.src('./src/sass/*.scss')
     .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('./css'));
+    .pipe(gulp.dest('./build/css/'));
 };
 
 function buildHTML() {
     return gulp.src('./src/*.pug')
         .pipe(pug({pretty: true}))
-        .pipe(gulp.dest('./'));
+        .pipe(gulp.dest('./build/'));
 };
 function buildJS() {
     return browserify('./src/js/script.js')
         .bundle()
         .pipe(source('main.js'))
-        .pipe(gulp.dest('./js/'));
+        .pipe(gulp.dest('./build/js/'));
 };
 function copyJS() {
     return gulp.src('./src/js/!(script).js')
-        .pipe(gulp.dest('./js/'))
+        .pipe(gulp.dest('./build/js/'))
 }
 
 const watch = function () {
