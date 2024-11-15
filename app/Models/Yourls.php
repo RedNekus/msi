@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Yourls extends Model
 {
     use HasFactory;
-    const API_URL = 'https://yoowills.by/s/yourls-api.php';
+    const API_URL = 'http://msi.yoowills.local/s/yourls-api.php';
     const MSI_URL = 'https://ioauth.raschet.by/oauth/authorize';
     const CLIENT_ID = 'JUj8W1FvAoToCsDiaQPoQx1w2LmHFeeh';
     const REDIRECT_URL = 'https://msi.yoowills.by';
@@ -33,10 +33,14 @@ class Yourls extends Model
         $exec = curl_exec($ch);
         curl_close($ch);
         $response = json_decode($exec);
-        if($response->status === 'success') {
-            return $response;
+        if(isset($response->status) && $response->status === 'success') {
+            return $response->shorturl;
         } else {
-            return $response->status;
+            if(isset($response->shorturl) && '' !== $response->shorturl) {
+                return $response->shorturl;
+            } else {
+                return "{$response->errorCode}:{$response->code}";
+            }
         }
     }
 }

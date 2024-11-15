@@ -13,4 +13,4 @@ use App\Http\Controllers\MsiController;
 |
 */
 
-Route::get('/', [MsiController::class, 'show']);
+Route::get('/', [MsiController::class, 'index']);

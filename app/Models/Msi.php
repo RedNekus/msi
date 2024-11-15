@@ -12,18 +12,19 @@ class Msi extends Model
     const OAUTH2_API_URL = self::SERVER_STB_URL.'/oauth';
     const OAUTH2_API_TOKEN = self::OAUTH2_API_URL.'/token';
     const MSI_API_USERINFO = self::SERVER_STB_URL.'/api/msi.userinfo/v1';
-    const REDIRECT_URI = 'https://msi.yoowills.local/auth/';
+    const REDIRECT_URI = 'https://msi.yoowills.by/auth/';
     const CLIENT_ID = 'JUj8W1FvAoToCsDiaQPoQx1w2LmHFeeh';
     const CLIENT_SECRET = 'SvFjQTN8VK1iqkmILY92frmyzEjSLCxh';
     const PROXY = '192.168.1.214:8090';
 
-    public static function msiToken($request) {
+    public static function msiToken($code) {
+        echo $code;
         $data = [
             'client_id' => self::CLIENT_ID,
             'client_secret' => self::CLIENT_SECRET,
             'redirect_uri' => self::REDIRECT_URI,
             'grant_type' => 'authorization_code',
-            'code' => $request->query('code')
+            'code' => $code
         ];
         $base64_client_credentials = base64_encode(self::CLIENT_ID.":".self::CLIENT_SECRET);
         $headers = array(
@@ -39,8 +40,15 @@ class Msi extends Model
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_FAILONERROR, true);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 720);
         $exec = curl_exec($ch);
+        if ($errno = curl_errno($ch)) {
+            $message = curl_strerror($errno);
+            echo "cURL error ({$errno}):\n {$message}"; // Выведет: cURL error (35): SSL connect error
+        }
         curl_close($ch);
+        echo "test: {$exec} <br>";
         $response = json_decode($exec);
         return $response;
     }
