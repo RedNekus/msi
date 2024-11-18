@@ -1,2 +1,2 @@
 <?php
-    echo json_encode(['test' => $data]);
+    var_dump($data);

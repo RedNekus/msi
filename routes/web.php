@@ -14,3 +14,4 @@ use App\Http\Controllers\MsiController;
 */
 
 Route::get('/', [MsiController::class, 'index']);
+Route::get('/set', [MsiController::class, 'set']);

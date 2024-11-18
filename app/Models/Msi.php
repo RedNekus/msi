@@ -18,7 +18,6 @@ class Msi extends Model
     const PROXY = '192.168.1.214:8090';
 
     public static function msiToken($code) {
-        echo $code;
         $data = [
             'client_id' => self::CLIENT_ID,
             'client_secret' => self::CLIENT_SECRET,
@@ -48,7 +47,6 @@ class Msi extends Model
             echo "cURL error ({$errno}):\n {$message}"; // Выведет: cURL error (35): SSL connect error
         }
         curl_close($ch);
-        echo "test: {$exec} <br>";
         $response = json_decode($exec);
         return $response;
     }

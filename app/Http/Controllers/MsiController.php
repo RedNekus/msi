@@ -11,19 +11,16 @@ class MsiController extends Controller
 {
     public function index(Request $request): View
     {
-        $token = Msi::msiToken('NYmsJedysmnl0qAqh8Rw16HQImPQLOUbweotB4Cq');
-        echo "TEST TEST<br>";
-        var_dump($token);
-        $info = [];
-        if($token) {
-            $info = Msi::msiUserInfo($token->access_token);
+        $data = [];
+        $raw_data = $request->session()->get('data');
+        if(isset($raw_data)) {
+           $data = json_decode($raw_data); 
         }
-        return view('msi.profile', [
-            'data' => [
-                'token' => 'test__' . $token,
-                'info' => $info
-            ]
-        ]);
+        return view('msi.profile', ['data' => $data]);
+    }
+    public function set(Request $request) {
+        $request->session()->put('data', $request->input('data') ?? "");
+        return redirect('/');
     }
     public function short(Request $request): array
     {
