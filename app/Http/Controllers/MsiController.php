@@ -27,16 +27,9 @@ class MsiController extends Controller
         $state = $request->input('state');
         if(isset($state) && '' !== $state) 
         {
-            $urlData = Yourls::setShort($state);
-            $token = Msi::msiToken($request);
-            $info = [];
-            if($token) {
-                $info = Msi::msiUserInfo($token->access_token);
-            }
+            $yourlsData = Yourls::setShort($state);
             return [
-                'data' => $urlData,
-                'token' => 'test__' . $token,
-                'info' => $info
+                'data' => $yourlsData,
             ];
         }
     }
