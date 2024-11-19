@@ -5,9 +5,9 @@ header
                 .logo__img
                     a(href='/')
                         img(src='./img/logo.svg', alt="Ваши возможности лизинга")
-            .cabinet
-                .cabinet__title
+            .cabinet(JS_cabinet)
+                .cabinet__title.dropdown-toggle(data-toggle="dropdown", data-target="#cabinet")
                     .cabinet__logo AA
                     .cabinet__text Ваш профиль
-                .cabinet__content
-                    .cabinet_logout Выйти
+                #cabinet.cabinet__content.is-hidden
+                    a.cabinet__logout(href="#") Выйти

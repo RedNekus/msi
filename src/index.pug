@@ -10,45 +10,49 @@ html(lang="ru")
             .form-container
                 .form-title Личные данные
                 form.lead-form(action="/" method="POST")
-                    .lead-form__group
-                        label.lead-form__label(for="firstname") Имя
-                        input.lead-form__control(type="text", name="firstrname", id="firstname")
+                    fieldset.lead-form__group.lead-form__group--disabled
+                        legend.lead-form__label(for="firstname") Имя
+                        input.lead-form__control(type="text", name="firstrname", id="firstname", disabled="disabled", value="Алеся")
                         .messages
-                    .lead-form__group
-                        label.lead-form__label(for="lastname") Фамилия
-                        input.lead-form__control(type="text", name="lastname", id="lastname")
+                    fieldset.lead-form__group.lead-form__group--disabled
+                        legend.lead-form__label(for="lastname") Фамилия
+                        input.lead-form__control(type="text", name="lastname", id="lastname", disabled="disabled", value="Важник")
                         .messages
-                    .lead-form__group
-                        label.lead-form__label(for="middlename") Отчество
-                        input.lead-form__control(type="text", name="middlename", id="middlename")
+                    fieldset.lead-form__group.lead-form__group--disabled
+                        legend.lead-form__label(for="middlename") Отчество
+                        input.lead-form__control(type="text", name="middlename", id="middlename", disabled="disabled", value="Андреевна")
                         .messages
-                    .lead-form__group
-                        label.lead-form__label(for="gender") Пол
-                        input.lead-form__control(type="text", name="gender", id="gender")
+                    fieldset.lead-form__group.lead-form__group--disabled
+                        legend.lead-form__label(for="gender") Пол
+                        input.lead-form__control(type="text", name="gender", id="gender", disabled="disabled", value="Ж")
                         .messages
-                    .lead-form__group
-                        label.lead-form__label(for="birthday") День рождения
-                        input.lead-form__control(type="text", name="birthday", id="birthday")
+                    fieldset.lead-form__group.lead-form__group--disabled
+                        legend.lead-form__label(for="birthday") День рождения
+                        input.lead-form__control(type="text", name="birthday", id="birthday", disabled="disabled", value="15122003")
                         .messages
-                    .lead-form__group
-                        label.lead-form__label(for="phone") Мобильный телефон
-                        input.lead-form__control(type="text", name="phone", id="phone")
+                    fieldset.lead-form__group.lead-form__group--disabled.is-editable
+                        legend.lead-form__label(for="phone") Мобильный телефон
+                        input.lead-form__control(type="text", name="phone", id="phone", value="15.12.2003")
                         .messages
-                    .lead-form__edit Редактировать данные
+                    .lead-form__edit 
+                        a.lead-form__edit-action(href="#", data-action="edit") Редактировать данные
                     .lead-form__check
                         input.lead-form__check-input(type="checkbox", name="politic", id="politic")
-                        label.lead-form__label(for="politic") Cогласен с условиями 
-                            a(href="#") Политики конфиденциальности
+                        label.lead-form__check-label(for="politic") 
+                            span Cогласен с условиями 
+                                a(href="#") Политики конфиденциальности
                     .lead-form__check
                         input.lead-form__check-input(type="checkbox", name="politic", id="politic")
-                        label.lead-form__label(for="politic") Даю 
-                            a(href="#") Согласие
-                            |  на хранение и обработку персональных данных
+                        label.lead-form__check-label(for="politic") 
+                            span Даю 
+                                a(href="#") Согласие
+                                |  на хранение и обработку персональных данных
                     .lead-form__check
                         input.lead-form__check-input(type="checkbox", name="politic", id="politic")
-                        label.lead-form__label(for="politic") Даю 
-                            a(href="#") Согласие
-                            |  на предоставление кредитного отчета
+                        label.lead-form__check-label(for="politic") 
+                            span Даю 
+                                a(href="#") Согласие
+                                |  на предоставление кредитного отчета
                     .lead-form__bottom
                         input.lead-form__button(type="submit" value="Далее")
 

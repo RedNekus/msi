@@ -13,9 +13,9 @@ html(lang="ru")
                     .lead-form__check
                         input.lead-form__check-input(type="checkbox", name="decided", id="decided")
                         label.lead-form__check-label(for="decided") Не определился с предметом лизинга
-                    fieldset.lead-form__group
+                    fieldset.lead-form__group.lead-form__group--disabled
                         legend.lead-form__label(for="link") Ссылка на автомобиль
-                        input.lead-form__control(type="text", name="link", id="link", placeholder="*Ссылка")
+                        input.lead-form__control(type="text", name="link", id="link", placeholder="*Ссылка", disabled)
                         .messages
                     fieldset.lead-form__group
                         legend.lead-form__label(for="model") Марка
