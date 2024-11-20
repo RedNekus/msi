@@ -29,11 +29,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const newMask = iMask(
       document.getElementById('phone'),
       {
-        mask: Number,
-        min: 0,
-        max: 1000,
+        mask: '+{375} (00) 000-00-00',
+        lazy: true,
       },
-  );
+  ).on('complete', function() {
+    // phoneInput.classList.remove('is-invalid');
+    // phoneInput.classList.add('is-valid');
+    console.log('222');
+  });
   console.log(newMask);
 });
-
