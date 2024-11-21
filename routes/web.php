@@ -14,4 +14,8 @@ use App\Http\Controllers\MsiController;
 */
 
 Route::get('/', [MsiController::class, 'index']);
+Route::post('/profile', [MsiController::class, 'userAdd']);
 Route::get('/set', [MsiController::class, 'set']);
+Route::get('/cabinet', [MsiController::class, 'cabinet']);
+Route::post('/cabinet', [MsiController::class, 'dealAdd']);
+Route::get('/auth', [MsiController::class, 'auth']);
