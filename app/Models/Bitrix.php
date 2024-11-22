@@ -44,39 +44,72 @@ class Bitrix extends Model
         $data = self::BXQuery('crm.contact.get.json', json_encode(['ID' => (int)$id]));
         return $data;
     }
-    public static function creteDeal($request) {
-        $contact_id = $request->session()->get('contact_id');
+    private static function prepareDealData($data) {
         $queryParams = [
             'fields' => [
                 "TITLE" => "ТЕСТ Кабинета",
                 "TYPE_ID" => "GOODS", 
                 "STAGE_ID" => "NEW",
-                "CONTACT_ID" => $contact_id,
-                "OPENED" => "Y", 
-                "CURRENCY_ID" => "USD", 
+                "CONTACT_ID" => $data['contact_id'],
+                "OPENED" => "Y",
+                "CURRENCY_ID" => "USD",
                 "OPPORTUNITY" => 5000,
             ],
             'params' => ['REGISTER_SONET_EVENT' => 'Y']
         ];
-        $params = json_encode($queryParams);
-        $res = self::BXQuery('crm.deal.add.json', $params);
+        if(isset($data['deal_id']) && (int)$data['deal_id']) {
+            $queryParams['id'] = $data['deal_id'];
+        }
+        return json_encode($queryParams);
     }
-    public static function creteUser($data) {
-        //var_dump($data);
+    private static function prepareContactData($data) {
         $queryParams = [
             'fields' => [
-                "NAME" => $data['firstname'], 
-                "SECOND_NAME" => $data['middlename'], 
-                "LAST_NAME" =>  $data['lastname'], 
-                "OPENED" => "Y", 
-                "ASSIGNED_BY_ID" => 1, 
+                "NAME" => $data['firstname'] ?? '',
+                "SECOND_NAME" => $data['middlename'] ?? '',
+                "LAST_NAME" =>  $data['lastname'] ?? '',
+                "OPENED" => "Y",
+                "ASSIGNED_BY_ID" => 1,
                 "TYPE_ID" => "CLIENT",
                 "SOURCE_ID" => "SELF",
-                "PHONE" => [[ "VALUE" => $data['phone'], "VALUE_TYPE" => "WORK" ]] 	
+                "PHONE" => [[ "VALUE" => $data['phone'] ?? '', "VALUE_TYPE" => "WORK" ]]
             ],
             'params' => ['REGISTER_SONET_EVENT' => 'Y']
         ];
-        $params = json_encode($queryParams);
+        if(isset($data['contact_id']) && (int)$data['contact_id']) {
+            $queryParams['id'] = $data['contact_id'];
+        }
+        return json_encode($queryParams);
+    }
+    public static function creteDeal($request) {
+        $data = $request->all();
+        $data['contact_id']= $request->session()->get('contact_id');
+        $params = self::prepareDealData($data);
+        $res = self::BXQuery('crm.deal.add.json', $params);
+        return $res;
+    }
+    public static function updateDeal($request) {
+        $data = $request->all();
+        $data['deal_id'] = $request->session()->get('deal_id') ?? 0;
+        if(!$data['deal_id']) {
+            return 0;
+        }
+        $data['contact_id']= $request->session()->get('contact_id') ?? 0;
+        $params = self::prepareDealData($data);
+        $res = self::BXQuery('crm.deal.update.json', $params);
+        return $res;
+    }
+    public static function creteUser($data) {
+        $params = self::prepareContactData($data);
         $res = self::BXQuery('crm.contact.add.json', $params);
+        return $res;
+    }
+    public static function updateUser($data) {
+        if(!$data['contact_id']) {
+            return 0;
+        }
+        $params = prepareContactData($data);
+        $res = self::BXQuery('crm.contact.update.json', $params);
+        return $res;
     }
 }
