@@ -47,13 +47,18 @@ class Bitrix extends Model
     private static function prepareDealData($data) {
         $queryParams = [
             'fields' => [
-                "TITLE" => "ТЕСТ Кабинета",
+                "TITLE" => "Заполнена анкета",
                 "TYPE_ID" => "GOODS", 
                 "STAGE_ID" => "NEW",
-                "CONTACT_ID" => $data['contact_id'],
+                "CONTACT_ID" => $data['contact_id'] ?? 0,
                 "OPENED" => "Y",
                 "CURRENCY_ID" => "USD",
-                "OPPORTUNITY" => 5000,
+                "OPPORTUNITY" => $data['price'] ?? 0,
+                "ASSIGNED_BY_ID" => 135,
+                "UF_CRM_1732543687" => $data['model'] ?? "", //марка
+                "UF_CRM_1732543715" => $data['link'] ?? "", //ссылка на автомобиль
+                "UF_CRM_664C94A742925" => $data['term'] ?? "", //срок лизинга
+                "UF_CRM_65DDB202BF4AA" => $data['down_payment'] ?? "", //первоначальный взнос (Авансовый платеж)
             ],
             'params' => ['REGISTER_SONET_EVENT' => 'Y']
         ];

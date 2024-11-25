@@ -22,32 +22,32 @@
         @csrf
         <fieldset class="lead-form__group lead-form__group--disabled">
             <legend class="lead-form__label" for="firstname">Имя</legend>
-            <input class="lead-form__control" type="text" name="firstrname" id="firstname" disabled="disabled" value="{{$data->subject->name_ru->given_name_ru}}">
+            <input class="lead-form__control" type="text" name="firstrname" id="firstname" readonly="readonly" value="{{$data->subject->name_ru->given_name_ru}}">
             <div class="messages"></div>
         </fieldset>
         <fieldset class="lead-form__group lead-form__group--disabled">
             <legend class="lead-form__label" for="lastname">Фамилия</legend>
-            <input class="lead-form__control" type="text" name="lastname" id="lastname" disabled="disabled" value="{{$data->subject->name_ru->family_name_ru}}">
+            <input class="lead-form__control" type="text" name="lastname" id="lastname" readonly="readonly" value="{{$data->subject->name_ru->family_name_ru}}">
             <div class="messages"></div>
         </fieldset>
         <fieldset class="lead-form__group lead-form__group--disabled">
             <legend class="lead-form__label" for="middlename">Отчество</legend>
-            <input class="lead-form__control" type="text" name="middlename" id="middlename" disabled="disabled" value="{{$data->subject->name_ru->middle_name_ru}}">
+            <input class="lead-form__control" type="text" name="middlename" id="middlename" readonly="readonly" value="{{$data->subject->name_ru->middle_name_ru}}">
             <div class="messages"></div>
         </fieldset>
         <fieldset class="lead-form__group lead-form__group--disabled">
             <legend class="lead-form__label" for="gender">Пол</legend>
-            <input class="lead-form__control" type="text" name="gender" id="gender" disabled="disabled" value="{{$sex}}">
+            <input class="lead-form__control" type="text" name="gender" id="gender" readonly="readonly" value="{{$sex}}">
             <div class="messages"></div>
         </fieldset>
         <fieldset class="lead-form__group lead-form__group--disabled">
             <legend class="lead-form__label" for="birthday">День рождения</legend>
-            <input class="lead-form__control" type="text" name="birthday" id="birthday" disabled="disabled" value="{{$birthdate}}">
+            <input class="lead-form__control" type="text" name="birthday" id="birthday" readonly="readonly" value="{{$birthdate}}">
             <div class="messages"></div>
         </fieldset>
         <fieldset class="lead-form__group lead-form__group--disabled is-editable">
             <legend class="lead-form__label" for="phone">Мобильный телефон</legend>
-            <input class="lead-form__control" type="text" name="phone" id="phone" disabled="disabled" value="{{$phone}}">
+            <input class="lead-form__control" type="text" name="phone" id="phone" readonly="readonly" value="{{$phone}}">
             <div class="messages"></div>
         </fieldset>
         <div class="lead-form__edit">

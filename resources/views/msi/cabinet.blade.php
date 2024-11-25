@@ -14,7 +14,7 @@
             <input class="lead-form__check-input" type="checkbox" name="decided" id="decided">
             <label class="lead-form__check-label" for="decided">Не определился с предметом лизинга</label>
         </div>
-        <fieldset class="lead-form__group lead-form__group--disabled">
+        <fieldset class="lead-form__group">
             <legend class="lead-form__label" for="link">Ссылка на автомобиль</legend>
             <input class="lead-form__control" type="text" name="link" id="link" placeholder="*Ссылка" disabled>
             <div class="messages"></div>
@@ -35,7 +35,7 @@
             <div class="messages"></div>
         </fieldset>
         <fieldset class="lead-form__group">
-            <legend class="lead-form__label" for="down_payment">Срок лизинга</legend>
+            <legend class="lead-form__label" for="down_payment">Первоначальный взнос (%)</legend>
             <input class="lead-form__control" type="text" name="down_payment" id="down_payment" placeholder="*10%">
             <div class="messages"></div>
         </fieldset>
