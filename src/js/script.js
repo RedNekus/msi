@@ -5,31 +5,54 @@ document.addEventListener('DOMContentLoaded', () => {
   const editLink = document.querySelector(`[data-action="edit"]`);
   const form = document.forms[0];
   const check = document.getElementById('decided');
+  const liability = document.getElementById('liability');
+  const liabilityNo = document.getElementById('liability_0');
   let elems = [];
-  check.addEventListener('change', (e) => {
-    if (check.checked) {
-      console.log('add');
-      form.elements.link.setAttribute('disabled', 'disabled');
-      form.elements.model.setAttribute('disabled', 'disabled');
-      form.elements.link.parentElement.
-          classList.add('lead-form__group--disabled');
-      form.elements.model.parentElement.
-          classList.add('lead-form__group--disabled');
-    } else {
-      console.log('remove');
-      form.elements.link.removeAttribute('disabled', 'disabled');
-      form.elements.model.removeAttribute('disabled', 'disabled');
-      form.elements.link.parentElement.
-          classList.remove('lead-form__group--disabled');
-      form.elements.model.parentElement.
-          classList.remove('lead-form__group--disabled');
-    }
-  });
+
+  if (liability) {
+    liability.addEventListener('change', () => {
+      const block = liability.parentElement.parentElement;
+      const hiddenElems = block.querySelectorAll('[data-shown]');
+      liability.checked = false;
+      hiddenElems.forEach( (item) => {
+        item.classList.remove('is-hidden');
+      });
+      hiddenElems[0].children[0].checked = true;
+      hiddenElems[0].children[0].dispatchEvent(new Event('change'));
+    });
+    liabilityNo.addEventListener('change', () => {
+      const block = liability.parentElement.parentElement;
+      const hiddenElems = block.querySelectorAll('[data-shown]');
+      hiddenElems.forEach( (item) => {
+        item.classList.add('is-hidden');
+      });
+    });
+  }
+  if (check) {
+    check.addEventListener('change', (e) => {
+      if (check.checked) {
+        form.elements.link.value = '';
+        form.elements.model.value = '';
+        form.elements.link.setAttribute('disabled', 'disabled');
+        form.elements.model.setAttribute('disabled', 'disabled');
+        form.elements.link.parentElement.
+            classList.add('lead-form__group--disabled');
+        form.elements.model.parentElement.
+            classList.add('lead-form__group--disabled');
+      } else {
+        form.elements.link.removeAttribute('disabled', 'disabled');
+        form.elements.model.removeAttribute('disabled', 'disabled');
+        form.elements.link.parentElement.
+            classList.remove('lead-form__group--disabled');
+        form.elements.model.parentElement.
+            classList.remove('lead-form__group--disabled');
+      }
+    });
+  }
   if ('undefined' !== typeof form) {
     elems = Object.values(form.elements).
         filter((el) => el && el.classList.contains('is-editable'));
     const phone = form.elements.phone;
-    console.log(phone);
     if ('undefined' !== typeof phone) {
       const newMask = iMask(phone,
           {
