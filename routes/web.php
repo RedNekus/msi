@@ -18,4 +18,7 @@ Route::post('/profile', [MsiController::class, 'userAdd']);
 Route::get('/set', [MsiController::class, 'set']);
 Route::get('/cabinet', [MsiController::class, 'cabinet']);
 Route::post('/cabinet', [MsiController::class, 'dealAdd']);
+Route::get('/address', [MsiController::class, 'address']);
+Route::get('/info', [MsiController::class, 'info']);
+
 Route::get('/auth', [MsiController::class, 'auth']);

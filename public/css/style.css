@@ -38,7 +38,7 @@ p {
 }
 
 .form-title {
-  font-size: 24px;
+  font-size: 1.3rem;
   line-height: 54px;
   font-weight: 700;
 }
@@ -57,7 +57,7 @@ p {
   font-family: "Montserrat", "TT Norms";
   font-style: normal;
   font-weight: 600;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   margin-bottom: 1rem;
 }
 
@@ -145,6 +145,45 @@ p {
   content: url("../img/icon-exit.svg");
 }
 
+.lead-form__radio-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+.lead-form__radio-block > legend {
+  padding: 0.5rem 0;
+}
+.lead-form__radio-input {
+  display: none;
+}
+.lead-form__radio-label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.lead-form__radio-label::before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #B0B0B1;
+  border-radius: 50%;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+input:checked + .lead-form__radio-label::after {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #13AAF7;
+  position: absolute;
+  left: 5px;
+  flex-shrink: 0;
+}
 .lead-form__group {
   border: 1px solid #B0B0B1;
   height: 72px;
@@ -176,6 +215,12 @@ p {
   font-weight: bold;
   font-family: "Montserrat", "TT Norms";
   height: 22px;
+  font-size: 1rem;
+}
+.lead-form legend.lead-form__label > p {
+  display: flex;
+  flex-direction: column;
+  transform: translate(0, -25%);
 }
 .lead-form__control {
   display: flex;

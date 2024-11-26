@@ -39,6 +39,7 @@
             <input class="lead-form__control" type="text" name="down_payment" id="down_payment" placeholder="*10%">
             <div class="messages"></div>
         </fieldset>
+        <div class="lead-form__bottom">
             <div class="lead-form__back"><a href="#">Назад</a></div>
             <div class="lead-form__bottom">
             <input class="lead-form__button" type="submit" value="Далее">

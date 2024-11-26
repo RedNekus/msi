@@ -39,6 +39,12 @@ class MsiController extends Controller
         $contact = json_decode(Bitrix::getUserData($contact_id));
         return view('msi.cabinet', ['deal' => $deal->result, 'user' => $contact->result]);
     }
+    public function address(Request $request) {
+        return view('msi.address', []);
+    }
+    public function info(Request $request) {
+        return view('msi.form', []);
+    } 
     public function dealAdd(Request $request) {
         $res = json_decode(Bitrix::creteDeal($request));
         var_dump($res);
