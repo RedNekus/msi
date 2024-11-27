@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Msi;
 use App\Models\Yourls;
 use App\Models\Bitrix;
+use App\Models\User;
 use Illuminate\View\View;
+use App\Jobs\SMS;
 
 class MsiController extends Controller
 {
@@ -52,9 +54,17 @@ class MsiController extends Controller
     public function userAdd(Request $request) {
         $res = json_decode(Bitrix::creteUser($request->all()));
         var_dump($res);
+        //var_dump($request->all());
     }
     //TODO
     public function auth() {
         return view('msi.auth', []);
+    }
+    public function login(Request $request) {
+        $phone = str_replace(['(', ')', ' ', '-'], '', $request->input('phone')) ?? '';
+        //echo $phone;
+        if(isset($phone) && '' !== $phone) {
+            //dispath sms
+        }
     }
 }

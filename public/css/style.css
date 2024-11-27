@@ -1,3 +1,7 @@
+body, html {
+  height: 100%;
+}
+
 body {
   font-family: "TT Norms Pro", sans-serif;
   font-style: normal;
@@ -8,6 +12,12 @@ body {
   line-height: 1.2;
   padding: 0;
   margin: 0;
+}
+
+main.blank {
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
 
 ul {
@@ -59,6 +69,18 @@ p {
   font-weight: 600;
   font-size: 1.3rem;
   margin-bottom: 1rem;
+}
+.form-container--auth {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  margin-top: 60px;
+}
+.form-container--auth form {
+  flex-shrink: 0;
+  flex-basis: 100%;
+  width: 100%;
 }
 
 .container {
@@ -237,6 +259,9 @@ input:checked + .lead-form__radio-label::after {
   font-weight: 300;
   font-family: "TT Norms Pro", sans-serif;
 }
+.form-container--auth .lead-form__control {
+  transform: translateY(0);
+}
 .lead-form__control:focus {
   outline: none;
 }
@@ -304,6 +329,11 @@ input:checked + .lead-form__radio-label::after {
 }
 .lead-form__bottom {
   margin-top: 32px;
+}
+.lead-form__footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .lead-form__back {
   margin-top: 1em;

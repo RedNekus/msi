@@ -22,3 +22,4 @@ Route::get('/address', [MsiController::class, 'address']);
 Route::get('/info', [MsiController::class, 'info']);
 
 Route::get('/auth', [MsiController::class, 'auth']);
+Route::post('/auth', [MsiController::class, 'login']);

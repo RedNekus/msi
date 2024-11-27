@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class Bitrix extends Model
 {
@@ -70,7 +72,7 @@ class Bitrix extends Model
     private static function prepareContactData($data) {
         $queryParams = [
             'fields' => [
-                "NAME" => $data['firstname'] ?? '',
+                "NAME" => $data['firstrname'] ?? '',
                 "SECOND_NAME" => $data['middlename'] ?? '',
                 "LAST_NAME" =>  $data['lastname'] ?? '',
                 "OPENED" => "Y",
@@ -107,6 +109,16 @@ class Bitrix extends Model
     public static function creteUser($data) {
         $params = self::prepareContactData($data);
         $res = self::BXQuery('crm.contact.add.json', $params);
+        $resObj = json_decode($res);
+        echo 'test'. (int)$resObj->result;
+        User::create([
+            'name' => $data['firstrname'],
+            'phone' => $data['phone'],
+            'lastname' => $data['lastname'],
+            'middlename' => $data['middlename'],
+            'bitrix_id' => (int)($resObj->result),
+            'password' => Hash::make('1p@ssWord2'),
+        ]);
         return $res;
     }
     public static function updateUser($data) {

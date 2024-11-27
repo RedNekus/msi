@@ -183,6 +183,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
+        'Sender' => Jurager\Sender\Sender::class,
     ])->toArray(),
 
 ];
