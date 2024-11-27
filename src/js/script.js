@@ -14,18 +14,25 @@ document.addEventListener('DOMContentLoaded', () => {
       const block = liability.parentElement.parentElement;
       const hiddenElems = block.querySelectorAll('[data-shown]');
       liability.checked = false;
-      hiddenElems.forEach( (item) => {
-        item.classList.remove('is-hidden');
-      });
-      hiddenElems[0].children[0].checked = true;
-      hiddenElems[0].children[0].dispatchEvent(new Event('change'));
+      if (hiddenElems) {
+        hiddenElems.forEach( (item) => {
+          item.classList.remove('is-hidden');
+        });
+        const firstHiddenElem = hiddenElems[0].children[0];
+        if (firstHiddenElem) {
+          firstHiddenElem.checked = true;
+          firstHiddenElem.dispatchEvent(new Event('change'));
+        }
+      }
     });
     liabilityNo.addEventListener('change', () => {
       const block = liability.parentElement.parentElement;
       const hiddenElems = block.querySelectorAll('[data-shown]');
-      hiddenElems.forEach( (item) => {
-        item.classList.add('is-hidden');
-      });
+      if (hiddenElems) {
+        hiddenElems.forEach( (item) => {
+          item.classList.add('is-hidden');
+        });
+      }
     });
   }
   if (check) {
