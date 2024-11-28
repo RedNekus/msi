@@ -15,20 +15,20 @@ return [
     | Username to authenticate at sms-assistent.by
     |--------------------------------------------------------------------------
     */
-    'username' => env('SENDER_USERNAME', 'example'),
+    'username' => env('SENDER_USERNAME', 'Yowheels'),
 
     /*
     |--------------------------------------------------------------------------
     | Password to authenticate at sms-assistent.by
     |--------------------------------------------------------------------------
     */
-    'password' => env('SENDER_PASSWORD', 'qwerty'),
+    'password' => env('SENDER_PASSWORD', '24M88487'),
 
     /*
     |--------------------------------------------------------------------------
     | Name will be displayed to recipients
     |--------------------------------------------------------------------------
     */
-    'name' => env('SENDER_NAME', 'John Doe'),
+    'name' => env('SENDER_NAME', 'Yowheels'),
 
 ];

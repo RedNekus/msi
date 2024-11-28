@@ -65,6 +65,7 @@ class MsiController extends Controller
         //echo $phone;
         if(isset($phone) && '' !== $phone) {
             //dispath sms
+            dispatch(new SMS( '+375447929174', 'Hello world!'));
         }
     }
 }
