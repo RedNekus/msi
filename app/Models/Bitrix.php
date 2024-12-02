@@ -110,13 +110,18 @@ class Bitrix extends Model
         $params = self::prepareContactData($data);
         $res = self::BXQuery('crm.contact.add.json', $params);
         $resObj = json_decode($res);
+        $genders= ['М' => 1, 'Ж' => 0];
         echo 'test'. (int)$resObj->result;
+        $birthdate = array_reverse(explode('.', $data['birthday']));
+        $birthdate = implode('-', $birthdate) . ' 00:00:00';
         User::create([
             'name' => $data['firstrname'],
             'phone' => $data['phone'],
             'lastname' => $data['lastname'],
             'middlename' => $data['middlename'],
             'bitrix_id' => (int)($resObj->result),
+            'gender' => $genders[$data['gender']] ?? 0,
+            'birthdate' => $birthdate,
             'password' => Hash::make('1p@ssWord2'),
         ]);
         return $res;

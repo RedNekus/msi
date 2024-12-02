@@ -25,6 +25,8 @@ class User extends Authenticatable
         'phone',
         'password',
         'bitrix_id',
+        'gender',
+        'birthdate'
     ];
 
     /**

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use App\Models\Msi;
 use App\Models\Yourls;
 use App\Models\Bitrix;
@@ -17,6 +19,13 @@ class MsiController extends Controller
         $raw_data = $request->session()->get('data');
         if(isset($raw_data)) {
            $data = json_decode($raw_data); 
+        } else {
+            $user = Auth::user();
+            $data = (array)$user->getAttributes();
+            $data['firstname'] = $data['name'];
+            echo "<pre>";
+            var_dump($data);
+            echo "</pre>";
         }
         return view('msi.profile', ['data' => $data]);
     }

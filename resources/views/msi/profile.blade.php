@@ -3,15 +3,22 @@
 <pre>
 <?php
     if(isset($data->subject)) {
+        $firstrname = $data->subject->name_ru->given_name_ru;
+        $lastname = $data->subject->name_ru->family_name_ru;
+        $middlename = $data->subject->name_ru->middle_name_ru;
         $year = substr($data->subject->birthdate, 0, 4);
         $month = substr($data->subject->birthdate, 4, -2);
         $day = substr($data->subject->birthdate, -2);
         $birthdate = "$day.$month.$year";
-        $sex = $data->subject->sex === 'male' ? "М" : "Ж";
+        $gender = $data->subject->sex === 'male' ? "М" : "Ж";
         $phone = "+" . trim($data->contact->phones[0]);
     }  else {
-        var_dump($data);
-        die();
+        extract($data);
+        $firstrname = &$name;
+        $gender = $gender? 'М' : 'Ж';
+        $birthdate = explode(" ", $birthdate)[0];
+        $birthdate = array_reverse(explode("-", $birthdate));
+        $birthdate = implode(".", $birthdate);
     }  
     //var_dump($data->contact);
 ?>
@@ -21,23 +28,23 @@
     <form class="lead-form" action="/profile" method="POST">
         @csrf
         <fieldset class="lead-form__group lead-form__group--disabled">
-            <legend class="lead-form__label" for="firstname">Имя</legend>
-            <input class="lead-form__control" type="text" name="firstrname" id="firstname" readonly="readonly" value="{{$data->subject->name_ru->given_name_ru}}">
+            <legend class="lead-form__label" for="firstrname">Имя</legend>
+            <input class="lead-form__control" type="text" name="firstrname" id="firstrname" readonly="readonly" value="{{$firstrname}}">
             <div class="messages"></div>
         </fieldset>
         <fieldset class="lead-form__group lead-form__group--disabled">
             <legend class="lead-form__label" for="lastname">Фамилия</legend>
-            <input class="lead-form__control" type="text" name="lastname" id="lastname" readonly="readonly" value="{{$data->subject->name_ru->family_name_ru}}">
+            <input class="lead-form__control" type="text" name="lastname" id="lastname" readonly="readonly" value="{{$lastname}}">
             <div class="messages"></div>
         </fieldset>
         <fieldset class="lead-form__group lead-form__group--disabled">
             <legend class="lead-form__label" for="middlename">Отчество</legend>
-            <input class="lead-form__control" type="text" name="middlename" id="middlename" readonly="readonly" value="{{$data->subject->name_ru->middle_name_ru}}">
+            <input class="lead-form__control" type="text" name="middlename" id="middlename" readonly="readonly" value="{{$middlename}}">
             <div class="messages"></div>
         </fieldset>
         <fieldset class="lead-form__group lead-form__group--disabled">
             <legend class="lead-form__label" for="gender">Пол</legend>
-            <input class="lead-form__control" type="text" name="gender" id="gender" readonly="readonly" value="{{$sex}}">
+            <input class="lead-form__control" type="text" name="gender" id="gender" readonly="readonly" value="{{$gender}}">
             <div class="messages"></div>
         </fieldset>
         <fieldset class="lead-form__group lead-form__group--disabled">

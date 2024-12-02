@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Bitrix;
 use Illuminate\View\View;
 use App\Models\User;
@@ -19,11 +20,24 @@ class UserController extends Controller
         return view('msi.auth', []);
     }
     public function login(Request $request) {
-        $phone = str_replace(['(', ')', ' ', '-'], '', $request->input('phone')) ?? '';
+        $formattedPhone = $request->input('phone');
+        $phone = str_replace(['(', ')', ' ', '-'], '', $formattedPhone) ?? '';
         //echo $phone;
         if(isset($phone) && '' !== $phone) {
             //dispath sms
-            dispatch(new SMS( '+375447929174', 'Hello world!'))->withoutDelay();
+            
+            if (Auth::attempt([
+                'phone' => $formattedPhone,
+                'password' => '12password',
+            ])) {
+                echo "test";
+                $user = Auth::user();
+                var_dump($user);
+                // Authentication was successful...
+                //dispatch(new SMS( '+375447929174', 'Hello world!'))->withoutDelay();
+            } else {
+                echo 'Error auth';
+            }
         }
     }
     public function register() {    
