@@ -1,0 +1,13 @@
+.leads {
+    display: flex;
+    gap: 35px;
+    &__item {
+        display: flex;
+        flex-direction: column;
+        background-color: #F9FAFD;
+        border-radius: 30px;
+        width: 495px;
+        padding: 30px;
+        box-sizing: border-box;
+    }
+}
