@@ -5,26 +5,33 @@ html(lang="ru")
     body
         include ./parts/header.pug
         .container
-            .nav-block
-                include ./parts/breadcrumbs.pug
+            .tabs
+                .tabs__button Заявки
         main
-            h1.leads__header Мои заявки
-            .leads__descr Для подачи заявки  необходимо пройти аутентификацию в межбанковской системе идентификации (МСИ)
-            .leads
-                .leads__item
-                    h3.leads__title Заявка №
-                    p.leads_subject 
-                        strong Предмет лизинга
-                        span Требует заполнения
-                    .leads__status
-                        strong Статус
-                        .leads__btn.leads__btn--require Требует заполнения
-                .leads__item
-                    h3.leads__title Заявка №
-                    p.leads_subject 
-                        strong Предмет лизинга
-                        span подтягиваем из поля “марка” (ШАГ 4 анкеты)
-                    .leads__status
-                        strong Статус
-                        .leads__btn.leads__btn--issued Заявка оформлена
+            .container
+                h1.leads__header Мои заявки 
+                .leads__descr Для подачи заявки  необходимо пройти аутентификацию в межбанковской системе идентификации (МСИ)
+                .leads
+                    .leads__item
+                        h3.leads__title 
+                            a(href="") Заявка №
+                        .leads__block 
+                            p
+                                strong Предмет лизинга
+                            p Требует заполнения
+                        .leads__block
+                            p
+                                strong Статус
+                            .leads__btn.leads__btn--require Требует заполнения
+                    .leads__item
+                        h3.leads__title 
+                            a(href="") Заявка №
+                        .leads__block 
+                            p
+                                strong Предмет лизинга
+                            p подтягиваем из поля “марка” (ШАГ 4 анкеты)
+                        .leads__block
+                            p
+                                strong Статус
+                            .leads__btn.leads__btn--issued Заявка оформлена
         include ./parts/footer.pug

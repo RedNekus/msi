@@ -1,13 +1,97 @@
+.tabs {
+    margin-top: 40px;
+    &__button {
+        min-width: 170px;
+        width: fit-content;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 24px;
+        letter-spacing: 0.04em;
+        color: #FFFFFF;
+        background-color: #13AAF7;
+        border-radius: 25px;
+        padding: 0 1rem;
+        box-sizing: border-box;
+        cursor: pointer;
+    }
+}
 .leads {
     display: flex;
     gap: 35px;
+    margin: 50px 0;
+    font-size: 20px;
+    line-height: 1.2;
+    &__header {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 40px;
+        line-height: 47px;
+        letter-spacing: 0.05em;
+        color: #333333;
+        margin-top: 70px;
+        margin-bottom: 30px;
+    }
+    &__descr {
+        margin-top: 30px;
+        margin-bottom: 50px;
+    }
     &__item {
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
+        gap: 25px;
         background-color: #F9FAFD;
         border-radius: 30px;
         width: 495px;
         padding: 30px;
         box-sizing: border-box;
+        strong {
+            font-weight: 700;
+        }
+    }
+    &__title {
+        font-weight: 500;
+        font-size: 36px;
+        line-height: 42px;
+        letter-spacing: 0.05em;
+        margin: 0;
+        a {
+            color: #13AAF7;
+            text-decoration-line: underline;
+        }
+    }
+    &__block {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        &:last-child {
+            margin-top: 15px;
+        }
+    }
+    &__btn {
+        min-width: 183px;
+        width: fit-content;
+        height: 36px;
+        border-radius: 18px;
+        color: #FFFFFF;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 17px;
+        letter-spacing: 0.04em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 1rem;
+        box-sizing: border-box;
+        &--require {
+            background-color: #DD1E46;
+        }
+        &--issued {
+            background-color: #30CB67;
+        }
     }
 }
