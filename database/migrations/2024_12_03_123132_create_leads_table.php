@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('leads', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->integer('bx_lead_id')->nullable()->unique();
+            $table->unsignedBigInteger('user_id'); 
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
