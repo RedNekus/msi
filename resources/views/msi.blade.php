@@ -10,12 +10,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    @hasSection('styles')
+      @yield('styles')
+    @endif
   </head>
   <body>
     @include('msi.header')
-    <div class="container">
-        @include('msi.nav')
-    </div>
+    @hasSection('tabs')
+      @yield('tabs')
+    @else
+      <div class="container">
+          @include('msi.nav')
+      </div>
+    @endif
     <main>
         @yield('content')
     </main>

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MsiController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\LeadsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,3 +28,5 @@ Route::post('/auth', [UserController::class, 'login']);
 
 Route::get('/register', [UserController::class, 'register']);
 Route::post('/register', [UserController::class, 'registration']);
+
+Route::get('/leads', [LeadsController::class, 'get']);

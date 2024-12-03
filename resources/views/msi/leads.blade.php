@@ -1,6 +1,41 @@
 @extends('msi')
+@section('styles')
+<link rel="stylesheet" type="text/css" href="css/leads.css">
+@endsection
+@section('tabs')
+<div class="container">
+    <div class="tabs">
+        <div class="tabs__button">Заявки</div>
+    </div>
+</div>
+@endsection
 @section('content')
-<div>
-    <!-- I have not failed. I've just found 10,000 ways that won't work. - Thomas Edison -->
+<div class="container">
+    <h1 class="leads__header">Мои заявки </h1>
+    <div class="leads__descr">Для подачи заявки  необходимо пройти аутентификацию в межбанковской системе идентификации (МСИ)</div>
+    <div class="leads">
+        <div class="leads__item">
+            <h3 class="leads__title"> <a href="">Заявка №</a></h3>
+            <div class="leads__block"> 
+                <p><strong>Предмет лизинга</strong></p>
+                <p>Требует заполнения</p>
+            </div>
+            <div class="leads__block">
+                <p><strong>Статус</strong></p>
+                <div class="leads__btn leads__btn--require">Требует заполнения</div>
+            </div>
+        </div>
+        <div class="leads__item">
+        <h3 class="leads__title"> <a href="">Заявка №</a></h3>
+            <div class="leads__block"> 
+                <p><strong>Предмет лизинга</strong></p>
+                <p>подтягиваем из поля “марка” (ШАГ 4 анкеты)</p>
+            </div>
+            <div class="leads__block">
+                <p><strong>Статус</strong></p>
+                <div class="leads__btn leads__btn--issued">Заявка оформлена</div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection

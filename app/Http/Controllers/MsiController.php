@@ -20,12 +20,14 @@ class MsiController extends Controller
         if(isset($raw_data)) {
            $data = json_decode($raw_data); 
         } else {
-            $user = Auth::user();
-            $data = (array)$user->getAttributes();
-            $data['firstname'] = $data['name'];
-            echo "<pre>";
-            var_dump($data);
-            echo "</pre>";
+            if(Auth::check()) {
+                $user = Auth::user();
+                $data = (array)$user->getAttributes();
+                $data['firstname'] = $data['name'];
+                echo "<pre>";
+                var_dump($data);
+                echo "</pre>";   
+            }
         }
         return view('msi.profile', ['data' => $data]);
     }

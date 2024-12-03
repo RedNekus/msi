@@ -28,7 +28,7 @@ class UserController extends Controller
             
             if (Auth::attempt([
                 'phone' => $formattedPhone,
-                'password' => '12password',
+                'password' => '1p@ssWord2',
             ])) {
                 echo "test";
                 $user = Auth::user();

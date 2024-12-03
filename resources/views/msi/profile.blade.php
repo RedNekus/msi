@@ -15,10 +15,12 @@
     }  else {
         extract($data);
         $firstrname = &$name;
-        $gender = $gender? 'М' : 'Ж';
-        $birthdate = explode(" ", $birthdate)[0];
-        $birthdate = array_reverse(explode("-", $birthdate));
-        $birthdate = implode(".", $birthdate);
+        $gender = isset($gender)? 'М' : 'Ж';
+        if(isset($birthdate)) {
+            $birthdate = explode(" ", $birthdate)[0];
+            $birthdate = array_reverse(explode("-", $birthdate));
+            $birthdate = implode(".", $birthdate);
+        }
     }  
     //var_dump($data->contact);
 ?>
@@ -34,12 +36,12 @@
         </fieldset>
         <fieldset class="lead-form__group lead-form__group--disabled">
             <legend class="lead-form__label" for="lastname">Фамилия</legend>
-            <input class="lead-form__control" type="text" name="lastname" id="lastname" readonly="readonly" value="{{$lastname}}">
+            <input class="lead-form__control" type="text" name="lastname" id="lastname" readonly="readonly" value="{{$lastname ?? ''}}">
             <div class="messages"></div>
         </fieldset>
         <fieldset class="lead-form__group lead-form__group--disabled">
             <legend class="lead-form__label" for="middlename">Отчество</legend>
-            <input class="lead-form__control" type="text" name="middlename" id="middlename" readonly="readonly" value="{{$middlename}}">
+            <input class="lead-form__control" type="text" name="middlename" id="middlename" readonly="readonly" value="{{$middlename ?? ''}}">
             <div class="messages"></div>
         </fieldset>
         <fieldset class="lead-form__group lead-form__group--disabled">
@@ -49,12 +51,12 @@
         </fieldset>
         <fieldset class="lead-form__group lead-form__group--disabled">
             <legend class="lead-form__label" for="birthday">День рождения</legend>
-            <input class="lead-form__control" type="text" name="birthday" id="birthday" readonly="readonly" value="{{$birthdate}}">
+            <input class="lead-form__control" type="text" name="birthday" id="birthday" readonly="readonly" value="{{$birthdate ?? ''}}">
             <div class="messages"></div>
         </fieldset>
         <fieldset class="lead-form__group lead-form__group--disabled is-editable">
             <legend class="lead-form__label" for="phone">Мобильный телефон</legend>
-            <input class="lead-form__control" type="text" name="phone" id="phone" readonly="readonly" value="{{$phone}}">
+            <input class="lead-form__control" type="text" name="phone" id="phone" readonly="readonly" value="{{$phone ?? ''}}">
             <div class="messages"></div>
         </fieldset>
         <div class="lead-form__edit">
