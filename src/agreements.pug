@@ -1,0 +1,33 @@
+doctype html
+html(lang="ru")
+    include ./parts/head.pug
+    body
+        include ./parts/header.pug
+        .container
+            .nav-block
+                include ./parts/breadcrumbs.pug
+        main
+            .form-container
+                .form-container__title Для дальнейшего рассмотрения Вашей заявки, пожалуйста, подтвердите согласие на предоставление данных
+                form.lead-form(action="/" method="POST")
+                    .lead-form__link
+                        a(href="#") Посмотреть согласие на предоставление кредитного отчета
+                    .lead-form__check
+                        input.lead-form__check-input(type="checkbox", name="agreement_report", id="agreement_report")
+                        label.lead-form__check-label(for="agreement_report") Выражаю согласие Обществу с ограниченной ответственностью «Ювилс Лизинг» на предоставление ему Национальным банком Республики Беларусь моего кредитного отчета для заключения и сопровождения договора финансовой аренды (лизинга).
+                    .lead-form__link
+                        a(href="#") Посмотреть согласие на хранение и обработку персональных данных
+                    .lead-form__check
+                        input.lead-form__check-input(type="checkbox", name="agreement_personal", id="agreement_personal")
+                        label.lead-form__check-label(for="agreement_personal") Выражаю согласие Обществу с ограниченной ответственностью «Ювилс Лизинг» на хранение и обработку персональных данных
+                    .lead-form__link
+                        a(href="#") Посмотреть политику конфиденциальности
+                    .lead-form__check
+                        input.lead-form__check-input(type="checkbox", name="agreement_politic", id="agreement_politic") 
+                        label.lead-form__check-label(for="agreement_politic") Согласен с условиями политики конфиденциальности
+                    .lead-form__back
+                        a(href="#") Назад
+                    .lead-form__bottom
+                        input.lead-form__button(type="submit" value="Далее")
+
+        include ./parts/footer.pug
