@@ -13,24 +13,6 @@ use App\Jobs\SMS;
 
 class MsiController extends Controller
 {
-    public function index(Request $request): View
-    {
-        $data = [];
-        $raw_data = $request->session()->get('data');
-        if(isset($raw_data)) {
-           $data = json_decode($raw_data); 
-        } else {
-            if(Auth::check()) {
-                $user = Auth::user();
-                $data = (array)$user->getAttributes();
-                $data['firstname'] = $data['name'];
-                echo "<pre>";
-                var_dump($data);
-                echo "</pre>";   
-            }
-        }
-        return view('msi.profile', ['data' => $data]);
-    }
     public function set(Request $request) {
         $request->session()->put('data', $request->input('data') ?? "");
         return redirect('/');
@@ -44,21 +26,7 @@ class MsiController extends Controller
             return ['data' => $yourlsData];
         }
     }
-    public function cabinet(Request $request) {
-        $deal = json_decode(Bitrix::getDealData('24269'));
-        $contact_id = (int)$deal->result->CONTACT_ID;
-        $request->session()->put('contact_id', $contact_id);
-        $contact = json_decode(Bitrix::getUserData($contact_id));
-        return view('msi.cabinet', ['deal' => $deal->result, 'user' => $contact->result]);
-    }
     public function address(Request $request) {
         return view('msi.address', []);
-    }
-    public function info(Request $request) {
-        return view('msi.form', []);
-    } 
-    public function dealAdd(Request $request) {
-        $res = json_decode(Bitrix::creteDeal($request));
-        var_dump($res);
     }
 }

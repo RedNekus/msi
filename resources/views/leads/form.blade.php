@@ -2,13 +2,14 @@
 @section('content')
 <pre>
 <?php
+    var_dump($data);
     //var_dump($deal);
     //var_dump($user);
 ?>
 </pre>
 <div class="form-container">
-    <div class="form-container__title">Предмет лизинга</div>
-    <form class="lead-form" action="/cabinet" method="POST">
+    <div class="form-container__title">Дополнительная информация</div>
+    <form class="lead-form" action="lead/add/info" method="POST">
         @csrf
         <fieldset class="lead-form__group">
             <legend class="lead-form__label" for="workplace">Место работы</legend>
@@ -109,9 +110,8 @@
                 <label class="lead-form__radio-label" for="decisions_1">Да</label>
             </p>
         </div>
+        <div class="lead-form__back"><a href="#">Назад</a></div>
         <div class="lead-form__bottom">
-            <div class="lead-form__back"><a href="#">Назад</a></div>
-            <div class="lead-form__bottom">
             <input class="lead-form__button" type="submit" value="Далее">
         </div>
     </form>

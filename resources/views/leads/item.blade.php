@@ -8,7 +8,7 @@
 </pre>
 <div class="form-container">
     <div class="form-container__title">Предмет лизинга</div>
-    <form class="lead-form" action="/cabinet" method="POST">
+    <form class="lead-form" action="/lead/add" method="POST">
         @csrf
         <div class="lead-form__check">
             <input class="lead-form__check-input" type="checkbox" name="decided" id="decided">

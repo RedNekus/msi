@@ -10,14 +10,32 @@ use App\Jobs\SMS;
 
 class UserController extends Controller
 {
-    public function userAdd(Request $request) {
+    public function index(Request $request): View
+    {
+        $data = [];
+        $raw_data = $request->session()->get('data');
+        if(isset($raw_data)) {
+           $data = json_decode($raw_data); 
+        } else {
+            if(Auth::check()) {
+                $user = Auth::user();
+                $data = (array)$user->getAttributes();
+                $data['firstname'] = $data['name'];
+                echo "<pre>";
+                var_dump($data);
+                echo "</pre>";   
+            }
+        }
+        return view('user.profile', ['data' => $data]);
+    }
+    public function add(Request $request) {
         $res = json_decode(Bitrix::creteUser($request->all()));
         var_dump($res);
         //var_dump($request->all());
     }
     //TODO
-    public function auntificate() {
-        return view('msi.auth', []);
+    public function auth() {
+        return view('user.auth', []);
     }
     public function login(Request $request) {
         $formattedPhone = $request->input('phone');
@@ -41,7 +59,7 @@ class UserController extends Controller
         }
     }
     public function register() {    
-        return view('msi.register', []);
+        return view('user.register', []);
     }
     public function registration(Request $request) {
         User::create($request->all());

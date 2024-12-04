@@ -15,7 +15,7 @@
     }  else {
         extract($data);
         $firstrname = &$name;
-        $gender = isset($gender)? 'М' : 'Ж';
+        $gender = isset($gender) && $gender !== 0? 'М' : 'Ж';
         if(isset($birthdate)) {
             $birthdate = explode(" ", $birthdate)[0];
             $birthdate = array_reverse(explode("-", $birthdate));
@@ -61,18 +61,6 @@
         </fieldset>
         <div class="lead-form__edit">
             <a class="lead-form__edit-action" href="#" data-action="edit">Редактировать данные</a>
-        </div>
-        <div class="lead-form__check">
-            <input class="lead-form__check-input" type="checkbox" name="politic" id="politic">
-            <label class="lead-form__check-label" for="politic"> <span>Cогласен с условиями <a href="#">Политики конфиденциальности</a></span></label>
-        </div>
-        <div class="lead-form__check">
-            <input class="lead-form__check-input" type="checkbox" name="politic" id="politic">
-            <label class="lead-form__check-label" for="politic"> <span>Даю <a href="#">Согласие</a> на хранение и обработку персональных данных</span></label>
-        </div>
-        <div class="lead-form__check">
-            <input class="lead-form__check-input" type="checkbox" name="politic" id="politic">
-            <label class="lead-form__check-label" for="politic"> <span>Даю <a href="#">Согласие</a> на предоставление кредитного отчета</span></label>
         </div>
         <div class="lead-form__bottom">
             <input class="lead-form__button" type="submit" value="Далее">
