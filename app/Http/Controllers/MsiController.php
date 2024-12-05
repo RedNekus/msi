@@ -26,7 +26,30 @@ class MsiController extends Controller
             return ['data' => $yourlsData];
         }
     }
-    public function address(Request $request) {
+    public function address() {
         return view('msi.address', []);
+    }
+    public function registerAddress() {
+        return view('msi.register-address', []);
+    }
+    public function addAddress(Request $request) {
+        $data = $request->all();
+        if(Auth::check()) {
+            $user = Auth::user();
+            $data['type_id'] = 1;
+            $data['contact_id'] = (int)$user->bitrix_id ?? 21167;
+            $res = json_decode(Bitrix::addUserAddress($data));
+        }
+        var_dump($res);
+    }
+    public function addRegisterAddress(Request $request) {
+        $data = $request->all();
+        if(Auth::check()) {
+            $user = Auth::user();
+            $data['type_id'] = 4;
+            $data['contact_id'] = (int)$user->bitrix_id ?? 21167;
+            $res = json_decode(Bitrix::addUserAddress($data));
+        }
+        var_dump($res);
     }
 }

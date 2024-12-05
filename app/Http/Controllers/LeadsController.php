@@ -25,7 +25,9 @@ class LeadsController extends Controller
     public function add(Request $request) {
         if(Auth::check()) {
             $user = Auth::user();
-            $res = json_decode(Bitrix::creteDeal($request));
+            $data = $request->all();
+            $data['contact_id'] = (int)$user->bitrix_id ?? 21167;
+            $res = json_decode(Bitrix::creteDeal($data));
             $lead = new Leads;
             $lead->user_id = (int)$user->id;
             $lead->bx_lead_id = (int)$res->result;
@@ -48,7 +50,13 @@ class LeadsController extends Controller
         return view('leads.success', ['data' => $request->session()->except(['_token'])]);
     }
     public function addInfo(Request $request) {
-        $request->session()->put('step-2', $request->all());
+        $data = $request->all();
+        if(Auth::check()) {
+            $user = Auth::user();
+            $data['contact_id'] = (int)$user->bitrix_id ?? 21167;
+            $res = json_decode(Bitrix::addUserInfo($data));
+        }
+        $request->session()->put('step-2', $data);
         return redirect()->route('agreements', []);
     }
     public function addAgreements(Request $request) {

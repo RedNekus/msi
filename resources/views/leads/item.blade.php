@@ -1,11 +1,5 @@
 @extends('msi')
 @section('content')
-<pre>
-<?php
-    //var_dump($deal);
-    //var_dump($user);
-?>
-</pre>
 <div class="form-container">
     <div class="form-container__title">Предмет лизинга</div>
     <form class="lead-form" action="/lead/add" method="POST">

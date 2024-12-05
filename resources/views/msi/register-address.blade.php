@@ -8,7 +8,7 @@
 </pre>
 <div class="form-container">
     <div class="form-container__title">Адрес проживания</div>
-    <form class="lead-form" action="/address" method="POST">
+    <form class="lead-form" action="/register-address" method="POST">
         @csrf
         <fieldset class="lead-form__group">
             <legend class="lead-form__label" for="zip_code">Почтовый индекс</legend>

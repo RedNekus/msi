@@ -2,9 +2,7 @@
 @section('content')
 <pre>
 <?php
-    var_dump($data);
-    //var_dump($deal);
-    //var_dump($user);
+    //var_dump($data);
 ?>
 </pre>
 <div class="form-container form-container--auth">

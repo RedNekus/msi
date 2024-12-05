@@ -17,6 +17,9 @@ use App\Http\Controllers\LeadsController;
 
 Route::get('/set', [MsiController::class, 'set']);
 Route::get('/address', [MsiController::class, 'address']);
+Route::post('/address', [MsiController::class, 'addAddress']);
+Route::get('/register-address', [MsiController::class, 'registerAddress']);
+Route::post('/register-address', [MsiController::class, 'addRegisterAddress']);
 
 Route::get('/profile', [UserController::class, 'index']);
 Route::post('/profile', [UserController::class, 'add']);
@@ -24,6 +27,8 @@ Route::get('/auth', [UserController::class, 'auth']);
 Route::post('/auth', [UserController::class, 'login']);
 Route::get('/register', [UserController::class, 'register']);
 Route::post('/register', [UserController::class, 'registration']);
+Route::get('/passport', [UserController::class, 'passport']);
+Route::post('/passport', [UserController::class, 'addPassport']);
 
 Route::get('/leads', [LeadsController::class, 'get']);
 Route::get('/lead/{id}', [LeadsController::class, 'lead']);

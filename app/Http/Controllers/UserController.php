@@ -65,4 +65,16 @@ class UserController extends Controller
         User::create($request->all());
         return 1;
     }
+    public function passport() {    
+        return view('user.passport', []);
+    }
+    public function addPassport(Request $request) {  
+        if(Auth::check()) {
+            $data = $request->all();
+            $user = Auth::user();
+            $data['contact_id'] = (int)$user->bitrix_id ?? 21167;
+            $res = json_decode(Bitrix::addPassportData($data)); 
+        }
+         
+    }
 }
