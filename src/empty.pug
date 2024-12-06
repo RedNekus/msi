@@ -1,0 +1,22 @@
+doctype html
+html(lang="ru")
+    include ./parts/head.pug
+    link(rel='stylesheet', type='text/css', href='css/leads.css')
+    body
+        include ./parts/header.pug
+        .container
+            .tabs
+                .tabs__button Заявки
+        main
+            .container
+                .leads__top
+                    h1.leads__header Мои заявки
+                    .leads__button
+                        a.leads__main-btn(href="") Подать заявку на лизинг
+                .leads__descr Для подачи заявки  необходимо пройти аутентификацию в межбанковской системе идентификации (МСИ)
+                .leads__empty
+                    .leads__empty-pic
+                        img(src="img/empty.svg")
+                    .leads__empty-title Заявки не найдены
+                    .leads__empty-text Ваши заявки появятся здесь, как только вы их создадите
+        include ./parts/footer.pug

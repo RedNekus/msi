@@ -95,4 +95,41 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  const customSelects = document.querySelectorAll('.lead-form__custom-select');
+  // Attach click event listeners to each custom select
+  customSelects.forEach(function(sel) {
+    const selectSelected = sel.querySelector('.lead-form__select-selected');
+    const selectItems = sel.querySelector('.lead-form__select-items');
+    const options = selectItems.querySelectorAll('div');
+    const selHidden = sel.previousElementSibling;
+    selectSelected.addEventListener('click', function() {
+      if (selectItems.style.display === 'block') {
+        selectItems.style.display = 'none';
+        selectSelected.classList.remove('is-open');
+      } else {
+        selectItems.style.display = 'block';
+        selectSelected.classList.add('is-open');
+      }
+    });
+    // Set the selected option and hide the dropdown when an option is clicked
+    options.forEach(function(option) {
+      option.addEventListener('click', function() {
+        selectSelected.textContent = option.textContent;
+        selHidden.value = option.dataset.value;
+        const selItem = selHidden
+            .querySelector(`[value="${option.dataset.value}"]`);
+        selItem.dispatchEvent(new Event('click'));
+        selectItems.style.display = 'none';
+        selectSelected.classList.remove('is-open');
+      });
+    });
+    // Close the dropdown if the user clicks outside of it
+    window.addEventListener('click', function(e) {
+      if (!sel.contains(e.target)) {
+        selectItems.style.display = 'none';
+        selectSelected.classList.remove('is-open');
+      }
+    });
+  });
 });

@@ -25,6 +25,48 @@
     margin: 50px 0;
     font-size: 20px;
     line-height: 1.2;
+    flex-wrap: wrap;
+    &__empty {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        &-title {
+            font-weight: 500;
+            font-size: 32px;
+            line-height: 36px;
+            letter-spacing: 0.05em;
+            color: #333333;
+        }
+    }
+    &__main-btn {
+        background: linear-gradient(109.64deg, #13AAF7 16.49%, #5782F1 105.64%);
+        box-shadow: inset 0px 0px 22px rgba(255, 255, 255, 0.25);
+        border-radius: 500px;
+        min-width: 385px;
+        height: 82px;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 24px;
+        text-align: center;
+        letter-spacing: 0.04em;
+        color: #FFFFFF;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 50px;
+        box-sizing: border-box;
+        &::after {
+            content: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjEiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMSAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE4LjE1NiAwLjM2NzA3MkwwLjUgMTguMDc1MkwyLjQxOTEzIDIwTDIwLjA3NTEgMi4yOTE4N0wxOC4xNTYgMC4zNjcwNzJaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNMjAuNDk5OSA5LjQ3MjlIMTcuNzg1OVYyLjcyMjFIMTEuMDU0OVYwSDIwLjQ5OTlWOS40NzI5WiIgZmlsbD0id2hpdGUiLz4KPC9zdmc+");
+        }
+    }
+    &__top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 70px;
+        margin-bottom: 30px;
+    }
     &__header {
         font-style: normal;
         font-weight: 700;
@@ -32,8 +74,7 @@
         line-height: 47px;
         letter-spacing: 0.05em;
         color: #333333;
-        margin-top: 70px;
-        margin-bottom: 30px;
+        margin: 0;
     }
     &__descr {
         margin-top: 30px;
@@ -49,6 +90,8 @@
         width: 495px;
         padding: 30px;
         box-sizing: border-box;
+        flex-shrink: 0;
+        flex-basis: calc(33.33% - 25px);
         strong {
             font-weight: 700;
         }
