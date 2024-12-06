@@ -14,40 +14,19 @@
     <h1 class="leads__header">Мои заявки </h1>
     <div class="leads__descr">Для подачи заявки  необходимо пройти аутентификацию в межбанковской системе идентификации (МСИ)</div>
     <div class="leads">
-    <!--    
+    @foreach ($leads as $num => $lead)
         <div class="leads__item">
-            <h3 class="leads__title"> <a href="">Заявка №</a></h3>
+            <h3 class="leads__title"> <a href="/lead/{{$lead->id}}">Заявка № {{$num + 1}}</a></h3>
             <div class="leads__block"> 
-                <p><strong>Предмет лизинга</strong></p>
-                <p>Требует заполнения</p>
+                <p><strong>{{$lead->title}}</strong></p>
             </div>
             <div class="leads__block">
                 <p><strong>Статус</strong></p>
-                <div class="leads__btn leads__btn--require">Требует заполнения</div>
-            </div>
-        </div>
-        <div class="leads__item">
-            <h3 class="leads__title"> <a href="">Заявка №</a></h3>
-            <div class="leads__block"> 
-                <p><strong>Предмет лизинга</strong></p>
-                <p>подтягиваем из поля “марка” (ШАГ 4 анкеты)</p>
-            </div>
-            <div class="leads__block">
-                <p><strong>Статус</strong></p>
-                <div class="leads__btn leads__btn--issued">Заявка оформлена</div>
-            </div>
-        </div>
-    -->
-    @foreach ($leads as $lead)
-        <div class="leads__item">
-            <h3 class="leads__title"> <a href="">Заявка №</a></h3>
-            <div class="leads__block"> 
-                <p><strong>Предмет лизинга</strong></p>
-                <p>подтягиваем из поля “марка” (ШАГ 4 анкеты)</p>
-            </div>
-            <div class="leads__block">
-                <p><strong>Статус</strong></p>
-                <div class="leads__btn leads__btn--issued">Заявка оформлена</div>
+                @if($lead->step < 7)
+                    <div class="leads__btn leads__btn--require">Требует заполнения</div>
+                @else
+                    <div class="leads__btn leads__btn--issued">Заявка оформлена</div>
+                @endif
             </div>
         </div>
     @endforeach

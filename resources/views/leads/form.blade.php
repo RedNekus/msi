@@ -38,7 +38,23 @@
         </fieldset>
         <fieldset class="lead-form__group">
             <legend class="lead-form__label" for="marital_status">Семейное положение</legend>
-            <input class="lead-form__control" type="text" name="marital_status" id="marital_status" placeholder="*">
+            <select class="lead-form__select" name="marital_status" id="marital_status">
+                <option value="">Выбрать…</option>
+                <option value="891">Не женат/ не замужем</option>
+                <option value="893">Женат/ замужем</option>
+                <option value="895">Вдовец/ вдова</option>
+            </select>
+            <div class="lead-form__custom-select">
+                <div class="lead-form__select-selected">
+                    Выбрать…
+                </div>
+                <div class="lead-form__select-items">
+                    <div data-value="">Выбрать…</div>
+                    <div data-value="891">Не женат/ не замужем</div>
+                    <div data-value="893">Женат/ замужем</div>
+                    <div data-value="895">Вдовец/ вдова</div>
+                </div>
+            </div>
             <div class="messages"></div>
         </fieldset>
         <fieldset class="lead-form__group">
@@ -110,7 +126,7 @@
                 <label class="lead-form__radio-label" for="decisions_1">Да</label>
             </p>
         </div>
-        <div class="lead-form__back"><a href="#">Назад</a></div>
+        <div class="lead-form__back"><a href="/lead/add">Назад</a></div>
         <div class="lead-form__bottom">
             <input class="lead-form__button" type="submit" value="Далее">
         </div>

@@ -49,6 +49,7 @@ class MsiController extends Controller
             $data['type_id'] = 4;
             $data['contact_id'] = (int)$user->bitrix_id ?? 21167;
             $res = json_decode(Bitrix::addUserAddress($data));
+            $request->session()->put('step', 3);
         }
         var_dump($res);
     }

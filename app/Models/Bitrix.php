@@ -267,8 +267,6 @@ class Bitrix extends Model
             $data['contact_id'] = session()->get('contact_id') ?? 0;
         }
         if($data['contact_id']) {
-            echo $data['contact_id'];
-            echo 'test 2222';
             $data = self::preparePassportData($data);
             $requisiteFilter = [
                 "order" => [ "DATE_CREATE" => "ASC" ],
@@ -277,13 +275,11 @@ class Bitrix extends Model
             ];
             $requisites = json_decode(self::BXQuery('crm.requisite.list.json', json_encode($requisiteFilter)));
             if(empty($requisites->result)) {
-                var_dump($data);
                 $data['PresetID'] = 3;
                 $data['requisite_name'] = "Паспотные данные";
                 $res = self::BXQuery('crm.requisite.add.json', json_encode($data));
             } else {
                 $data['id'] = $requisites->result[0]->ID;
-                var_dump($data);
                 $res = self::BXQuery('crm.requisite.update.json', json_encode($data));                
             } 
         }

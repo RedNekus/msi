@@ -1,3 +1,19 @@
+.lead-form__control, .lead-form__select-selected {
+  display: flex;
+  align-items: center;
+  border: 0;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  transform: translateY(-6px);
+  font-size: 1em;
+  padding: 0 1.2rem;
+  color: #333;
+  font-weight: 300;
+  font-family: "TT Norms Pro", sans-serif;
+}
+
 body, html {
   height: 100%;
 }
@@ -53,6 +69,57 @@ p {
 
 .mt-0 {
   margin-top: 0 !important;
+}
+
+.steps {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 21px;
+  letter-spacing: 0.01em;
+  margin-bottom: 50px;
+  counter-reset: counter;
+}
+.steps__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.steps__item::before {
+  content: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOSIgaGVpZ2h0PSI2IiB2aWV3Qm94PSIwIDAgOSA2IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cGF0aCBkPSJNOC44Mzk2IDAuODI5NDU3TDguMDQ2NTQgMC4xMzk1MzVDNy45Mzk2IDAuMDQ2NTExNiA3LjgwNTk0IDAgNy42NTQ0NiAwQzcuNTAyOTcgMCA3LjM2OTMxIDAuMDQ2NTExNiA3LjI2MjM4IDAuMTM5NTM1TDMuNDQ4NTEgMy40NTczNkwxLjc0NjUzIDEuOTY4OTlDMS42Mzk2IDEuODc1OTcgMS41MDU5NCAxLjgyOTQ2IDEuMzU0NDYgMS44Mjk0NkMxLjIwMjk3IDEuODI5NDYgMS4wNjkzMSAxLjg3NTk3IDAuOTYyMzc2IDEuOTY4OTlMMC4xNjkzMDcgMi42NTg5MUMwLjA1MzQ2NTQgMi43NTE5NCAwIDIuODY4MjIgMCAzQzAgMy4xMzE3OCAwLjA1MzQ2NTMgMy4yNDgwNiAwLjE2MDM5NiAzLjM0MTA5TDIuMjYzMzcgNS4xNzA1NEwzLjA1NjQ0IDUuODYwNDdDMy4xNjMzNyA1Ljk1MzQ5IDMuMjk3MDMgNiAzLjQ0ODUxIDZDMy42IDYgMy43MzM2NiA1Ljk1MzQ5IDMuODQwNTkgNS44NjA0N0w0LjYzMzY2IDUuMTcwNTRMOC44Mzk2IDEuNTExNjNDOC45NDY1NCAxLjQxODYgOSAxLjMwMjMzIDkgMS4xNzA1NEM5IDEuMDM4NzYgOC45NDY1NCAwLjkyMjQ4MSA4LjgzOTYgMC44Mjk0NTdaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4=");
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  border-radius: 50%;
+  background-color: #14ABF8;
+  align-items: center;
+  justify-content: center;
+  counter-increment: counter;
+  color: #FFF;
+  font-family: "Montserrat";
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+}
+.steps__item:not(:last-child)::after {
+  content: "";
+  width: 50px;
+  height: 1px;
+  background-color: #E7E0E0;
+  display: inline-block;
+}
+.steps__item--inactive span {
+  color: #D2D2D2;
+}
+.steps__item--inactive::before {
+  content: counter(counter);
+  background-color: #D2D2D2;
+}
+.steps__item--active::before {
+  content: counter(counter);
 }
 
 .form-title {
@@ -272,20 +339,58 @@ input:checked + .lead-form__radio-label::after {
   flex-direction: column;
   transform: translate(0, -25%);
 }
-.lead-form__control {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 0;
-  background-color: transparent;
+.lead-form__select {
+  display: none;
+}
+.lead-form__custom-select {
+  position: relative;
+  display: inline-block;
   width: 100%;
   height: 100%;
-  transform: translateY(-6px);
-  font-size: 1em;
-  padding: 0 1.2rem;
-  color: #333;
-  font-weight: 300;
-  font-family: "TT Norms Pro", sans-serif;
+}
+.lead-form__select-selected {
+  justify-content: space-between;
+  cursor: pointer;
+}
+.lead-form__select-selected::after {
+  display: inline-flex;
+  align-items: center;
+  transform: rotate(180deg);
+  content: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iOSIgdmlld0JveD0iMCAwIDE2IDkiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0xNSA4TDggMUwxIDgiIHN0cm9rZT0iI0IwQjBCMSIvPgo8L3N2Zz4=");
+}
+.lead-form__select-selected.is-open::after {
+  transform: rotate(0deg);
+}
+.lead-form__select-items {
+  position: absolute;
+  display: none;
+  background-color: #fff;
+  border-radius: 35px;
+  border: 1px solid #B0B0B1;
+  z-index: 1;
+  width: 100%;
+  overflow: hidden;
+  margin-top: 0.5rem;
+  left: -1px;
+}
+.lead-form__select-items div {
+  cursor: pointer;
+  height: 62px;
+  display: flex;
+  align-items: center;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: 0.06em;
+  color: #333333;
+  padding: 0 30px;
+}
+.lead-form__select-items div:hover {
+  background-color: #F6F6F6;
+}
+.lead-form__control {
+  justify-content: center;
 }
 .form-container--auth .lead-form__control {
   transform: translateY(0);

@@ -34,7 +34,7 @@
             <div class="messages"></div>
         </fieldset>
         <div class="lead-form__bottom">
-            <div class="lead-form__back"><a href="#">Назад</a></div>
+            <div class="lead-form__back"><a href="/register-address">Назад</a></div>
             <div class="lead-form__bottom">
             <input class="lead-form__button" type="submit" value="Далее">
         </div>

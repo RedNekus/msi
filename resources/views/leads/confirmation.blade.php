@@ -10,7 +10,7 @@
             <input class="lead-form__control" type="text" name="workplace" id="workplace" placeholder="SMS-код">
             <div class="messages"></div>
         </fieldset>
-        <div class="lead-form__back"><a href="#">Назад</a></div>
+        <div class="lead-form__back"><a href="lead/add/agreements">Назад</a></div>
         <div class="lead-form__bottom">
             <input class="lead-form__button" type="submit" value="Подтвердить">
         </div>

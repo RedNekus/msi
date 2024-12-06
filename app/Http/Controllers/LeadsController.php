@@ -33,11 +33,12 @@ class LeadsController extends Controller
             $lead->bx_lead_id = (int)$res->result;
             $lead->save();
         }
-        $request->session()->put('step-1', $request->all());
-        return redirect()->route('info', []);
+        $request->session()->put('step', 4);
+        $request->session()->put('step-4', $request->all());
+        return redirect()->route('step-5', []);
     }
     public function info(Request $request) {
-        $data = $request->session()->get('step-1');
+        $data = $request->session()->get('step-4');
         return view('leads.form', ['data' => $data]);
     }
     public function agreements(Request $request) {
@@ -56,15 +57,18 @@ class LeadsController extends Controller
             $data['contact_id'] = (int)$user->bitrix_id ?? 21167;
             $res = json_decode(Bitrix::addUserInfo($data));
         }
-        $request->session()->put('step-2', $data);
-        return redirect()->route('agreements', []);
+        $request->session()->put('step-5', $data);
+        $request->session()->put('step', 5);
+        return redirect()->route('step-6', []);
     }
     public function addAgreements(Request $request) {
-        $request->session()->put('step-3', $request->all());
-        return redirect()->route('confirmation', []);
+        $request->session()->put('step-6', $request->all());
+        $request->session()->put('step', 6);
+        return redirect()->route('step-7', []);
     }
     public function addConfirmation(Request $request) {
-        $request->session()->put('step-4', $request->all());
+        $request->session()->put('step', 6);
+        $request->session()->put('step-7', $request->all());
         return redirect()->route('success', []);
     }
 }

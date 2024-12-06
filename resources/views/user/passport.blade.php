@@ -12,7 +12,27 @@
         @csrf
         <fieldset class="lead-form__group">
             <legend class="lead-form__label" for="document_type">Тип документа</legend>
-            <input class="lead-form__control" type="text" name="document_type" id="document_type" placeholder="Паспорт">
+            <select class="lead-form__select" name="marital_status" id="marital_status">
+                <option value="">Выбрать…</option>
+                <option value="Паспорт РБ">Паспорт РБ</option>
+                <option value="id-карта">id-карта</option>
+                <option value="Иностранный паспорт">Иностранный паспорт</option>
+                <option value="Вид на жительство РБ">Вид на жительство РБ</option>
+                <option value="Удостоверение беженца">Удостоверение беженца</option>
+            </select>
+            <div class="lead-form__custom-select">
+                <div class="lead-form__select-selected">
+                    Выбрать…
+                </div>
+                <div class="lead-form__select-items">
+                    <div data-value="">Выбрать…</div>
+                    <div data-value="Паспорт">Паспорт РБ</div>
+                    <div data-value="id-карта">id-карта</div>
+                    <div data-value="Иностранный паспорт">Иностранный паспорт</div>
+                    <div data-value="Вид на жительство РБ">Вид на жительство РБ</div>
+                    <div data-value="Удостоверение беженца">Удостоверение беженца</div>
+                </div>
+            </div>
             <div class="messages"></div>
         </fieldset>
         <fieldset class="lead-form__group">
@@ -41,7 +61,7 @@
             <div class="messages"></div>
         </fieldset>
         <div class="lead-form__bottom">
-            <div class="lead-form__back"><a href="#">Назад</a></div>
+            <div class="lead-form__back"><a href="/profile">Назад</a></div>
             <div class="lead-form__bottom">
             <input class="lead-form__button" type="submit" value="Далее">
         </div>

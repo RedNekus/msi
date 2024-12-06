@@ -30,6 +30,7 @@ class UserController extends Controller
     }
     public function add(Request $request) {
         $res = json_decode(Bitrix::creteUser($request->all()));
+        $request->session()->put('step', 1);
         var_dump($res);
         //var_dump($request->all());
     }
@@ -73,7 +74,8 @@ class UserController extends Controller
             $data = $request->all();
             $user = Auth::user();
             $data['contact_id'] = (int)$user->bitrix_id ?? 21167;
-            $res = json_decode(Bitrix::addPassportData($data)); 
+            $res = json_decode(Bitrix::addPassportData($data));
+            $request->session()->put('step', 2);
         }
          
     }

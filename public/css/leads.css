@@ -26,6 +26,7 @@
   margin: 50px 0;
   font-size: 20px;
   line-height: 1.2;
+  flex-wrap: wrap;
 }
 .leads__header {
   font-style: normal;
@@ -51,6 +52,8 @@
   width: 495px;
   padding: 30px;
   box-sizing: border-box;
+  flex-shrink: 0;
+  flex-basis: calc(33.33% - 25px);
 }
 .leads__item strong {
   font-weight: 700;
