@@ -30,9 +30,6 @@ Route::post('/register', [UserController::class, 'registration']);
 Route::get('/passport', [UserController::class, 'passport'])->name('step-2');
 Route::post('/passport', [UserController::class, 'addPassport']);
 
-Route::get('/leads', [LeadsController::class, 'get']);
-Route::get('/lead/{id}', [LeadsController::class, 'lead']);
-
 Route::get('/lead/add', [LeadsController::class, 'lead'])->name('step-4');
 Route::post('/lead/add', [LeadsController::class, 'add']);
 
@@ -46,3 +43,6 @@ Route::get('/lead/add/confirmation', [LeadsController::class, 'confirmation'])->
 Route::post('/lead/add/confirmation', [LeadsController::class, 'addConfirmation']);
 
 Route::get('/lead/add/success', [LeadsController::class, 'success'])->name('success');
+
+Route::get('/leads', [LeadsController::class, 'get']);
+Route::get('/lead/{id}', [LeadsController::class, 'lead']);

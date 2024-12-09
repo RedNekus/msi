@@ -13,6 +13,34 @@ class Bitrix extends Model
     const BX_USER_ID = '43';
     const BX_TOKEN = 'oe3fy79wpdjuym8v';
     const HOOK_URL = 'https://yoow.bitrix24.by/rest';
+    const DEAL_FIELDS = [
+        'CONTACT_ID' => 'contact_id',
+        'OPPORTUNITY' => 'price',
+        'UF_CRM_1732543687' => 'model', //марка
+        'UF_CRM_1732543715' => 'link', //ссылка на автомобиль
+        'UF_CRM_664C94A742925' => 'term', //срок лизинга
+        'UF_CRM_65DDB202BF4AA' => 'down_payment', //первоначальный взнос (Авансовый платеж)
+        "UF_CRM_1733757327" => 'agreement_report', //Cогласие на предоставление кредитного отчета
+        "UF_CRM_1733757480" => 'agreement_personal', //Cогласие на хранение и обработку персональных данных
+        "UF_CRM_1733757560" => 'agreement_politic', //Согласен с условиями политики конфиденциальности
+    ];
+    const INFO_FIELDS = [
+        "UF_CRM_664C9676C5442" => 'workplace', //Место работы
+        "UF_CRM_664C9676D12F2" => 'position', //Должность
+        "UF_CRM_1732540293158" => 'experience', //Стаж работы на последнем месте, мес.
+        "UF_CRM_1732541815194" => 'income', //Среднемесячный доход
+        "UF_CRM_1732541938356" => 'hr_phone', //Телефон отдела кадров/бухгалтерии
+        "UF_CRM_1732542363048" => 'spouse_name', //Ф.И.О. супруга(и)/ ближайщего родcтвенника
+        "UF_CRM_1732542288007" => 'marital_status', //Семейное положение [891 => 'Не женат/ не замужем', 893 => 'Женат/ замужем', 895 => 'Вдовец/ вдова']
+        "UF_CRM_1732542429824" => 'spouse_phone', //Телефон супруга(и)/ ближайшего родсвенника
+        "UF_CRM_1732542562113" => 'spouse_workplace', //Место работы супруга(и)/ ближайшего родственника
+        "UF_CRM_1732542638985" => 'spouse_income', //Среднемесячный доход супруга(и)/ ближайшего родственника
+        "UF_CRM_1732542718544" => 'dependents',// количество иждевенцев
+        "UF_CRM_1732542745561" => 'contact_person', //Контактное лицо
+        "UF_CRM_1732542763384" => 'person_phone', //Телефон контактного лица
+        "UF_CRM_1733755945" => 'liability',
+        "UF_CRM_1733755985" => 'decisions',
+    ];
     private static function BXQuery($action, $params) {
         $url = implode('/', [self::HOOK_URL,self::BX_USER_ID,self::BX_TOKEN,$action]);
         $ch = curl_init($url);
@@ -46,23 +74,38 @@ class Bitrix extends Model
         $data = self::BXQuery('crm.contact.get.json', json_encode(['ID' => (int)$id]));
         return $data;
     }
+    public static function convertDeal($data) {
+        return self::convert($data, 'DEAL_FIELDS');
+    }
+    public static function convertInfo($data) {
+        return self::convert($data, 'INFO_FIELDS');
+    }
+    private static function convert($data, $arr) {
+        $res = new \stdClass();
+        $fields = constant('self::'. $arr);
+        if(is_array($fields)) {
+            foreach($fields as $name=>$field) {
+                $res->$field = $data->$name;
+            }
+        }
+        return $res;
+    }
     private static function prepareDealData($data) {
+        $fields = [
+            "TITLE" => "Заполнена анкета",
+            "TYPE_ID" => "GOODS", 
+            "STAGE_ID" => "NEW",
+            "OPENED" => "Y",
+            "CURRENCY_ID" => "USD",
+            "ASSIGNED_BY_ID" => 135,
+        ];
+        foreach(self::DEAL_FIELDS as $name=>$field) {
+            if(isset($data[$field]) && '' !== $data[$field]) {
+                $fields[$name] = $data[$field];
+            }
+        }
         $queryParams = [
-            'fields' => [
-                "TITLE" => "Заполнена анкета",
-                "TYPE_ID" => "GOODS", 
-                "STAGE_ID" => "NEW",
-                "CONTACT_ID" => $data['contact_id'] ?? 0,
-                "OPENED" => "Y",
-                "CURRENCY_ID" => "USD",
-                "OPPORTUNITY" => $data['price'] ?? 0,
-                "ASSIGNED_BY_ID" => 135,
-                "CONTACT_ID" => $data['contact_id'],
-                "UF_CRM_1732543687" => $data['model'] ?? "", //марка
-                "UF_CRM_1732543715" => $data['link'] ?? "", //ссылка на автомобиль
-                "UF_CRM_664C94A742925" => $data['term'] ?? "", //срок лизинга
-                "UF_CRM_65DDB202BF4AA" => $data['down_payment'] ?? "", //первоначальный взнос (Авансовый платеж)
-            ],
+            'fields' => $fields,
             'params' => ['REGISTER_SONET_EVENT' => 'Y']
         ];
         if(isset($data['deal_id']) && (int)$data['deal_id']) {
@@ -127,22 +170,14 @@ class Bitrix extends Model
         return json_encode($queryParams);  
     }
     private static function prepareInfoData($data) {
+        $fields = [];
+        foreach(self::INFO_FIELDS as $name=>$field) {
+            if(isset($data[$field]) && '' !== $data[$field]) {
+                $fields[$name] = $data[$field];
+            }
+        }
         $queryParams = [
-            'fields' => [
-                "UF_CRM_664C9676C5442" => $data['workplace'], //Место работы
-                "UF_CRM_664C9676D12F2" => $data['position'], //Должность
-                "UF_CRM_1732540293158" => $data['experience'], //Стаж работы на последнем месте, мес.
-                "UF_CRM_1732541815194" => $data['income'], //Среднемесячный доход
-                "UF_CRM_1732541938356" => $data['hr_phone'], //Телефон отдела кадров/бухгалтерии
-                "UF_CRM_1732542363048" => $data['spouse_name'], //Ф.И.О. супруга(и)/ ближайщего родcтвенника
-                "UF_CRM_1732542288007" => $data['marital_status'], //Семейное положение [891 => 'Не женат/ не замужем', 893 => 'Женат/ замужем', 895 => 'Вдовец/ вдова']
-                "UF_CRM_1732542429824" => $data['spouse_phone'], //Телефон супруга(и)/ ближайшего родсвенника
-                "UF_CRM_1732542562113" => $data['spouse_workplace'], //Место работы супруга(и)/ ближайшего родственника
-                "UF_CRM_1732542638985" => $data['spouse_income'], //Среднемесячный доход супруга(и)/ ближайшего родственника
-                "UF_CRM_1732542718544" => $data['dependents'], //Количество иждивенцев
-                "UF_CRM_1732542745561" => $data['contact_person'], //Контактное лицо
-                "UF_CRM_1732542763384" => $data['person_phone'], //Телефон контактного лица
-            ],
+            'fields' => $fields,
             'params' => ['REGISTER_SONET_EVENT' => 'Y']
         ];
         if(isset($data['contact_id']) && (int)$data['contact_id']) {
@@ -178,14 +213,13 @@ class Bitrix extends Model
         $res = self::BXQuery('crm.deal.add.json', $params);
         return $res;
     }
-    public static function updateDeal($request) {
-        $data = $request->all();
-        $data['deal_id'] = $request->session()->get('deal_id') ?? 0;
+    public static function updateDeal($data) {
+        $data['deal_id'] = session()->get('deal_id') ?? 0;
         if(!$data['deal_id']) {
             return 0;
         }
         if(!$data['contact_id']) {
-            $data['contact_id']= $request->session()->get('contact_id') ?? 0;
+            $data['contact_id']= session()->get('contact_id') ?? 0;
         }
         $params = self::prepareDealData($data);
         $res = self::BXQuery('crm.deal.update.json', $params);
@@ -227,7 +261,7 @@ class Bitrix extends Model
             return 0;
         }
         $params = self::prepareInfoData($data);
-        $res = self::BXQuery('crm.contact.update.json', $params);
+        $res = self::BXQuery('crm.contact.update.json', $params);;
         return $res;
     }
     public static function addUserAddress($data) {
