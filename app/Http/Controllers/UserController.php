@@ -20,18 +20,26 @@ class UserController extends Controller
             if(Auth::check()) {
                 $user = Auth::user();
                 $data = (array)$user->getAttributes();
-                $data['firstname'] = $data['name'];
-                echo "<pre>";
-                var_dump($data);
-                echo "</pre>";   
+                $data['firstname'] = $data['name'];   
             }
         }
         return view('user.profile', ['data' => $data]);
     }
     public function add(Request $request) {
-        $res = json_decode(Bitrix::creteUser($request->all()));
+        if(Auth::check()) {
+            $user = Auth::user();
+            if($user->bitrix_id) {
+                $data = $request->all();
+                $data['contact_id'] = $user->bitrix_id;
+                $res = json_decode(Bitrix::updateUser($data));
+            } else {
+                $res = json_decode(Bitrix::creteUser($request->all()));
+            }
+        } else {
+            $res = json_decode(Bitrix::creteUser($request->all()));
+        }
         $request->session()->put('step', 1);
-        var_dump($res);
+        //var_dump($res);
         //var_dump($request->all());
     }
     //TODO
@@ -66,8 +74,14 @@ class UserController extends Controller
         User::create($request->all());
         return 1;
     }
-    public function passport() {    
-        return view('user.passport', []);
+    public function passport() { 
+        $data = [];
+        if(Auth::check()) {
+            $user = Auth::user();
+            $bxdata = Bitrix::getRequisite((int)$user->bitrix_id ?? 0);
+            $data = Bitrix::convertPassport($bxdata[0]);
+        }
+        return view('user.passport', (array)$data);
     }
     public function addPassport(Request $request) {  
         if(Auth::check()) {
@@ -77,6 +91,5 @@ class UserController extends Controller
             $res = json_decode(Bitrix::addPassportData($data));
             $request->session()->put('step', 2);
         }
-         
     }
 }

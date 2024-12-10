@@ -52,6 +52,7 @@ class LeadsController extends Controller
         return redirect()->route('step-5', []);
     }
     public function info() {
+        $infoData = [];
         if(Auth::check()) {
             $user = Auth::user();
             if($user->bitrix_id) {
@@ -99,7 +100,7 @@ class LeadsController extends Controller
             $res = json_decode(Bitrix::updateDeal($data));
             $request->session()->put('step-6', $data);
             $request->session()->put('step', 6);
-            //return redirect()->route('step-7', []);
+            return redirect()->route('step-7', []);
         } 
     }
     public function addConfirmation(Request $request) {

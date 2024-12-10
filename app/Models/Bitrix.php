@@ -41,6 +41,24 @@ class Bitrix extends Model
         "UF_CRM_1733755945" => 'liability',
         "UF_CRM_1733755985" => 'decisions',
     ];
+    const ADDR_FIELDS = [
+        "POSTAL_CODE" => 'zip_code',
+        "ADDRESS_2" => 'apartment',
+        "CITY" => 'settlement'
+    ];
+    const PASSPORT_FIELDS = [
+        "RQ_IDENT_DOC" => 'document_type', //Вид документа
+        "RQ_IDENT_DOC_PERS_NUM" => 'document_number', // идентификационный номер
+        "RQ_IDENT_DOC_DATE" => 'document_date', // дата выдачи
+        "UF_CRM_1733410954" => 'document_validity', // срок действия
+        "RQ_IDENT_DOC_ISSUED_BY" => 'issuedby', // Кем выдан
+    ];
+    private static function formatDate($date) {
+        $dateArr = explode('T', $date);
+        $dt = array_shift($dateArr);
+        $dtArr = array_reverse(explode('-', $dt));
+        return implode('.', $dtArr);
+    }
     private static function BXQuery($action, $params) {
         $url = implode('/', [self::HOOK_URL,self::BX_USER_ID,self::BX_TOKEN,$action]);
         $ch = curl_init($url);
@@ -80,6 +98,28 @@ class Bitrix extends Model
     public static function convertInfo($data) {
         return self::convert($data, 'INFO_FIELDS');
     }
+    public static function convertAddress($data) {
+        $res = self::convert($data, 'ADDR_FIELDS');
+        if($data->ADDRESS_1) {
+            $arrAddr = explode(',', $data->ADDRESS_1);
+            $arrAddr = array_map('trim', $arrAddr);
+            $arrAddr = array_filter($arrAddr, fn($item) => '' !== $item);
+            $res->street = $arrAddr[0];
+            $res->house = $arrAddr[1];
+            if(count($arrAddr) === 3) {
+                $res->housing = $arrAddr[2];
+            }
+        }
+        return (array)$res;
+    }
+    public static function convertPassport($data) {
+        $res = self::convert($data, 'PASSPORT_FIELDS');
+        if($res->document_validity) {
+            $res->document_validity = self::formatDate($res->document_validity);  
+        }
+        $res->document_series = $data->RQ_IDENT_DOC_SER . $data->RQ_IDENT_DOC_NUM;
+        return $res;
+    }
     private static function convert($data, $arr) {
         $res = new \stdClass();
         $fields = constant('self::'. $arr);
@@ -116,39 +156,45 @@ class Bitrix extends Model
     private static function preparePassportData($data) {
         $num = substr($data['document_series'], 0, 2);
         $series = substr($data['document_series'], 2);
-        $data = [
-            'fields' => [
-                "RQ_IDENT_DOC" => $data['document_type'], //Вид документа
-                "RQ_IDENT_DOC_SER" =>  $num, //серия
-                "RQ_IDENT_DOC_NUM" =>  $series, //номер
-                "RQ_IDENT_DOC_PERS_NUM" => $data['document_number'], // идентификационный номер
-                "RQ_IDENT_DOC_DATE" => $data['document_date'], // дата выдачи
-                "UF_CRM_1733410954" => $data['document_validity'], // срок действия
-                "RQ_IDENT_DOC_ISSUED_BY" => $data['issuedby'], //Кем выдан
-            ]  
+        $fields = [
+            "RQ_IDENT_DOC_SER" =>  $num, //серия
+            "RQ_IDENT_DOC_NUM" =>  $series, //номер
         ];
+        foreach(self::PASSPORT_FIELDS as $name=>$field) {
+            if(isset($data[$field]) && '' !== $data[$field]) {
+                $fields[$name] = $data[$field];
+            }
+        }
         if(!empty($data['PresetID']) && !empty($data['requisite_name'])) {
-            $data['fields'] = [...[
+            $fields = [
                 'ENTITY_TYPE_ID' => $data['entity_type'],
                 'ENTITY_ID' => $data[ 'contact_id' ],//contact id
                 'PRESET_ID' => $data['PresetID'],
                 'ACTIVE' => 'Y',
-                'NAME' => $data['requisite_name']
-            ], ...$data['fields']];
+                'NAME' => $data['requisite_name'],
+                ...$fields
+            ];
         }
+        $data = [
+            'fields' => $fields,
+            'params' => ['REGISTER_SONET_EVENT' => 'Y']
+        ];
         return $data;
     }
     private static function prepareAddrData($data) {
+        $fields = [
+            "TYPE_ID" => $data["TYPE_ID"],
+            "ENTITY_TYPE_ID" => $data["ENTITY_TYPE_ID"],
+            "ENTITY_ID" => $data["ENTITY_ID"],
+            "ADDRESS_1" => implode(", ", [$data['street'], $data['house'], $data['housing']]),
+        ];
+        foreach(self::ADDR_FIELDS as $name=>$field) {
+            if(isset($data[$field]) && '' !== $data[$field]) {
+                $fields[$name] = $data[$field];
+            }
+        }
         $queryParams = [
-            'fields' => [
-                "TYPE_ID" => $data["TYPE_ID"],
-                "ENTITY_TYPE_ID" => $data["ENTITY_TYPE_ID"],
-                "ENTITY_ID" => $data["ENTITY_ID"],
-                "POSTAL_CODE" => $data["zip_code"] ?? '',
-                "ADDRESS_1" => implode(", ", [$data['street'], $data['house'], $data['housing']]),
-                "ADDRESS_2" => $data['apartment'] ?? '',
-                "CITY" => $data['settlement'] ?? ''
-            ],
+            'fields' => $fields,
             'params' => ['REGISTER_SONET_EVENT' => 'Y']
         ];
         return json_encode($queryParams);
@@ -162,6 +208,10 @@ class Bitrix extends Model
 				'ACTIVE' => 'Y',
 				'NAME' => $data['requisite_name']
             ],
+            'params' => ['REGISTER_SONET_EVENT' => 'Y']
+        ];
+        $queryParams = [
+            'fields' => $fields,
             'params' => ['REGISTER_SONET_EVENT' => 'Y']
         ];
         if(isset($data['id']) && '' !== $data['id']) {
@@ -185,7 +235,6 @@ class Bitrix extends Model
         }
         return json_encode($queryParams);
     }
-
     private static function prepareContactData($data) {
         $queryParams = [
             'fields' => [
@@ -249,7 +298,7 @@ class Bitrix extends Model
         if(!$data['contact_id']) {
             return 0;
         }
-        $params = prepareContactData($data);
+        $params = self::prepareContactData($data);
         $res = self::BXQuery('crm.contact.update.json', $params);
         return $res;
     }
@@ -304,7 +353,7 @@ class Bitrix extends Model
             $data = self::preparePassportData($data);
             $requisiteFilter = [
                 "order" => [ "DATE_CREATE" => "ASC" ],
-                "filter" => [ "ENTITY_ID" => $data['contact_id'] ?? 21167],
+                "filter" => [ "ENTITY_ID" => $data['contact_id'] ?? 0],
                 "select"=> [ "ID" ]        
             ];
             $requisites = json_decode(self::BXQuery('crm.requisite.list.json', json_encode($requisiteFilter)));
@@ -316,6 +365,44 @@ class Bitrix extends Model
                 $data['id'] = $requisites->result[0]->ID;
                 $res = self::BXQuery('crm.requisite.update.json', json_encode($data));                
             } 
+        }
+    }
+    public static function getRequisite($id) {
+        $requisiteData = [
+            "order" => [ "DATE_CREATE" => "ASC" ],
+            "filter" => [ "ENTITY_ID" => $id],
+            "select"=> [ 
+                "ID",
+                "ENTITY_ID",
+                "RQ_IDENT_DOC",//Вид документа
+                "RQ_IDENT_DOC_SER",//серия
+                "RQ_IDENT_DOC_NUM",//номер
+                "RQ_IDENT_DOC_PERS_NUM",// идентификационный номер
+                "RQ_IDENT_DOC_DATE", // дата выдачи
+                "UF_CRM_1733410954", // срок действия
+                "RQ_IDENT_DOC_ISSUED_BY" //Кем выдан 
+            ]        
+        ];
+        $res = json_decode(self::BXQuery('crm.requisite.list.json', json_encode($requisiteData)));
+        //var_dump($res->result); 
+        return $res->result;
+    }
+    public static function getAddress($id) {
+        $res = self::getRequisite($id);
+        if(isset($res) && count($res)) {
+            $addrData = [
+                "order" => [ "TYPE_ID" => "ASC" ],
+                "filter" => [ "ENTITY_ID" => $res[0]->ID],
+                "select"=> [ 
+                    "TYPE_ID",
+                    "ADDRESS_1",
+                    "ADDRESS_2",
+                    "CITY",
+                    "POSTAL_CODE"
+                ]        
+            ];
+            $resAddr = json_decode(self::BXQuery('crm.address.list.json', json_encode($addrData)));
+            return $resAddr->result;
         }
     }
 }

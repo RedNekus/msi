@@ -1,7 +1,12 @@
 @extends('msi')
 @section('content')
-<pre>
-</pre>
+<?php
+    $matrial = [
+        "891" => 'Не женат/ не замужем',
+        "893" => 'Женат/ замужем',
+        "895" => 'Вдовец/ вдова'
+    ];
+?>
 <div class="form-container">
     <div class="form-container__title">Дополнительная информация</div>
     <form class="lead-form" action="lead/add/info" method="POST">
@@ -35,19 +40,19 @@
             <legend class="lead-form__label" for="marital_status">Семейное положение</legend>
             <select class="lead-form__select" name="marital_status" id="marital_status">
                 <option value="">Выбрать…</option>
-                <option value="891">Не женат/ не замужем</option>
-                <option value="893">Женат/ замужем</option>
-                <option value="895">Вдовец/ вдова</option>
+                @foreach($matrial as $key=>$val)
+                <option value="{{$key}}" @if($key == $marital_status) selected @endif>{{$val}}</option>
+                @endforeach
             </select>
             <div class="lead-form__custom-select">
                 <div class="lead-form__select-selected">
-                    Выбрать…
+                    {{ $matrial[$marital_status] ?? 'Выбрать…'}}
                 </div>
                 <div class="lead-form__select-items">
                     <div data-value="">Выбрать…</div>
-                    <div data-value="891">Не женат/ не замужем</div>
-                    <div data-value="893">Женат/ замужем</div>
-                    <div data-value="895">Вдовец/ вдова</div>
+                    @foreach($matrial as $key=>$val)
+                    <div data-value="{{$key}}">{{$val}}</div>
+                    @endforeach
                 </div>
             </div>
             <div class="messages"></div>
@@ -90,34 +95,34 @@
         <div class="lead-form__radio-block">
             <legend>Привлекались к уголовной / административной ответственности?</legend>
             <p class="lead-form__radio">
-                <input class="lead-form__radio-input" type="radio" name="liability" id="liability_0" value="903">
+                <input class="lead-form__radio-input" type="radio" name="liability" id="liability_0" value="903" @if($liability == 903) checked @endif>
                 <label class="lead-form__radio-label" for="liability_0">Нет</label>
             </p>
             <p class="lead-form__radio">
                 <input class="lead-form__radio-input" type="radio" name="liability" id="liability" value="">
                 <label class="lead-form__radio-label" for="liability">Да</label>
             </p>
-            <p class="lead-form__radio is-hidden" data-shown>
-                <input class="lead-form__radio-input" type="radio" name="liability" id="liability_1" value="905">
+            <p class="lead-form__radio @if($liability < 905) is-hidden @endif" data-shown>
+                <input class="lead-form__radio-input" type="radio" name="liability" id="liability_1" value="905" @if($liability == 905) checked @endif>
                 <label class="lead-form__radio-label" for="liability_1">Привлекался к административной ответственности</label>
             </p>
-            <p class="lead-form__radio is-hidden" data-shown>
-                <input class="lead-form__radio-input" type="radio" name="liability" id="liability_2" value="907">
+            <p class="lead-form__radio @if($liability < 905) is-hidden @endif" data-shown>
+                <input class="lead-form__radio-input" type="radio" name="liability" id="liability_2" value="907" @if($liability == 907) checked @endif>
                 <label class="lead-form__radio-label" for="liability_2">Привлекался к уголовной ответственности</label>
             </p>
-            <p class="lead-form__radio is-hidden" data-shown>
-                <input class="lead-form__radio-input" type="radio" name="liability" id="liability_3" value="909">
+            <p class="lead-form__radio @if($liability < 905) is-hidden @endif" data-shown>
+                <input class="lead-form__radio-input" type="radio" name="liability" id="liability_3" value="909" @if($liability == 909) checked @endif>
                 <label class="lead-form__radio-label" for="liability_3">Привлекался к административной и уголовной ответственности</label>
             </p>
         </div>
         <div class="lead-form__radio-block">
             <legend>Имеются ли у Вас не исполненные решения суда?</legend>
             <p class="lead-form__radio">
-                <input class="lead-form__radio-input" type="radio" name="decisions" id="decisions_0" value="0">
+                <input class="lead-form__radio-input" type="radio" name="decisions" id="decisions_0" value="0" @if($decisions == 0) checked @endif>
                 <label class="lead-form__radio-label" for="decisions_0">Нет</label>
             </p>
             <p class="lead-form__radio">
-                <input class="lead-form__radio-input" type="radio" name="decisions" id="decisions_1" value="1">
+                <input class="lead-form__radio-input" type="radio" name="decisions" id="decisions_1" value="1" @if($decisions == 1) checked @endif>
                 <label class="lead-form__radio-label" for="decisions_1">Да</label>
             </p>
         </div>

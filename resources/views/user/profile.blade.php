@@ -1,6 +1,5 @@
 @extends('msi')
 @section('content')
-<pre>
 <?php
     if(isset($data->subject)) {
         $firstrname = $data->subject->name_ru->given_name_ru;
@@ -21,10 +20,8 @@
             $birthdate = array_reverse(explode("-", $birthdate));
             $birthdate = implode(".", $birthdate);
         }
-    }  
-    //var_dump($data->contact);
+    }
 ?>
-</pre>
 <div class="form-container">
     <div class="form-title">Личные данные</div>
     <form class="lead-form" action="/profile" method="POST">

@@ -12,32 +12,32 @@
         @csrf
         <fieldset class="lead-form__group">
             <legend class="lead-form__label" for="zip_code">Почтовый индекс</legend>
-            <input class="lead-form__control" type="text" name="zip_code" id="zip_code" placeholder="220000">
+            <input class="lead-form__control" type="text" name="zip_code" id="zip_code" placeholder="220000" value="{{$zip_code ?? ''}}">
             <div class="messages"></div>
         </fieldset>
         <fieldset class="lead-form__group">
             <legend class="lead-form__label" for="settlement">Населенный пункт</legend>
-            <input class="lead-form__control" type="text" name="settlement" id="settlement" placeholder="Минск">
+            <input class="lead-form__control" type="text" name="settlement" id="settlement" placeholder="Минск" value="{{$settlement ?? ''}}">
             <div class="messages"></div>
         </fieldset>
         <fieldset class="lead-form__group">
             <legend class="lead-form__label" for="street">Улица</legend>
-            <input class="lead-form__control" type="text" name="street" id="street" placeholder="Ленина">
+            <input class="lead-form__control" type="text" name="street" id="street" placeholder="Ленина" value="{{$street ?? ''}}">
             <div class="messages"></div>
         </fieldset>
         <fieldset class="lead-form__group">
             <legend class="lead-form__label" for="house">Дом</legend>
-            <input class="lead-form__control" type="text" name="house" id="house" placeholder="1">
+            <input class="lead-form__control" type="text" name="house" id="house" placeholder="1" value="{{$house ?? ''}}">
             <div class="messages"></div>
         </fieldset>
         <fieldset class="lead-form__group">
             <legend class="lead-form__label" for="housing">Корпус</legend>
-            <input class="lead-form__control" type="text" name="housing" id="housing" placeholder="№">
+            <input class="lead-form__control" type="text" name="housing" id="housing" placeholder="№" value="{{$housing ?? ''}}">
             <div class="messages"></div>
         </fieldset>
         <fieldset class="lead-form__group">
             <legend class="lead-form__label" for="apartment">Квартира</legend>
-            <input class="lead-form__control" type="text" name="apartment" id="apartment" placeholder="№">
+            <input class="lead-form__control" type="text" name="apartment" id="apartment" placeholder="№" value="{{$apartment ?? ''}}">
             <div class="messages"></div>
         </fieldset>
         <div class="lead-form__bottom">
