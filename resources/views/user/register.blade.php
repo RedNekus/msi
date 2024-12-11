@@ -36,7 +36,7 @@
         </div>
     </form>
     <div class="lead-form__footer">
-        <p><a href="/passport">Назад</a></p>
+        <p><a href="/auth">Назад</a></p>
     </div>
 </div>
 @endsection

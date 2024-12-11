@@ -11,13 +11,17 @@
             <input class="lead-form__control" type="text" name="phone" id="phone" placeholder="Ваш номер телефона">
             <div class="messages"></div>
         </div>
+        <div class="lead-form__group">
+            <input class="lead-form__control" type="password" name="password" id="password" placeholder="Пароль">
+            <div class="messages"></div>
+        </div>
         <div class="lead-form__bottom">
             <input class="lead-form__button" type="submit" value="Войти">
         </div>
     </form>
     <div class="lead-form__footer">
         <p>Нет аккаунта?</p>
-        <p><a href="">Зарегистрироваться</a></p>
+        <p><a href="/register">Зарегистрироваться</a></p>
     </div>
 </div>
 @endsection
