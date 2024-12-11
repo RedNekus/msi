@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->tinyInteger('gender')->nullable();
-            $table->timestamp('birthdate', precision: 0);
+            $table->timestamp('birthdate')->nullable();
             //$table->dropColumn('email');
         });
     }
