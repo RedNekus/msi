@@ -39,31 +39,21 @@ class UserController extends Controller
             $res = json_decode(Bitrix::creteUser($request->all()));
         }
         $request->session()->put('step', 1);
-        //var_dump($res);
-        //var_dump($request->all());
     }
-    //TODO
     public function auth() {
         return view('user.auth', []);
     }
     public function login(Request $request) {
         $formattedPhone = $request->input('phone');
         $phone = str_replace(['(', ')', ' ', '-'], '', $formattedPhone) ?? '';
-        //echo $phone;
         if(isset($phone) && '' !== $phone) {
-            //dispath sms
-            
             if (Auth::attempt([
                 'phone' => $formattedPhone,
                 'password' => '1p@ssWord2',
             ])) {
-                echo "test";
-                $user = Auth::user();
-                var_dump($user);
-                // Authentication was successful...
-                //dispatch(new SMS( '+375447929174', 'Hello world!'))->withoutDelay();
+                return redirect()->route('step-4', []);
             } else {
-                echo 'Error auth';
+                return redirect()->route('auth', []);
             }
         }
     }
@@ -75,13 +65,15 @@ class UserController extends Controller
         return 1;
     }
     public function passport() { 
-        $data = [];
         if(Auth::check()) {
+            $data = [];
             $user = Auth::user();
             $bxdata = Bitrix::getRequisite((int)$user->bitrix_id ?? 0);
             $data = Bitrix::convertPassport($bxdata[0]);
-        }
-        return view('user.passport', (array)$data);
+            return view('user.passport', (array)$data);
+        } else {
+            return redirect()->route('auth', []);
+        } 
     }
     public function addPassport(Request $request) {  
         if(Auth::check()) {
@@ -90,6 +82,8 @@ class UserController extends Controller
             $data['contact_id'] = (int)$user->bitrix_id ?? 21167;
             $res = json_decode(Bitrix::addPassportData($data));
             $request->session()->put('step', 2);
+        } else {
+            return redirect()->route('auth', []);
         }
     }
 }

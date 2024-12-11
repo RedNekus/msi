@@ -13,6 +13,13 @@ use App\Jobs\SMS;
 
 class MsiController extends Controller
 {
+    public function index() {
+        if(Auth::check()) {
+            return redirect()->route('step-1', []);
+        } else {
+            return redirect()->route('auth', []);
+        }
+    }
     public function set(Request $request) {
         $request->session()->put('data', $request->input('data') ?? "");
         return redirect('/');
@@ -27,8 +34,9 @@ class MsiController extends Controller
         }
     }
     public function address() {
-        $data = [];
+        
         if(Auth::check()) {
+            $data = [];
             $user = Auth::user();
             $bxdata = Bitrix::getAddress((int)$user->bitrix_id ?? 0);
             foreach($bxdata as $idata) {
@@ -36,12 +44,14 @@ class MsiController extends Controller
                     $data = Bitrix::convertAddress($idata);
                 }
             }
+            return view('msi.address', $data);
+        } else {
+            return redirect()->route('auth', []);
         }
-        return view('msi.address', $data);
     }
     public function registerAddress() {
-        $data = [];
         if(Auth::check()) {
+            $data = [];
             $user = Auth::user();
             $bxdata = Bitrix::getAddress((int)$user->bitrix_id ?? 0);
             foreach($bxdata as $idata) {
@@ -49,22 +59,26 @@ class MsiController extends Controller
                     $data = Bitrix::convertAddress($idata);
                 }
             }
+            return view('msi.register-address', $data);
+        } else {
+            return redirect()->route('auth', []);
         }
-        return view('msi.register-address', $data);
     }
     public function addAddress(Request $request) {
-        $data = $request->all();
         if(Auth::check()) {
+            $data = $request->all();
             $user = Auth::user();
             $data['type_id'] = 1;
             $data['contact_id'] = (int)$user->bitrix_id ?? 0;
             $res = json_decode(Bitrix::addUserAddress($data));
             return redirect()->route('step-4', []);
+        } else {
+            return redirect()->route('auth', []);
         }
     }
     public function addRegisterAddress(Request $request) {
-        $data = $request->all();
         if(Auth::check()) {
+            $data = $request->all();
             $user = Auth::user();
             $data['type_id'] = 4;
             $data['contact_id'] = (int)$user->bitrix_id ?? 21167;
@@ -75,6 +89,8 @@ class MsiController extends Controller
             } else {
                 return redirect()->route('step-3.5', []);
             }
+        } else {
+            return redirect()->route('auth', []);
         }
     }
 }

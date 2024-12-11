@@ -19,13 +19,17 @@ class LeadsController extends Controller
         return view('leads.list', ['leads' => $leads]);
     }
     public function lead($id = 0) {
-        $leadData = [];
-        if($id) {
-            $lead = Leads::where('id' , '=' , $id)->first();
-            $data = json_decode(Bitrix::getDealData($lead->bx_lead_id));
-            $leadData = Bitrix::convertDeal($data->result);
-        }
-        return view('leads.item', ['lead' => $leadData, 'id' => $id]);
+        if(Auth::check()) {
+            $leadData = [];
+            if($id) {
+                $lead = Leads::where('id' , '=' , $id)->first();
+                $data = json_decode(Bitrix::getDealData($lead->bx_lead_id));
+                $leadData = Bitrix::convertDeal($data->result);
+            }
+            return view('leads.item', ['lead' => $leadData, 'id' => $id]);
+        } else {
+            return redirect()->route('auth', []);
+        } 
     }
     public function add(Request $request) {
         if(Auth::check()) {
@@ -46,30 +50,42 @@ class LeadsController extends Controller
                 $lead->bx_lead_id = (int)$res->result;
                 $lead->save();
             }
+            $request->session()->put('step', 4);
+            $request->session()->put('step-4', $request->all());
+            return redirect()->route('step-5', []);
+        } else {
+            return redirect()->route('auth', []);
         }
-        $request->session()->put('step', 4);
-        $request->session()->put('step-4', $request->all());
-        return redirect()->route('step-5', []);
     }
     public function info() {
-        $infoData = [];
         if(Auth::check()) {
+            $infoData = [];
             $user = Auth::user();
             if($user->bitrix_id) {
                 $info = json_decode(Bitrix::getUserData($user->bitrix_id));
                 $infoData = (array)Bitrix::convertInfo($info->result);
             }
-        };
-        return view('leads.form', $infoData);
+            return view('leads.form', $infoData);
+        } else {
+            return redirect()->route('auth', []);
+        }  
     }
     public function agreements(Request $request) {
         return view('leads.agreements', []);
     }
     public function confirmation(Request $request) {
-        return view('leads.confirmation', []);
+        if(Auth::check()) {
+            return view('leads.confirmation', []);
+        } else {
+            return redirect()->route('auth', []);
+        }
     }
     public function success(Request $request) {
-        return view('leads.success', ['data' => $request->session()->except(['_token'])]);
+        if(Auth::check()) {
+            return view('leads.success', ['data' => $request->session()->except(['_token'])]);
+        } else {
+            return redirect()->route('auth', []);
+        }
     }
     public function addInfo(Request $request) {
         if(Auth::check()) {
@@ -80,6 +96,8 @@ class LeadsController extends Controller
             $request->session()->put('step-5', $data);
             $request->session()->put('step', 5);
             return redirect()->route('step-6', []);
+        } else {
+            return redirect()->route('auth', []);
         }
     }
     public function addAgreements(Request $request) {
@@ -101,11 +119,17 @@ class LeadsController extends Controller
             $request->session()->put('step-6', $data);
             $request->session()->put('step', 6);
             return redirect()->route('step-7', []);
+        } else {
+            return redirect()->route('auth', []);
         } 
     }
     public function addConfirmation(Request $request) {
-        $request->session()->put('step', 6);
-        $request->session()->put('step-7', $request->all());
-        return redirect()->route('success', []);
+        if(Auth::check()) {
+            $request->session()->put('step', 6);
+            $request->session()->put('step-7', $request->all());
+            return redirect()->route('success', []);
+        } else {
+            return redirect()->route('auth', []);
+        }
     }
 }

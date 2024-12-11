@@ -14,7 +14,7 @@ use App\Http\Controllers\LeadsController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Route::get('/', [MsiController::class, 'index']);
 Route::get('/set', [MsiController::class, 'set']);
 Route::get('/address', [MsiController::class, 'address'])->name('step-3.5');;
 Route::post('/address', [MsiController::class, 'addAddress']);
@@ -23,7 +23,7 @@ Route::post('/register-address', [MsiController::class, 'addRegisterAddress']);
 
 Route::get('/profile', [UserController::class, 'index'])->name('step-1');
 Route::post('/profile', [UserController::class, 'add']);
-Route::get('/auth', [UserController::class, 'auth']);
+Route::get('/auth', [UserController::class, 'auth'])->name('auth');
 Route::post('/auth', [UserController::class, 'login']);
 Route::get('/register', [UserController::class, 'register']);
 Route::post('/register', [UserController::class, 'registration']);
