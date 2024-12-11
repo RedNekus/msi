@@ -70,7 +70,7 @@ class Msi extends Model
 
     public static function convertMsiInfo($data) {
         echo "<pre>";
-        echo $data;
+        var_dump(json_decode($data));
         echo "</pre>";
     }
 }
