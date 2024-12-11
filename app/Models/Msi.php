@@ -69,8 +69,18 @@ class Msi extends Model
     }
 
     public static function convertMsiInfo($data) {
+        /*
         echo "<pre>";
         var_dump(json_decode($data));
         echo "</pre>";
+        */
+        return [
+            'document_type' => '',
+            'document_number' => $arrData->national_id_number,
+            'document_series' => $arrData->id_document->seriesNumber,
+            'document_date' => $arrData->id_document->issueDate,
+            'document_validity' => $arrData->id_document->expireDate,
+            'issuedby' => $arrData->id_document->authority
+        ];
     }
 }
