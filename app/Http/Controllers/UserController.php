@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Bitrix;
 use Illuminate\View\View;
 use App\Models\User;
-use App\Jobs\SMS;
+use App\Models\Msi;
 
 class UserController extends Controller
 {
@@ -64,16 +64,21 @@ class UserController extends Controller
         if( User::create($request->all()) ) {
             return redirect()->route('auth', []);
         } else {
-            
+
         }
     }
     public function passport() { 
         if(Auth::check()) {
             $data = [];
             $user = Auth::user();
-            $bxdata = Bitrix::getRequisite((int)$user->bitrix_id ?? 0);
-            if(is_array($bxdata) && count($bxdata)) {
-                $data = Bitrix::convertPassport($bxdata[0]);
+            if(isset($user->bitrix_id) && (int)$user->bitrix_id !==0 ) {
+                $bxdata = Bitrix::getRequisite((int)$user->bitrix_id);
+                if(is_array($bxdata) && count($bxdata)) {
+                    $data = Bitrix::convertPassport($bxdata[0]);
+                }
+            } else {
+                $rawData = session()->get('data');
+                $data = Msi::convertMsiInfo($rawData);
             }
             return view('user.passport', (array)$data);
         } else {

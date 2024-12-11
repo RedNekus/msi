@@ -67,4 +67,10 @@ class Msi extends Model
         $response = json_decode($exec);
         return $response;
     }
+
+    public static function convertMsiInfo($data) {
+        echo "<pre>";
+        echo json_decode($data);
+        echo "</pre>";
+    }
 }
