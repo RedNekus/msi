@@ -6,6 +6,15 @@
         "893" => 'Женат/ замужем',
         "895" => 'Вдовец/ вдова'
     ];
+    if(empty($marital_status)) {
+        $marital_status = null;
+    }
+    if(empty($liability)) {
+        $liability = null;
+    }
+    if(empty($decisions)) {
+        $decisions = null;
+    }
 ?>
 <div class="form-container">
     <div class="form-container__title">Дополнительная информация</div>
@@ -13,27 +22,27 @@
         @csrf
         <fieldset class="lead-form__group">
             <legend class="lead-form__label" for="workplace">Место работы</legend>
-            <input class="lead-form__control" type="text" name="workplace" id="workplace" placeholder="*" value="{{$workplace}}">
+            <input class="lead-form__control" type="text" name="workplace" id="workplace" placeholder="*" value="{{$workplace ?? ''}}">
             <div class="messages"></div>
         </fieldset>
         <fieldset class="lead-form__group">
             <legend class="lead-form__label" for="position">Должность</legend>
-            <input class="lead-form__control" type="text" name="position" id="position" placeholder="*" value="{{$position}}">
+            <input class="lead-form__control" type="text" name="position" id="position" placeholder="*" value="{{$position ?? ''}}">
             <div class="messages"></div>
         </fieldset>
         <fieldset class="lead-form__group">
             <legend class="lead-form__label" for="experience">Стаж работы на последнем месте</legend>
-            <input class="lead-form__control" type="text" name="experience" id="experience" placeholder="*" value="{{$experience}}">
+            <input class="lead-form__control" type="text" name="experience" id="experience" placeholder="*" value="{{$experience ?? ''}}">
             <div class="messages"></div>
         </fieldset>
         <fieldset class="lead-form__group">
             <legend class="lead-form__label" for="income"><p><span>Среднемесяный доход</span> <span>за последние 3 месяца</span></p></legend>
-            <input class="lead-form__control" type="text" name="income" id="income" placeholder="*" value="{{$income}}">
+            <input class="lead-form__control" type="text" name="income" id="income" placeholder="*" value="{{$income ?? ''}}">
             <div class="messages"></div>
         </fieldset>
         <fieldset class="lead-form__group">
             <legend class="lead-form__label" for="hr_phone"><p><span>Телефон отдела кадров /</span> <span>бухгалтерии</span></p></legend>
-            <input class="lead-form__control" type="text" name="hr_phone" id="hr_phone" placeholder="*" value="{{$hr_phone}}">
+            <input class="lead-form__control" type="text" name="hr_phone" id="hr_phone" placeholder="*" value="{{$hr_phone ?? ''}}">
             <div class="messages"></div>
         </fieldset>
         <fieldset class="lead-form__group">

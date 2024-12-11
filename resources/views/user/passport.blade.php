@@ -8,6 +8,9 @@
         "Вид на жительство РБ",
         "Удостоверение беженца"
     ];
+    if(empty($document_type)) {
+        $document_type =  null;
+    }
 ?>
 <div class="form-container">
     <div class="form-container__title">Документ, удостоверяющий личность</div>

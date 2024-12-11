@@ -1,6 +1,6 @@
 @extends('msi')
 @section('styles')
-<link rel="stylesheet" type="text/css" href="/css/leads.css">
+<link rel="stylesheet" type="text/css" href="css/leads.css">
 @endsection
 @section('tabs')
 <div class="container">
@@ -16,7 +16,7 @@
         <div class="leads__button"><a class="leads__main-btn" href="">Подать заявку на лизинг</a></div>
     </div>
     <div class="leads__descr">Для подачи заявки  необходимо пройти аутентификацию в межбанковской системе идентификации (МСИ)</div>
-    @if($leads)
+    @if($leads && count($leads))
         <div class="leads">
         @foreach ($leads as $num => $lead)
             <div class="leads__item">

@@ -72,7 +72,9 @@ class UserController extends Controller
             $data = [];
             $user = Auth::user();
             $bxdata = Bitrix::getRequisite((int)$user->bitrix_id ?? 0);
-            $data = Bitrix::convertPassport($bxdata[0]);
+            if(is_array($bxdata) && count($bxdata)) {
+                $data = Bitrix::convertPassport($bxdata[0]);
+            }
             return view('user.passport', (array)$data);
         } else {
             return redirect()->route('auth', []);

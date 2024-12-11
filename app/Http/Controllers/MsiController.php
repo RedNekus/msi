@@ -21,8 +21,43 @@ class MsiController extends Controller
         }
     }
     public function set(Request $request) {
-        $request->session()->put('data', $request->input('data') ?? "");
-        return redirect('/');
+        $raw_data = $request->input('data') ?? "";
+        $data = json_decode($raw_data);
+        $firstrname = $data->subject->name_ru->given_name_ru;
+        $lastname = $data->subject->name_ru->family_name_ru;
+        $middlename = $data->subject->name_ru->middle_name_ru;
+        $year = substr($data->subject->birthdate, 0, 4);
+        $month = substr($data->subject->birthdate, 4, -2);
+        $day = substr($data->subject->birthdate, -2);
+        $birthdate = "$year-$month-$day";
+        $gender = $data->subject->sex === 'male' ? 0 : 1;
+        $phone = "+" . trim($data->contact->phones[0]);
+        $user_data = [
+            'name' => $firstrname,
+            'phone' => $phone,
+            'lastname' => $lastname,
+            'middlename' => $birthdate,
+            'gender' => $gender,
+            'birthdate' => $birthdate,
+            'password' => 'pass'
+        ];
+        $request->session()->put('data', $raw_data);
+        if (Auth::attempt([
+            'phone' => $phone,
+            'password' => 'pass',
+        ])) {
+            return redirect('/profile');
+        }
+        if( User::create($user_data) ) {
+            if (Auth::attempt([
+                'phone' => $phone,
+                'password' => 'pass',
+            ])) {
+                return redirect('/profile');
+            } else {
+                return redirect()->route('auth', []);
+            }
+        }
     }
     public function short(Request $request): array
     {
@@ -54,10 +89,12 @@ class MsiController extends Controller
             $data = [];
             $user = Auth::user();
             $bxdata = Bitrix::getAddress((int)$user->bitrix_id ?? 0);
-            foreach($bxdata as $idata) {
-                if($idata->TYPE_ID === '4') {
-                    $data = Bitrix::convertAddress($idata);
-                }
+            if(isset($bxdata) && count($bxdata)) {
+                foreach($bxdata as $idata) {
+                    if($idata->TYPE_ID === '4') {
+                        $data = Bitrix::convertAddress($idata);
+                    }
+                } 
             }
             return view('msi.register-address', $data);
         } else {

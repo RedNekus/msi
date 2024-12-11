@@ -1,6 +1,6 @@
 <?php
 $domain = $_SERVER['HTTP_HOST'];
-$protocol = strpos(strtolower($_SERVER['SERVER_PROTOCOL']), 'https') === FALSE ? 'http' : 'https';
+$protocol = 'https';
 ?>
 <!DOCTYPE html>
 <html lang="ru">
