@@ -69,11 +69,11 @@ class Msi extends Model
     }
 
     public static function convertMsiInfo($data) {
-        /*
         echo "<pre>";
         var_dump(json_decode($data));
         echo "</pre>";
-        */
+
+        $arrData = json_decode($data);
         return [
             'document_type' => '',
             'document_number' => $arrData->national_id_number,
