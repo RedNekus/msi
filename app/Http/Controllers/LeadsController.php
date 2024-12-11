@@ -11,11 +11,6 @@ class LeadsController extends Controller
 {
     public function get() {
         $leads = Leads::all();
-        foreach($leads as $lead) {
-            //var_dump($lead);
-            //echo "test: {$lead->bx_lead_id}";
-            //Bitrix::getDealData($lead->id)
-        }
         return view('leads.list', ['leads' => $leads]);
     }
     public function lead($id = 0) {

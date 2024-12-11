@@ -68,6 +68,13 @@ class Msi extends Model
         return $response;
     }
 
+    private static function formatDate($date) {
+        $year = substr($date, 0, 4);
+        $month = substr($date, 4, -2);
+        $day = substr($date, -2);
+        $birthdate = "$day.$month.$year";
+    }
+
     public static function convertMsiInfo($data) {
         echo "<pre>";
         var_dump(json_decode($data));
@@ -75,11 +82,10 @@ class Msi extends Model
 
         $arrData = json_decode($data);
         return [
-            'document_type' => '',
             'document_number' => $arrData->national_id_number,
             'document_series' => $arrData->id_document->seriesNumber,
-            'document_date' => $arrData->id_document->issueDate,
-            'document_validity' => $arrData->id_document->expireDate,
+            'document_date' => self::formatDate($arrData->id_document->issueDate),
+            'document_validity' => self::formatDate($arrData->id_document->expireDate),
             'issuedby' => $arrData->id_document->authority
         ];
     }
