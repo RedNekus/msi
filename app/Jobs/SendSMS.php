@@ -2,16 +2,13 @@
 
 namespace App\Jobs;
 
-use Jurager\Sender\Sender;
-use Illuminate\Bus\Queueable;
+use SmsAssistent\Sender\Sender;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
+use Illuminate\Foundation\Queue\Queueable;
 
-class SMS implements ShouldQueue
+class SendSMS implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Queueable;
 
     protected $to;
     protected $text;

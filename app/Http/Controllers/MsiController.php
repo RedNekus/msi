@@ -9,7 +9,7 @@ use App\Models\Msi;
 use App\Models\Yourls;
 use App\Models\Bitrix;
 use Illuminate\View\View;
-use App\Jobs\SMS;
+use App\Jobs\SendSMS;
 
 class MsiController extends Controller
 {
@@ -46,6 +46,7 @@ class MsiController extends Controller
             'phone' => $phone,
             'password' => 'pass',
         ])) {
+            SendSms::dispatch($phone, 'Hello world!');
             return redirect('/profile');
         }
         if( User::create($user_data) ) {
