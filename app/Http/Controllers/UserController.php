@@ -49,7 +49,7 @@ class UserController extends Controller
         if(isset($phone) && '' !== $phone) {
             if (Auth::attempt([
                 'phone' => $formattedPhone,
-                'password' => '1p@ssWord2',
+                'password' => $request->input('password'),
             ])) {
                 return redirect()->route('step-4', []);
             } else {
