@@ -72,14 +72,15 @@ class Msi extends Model
         $year = substr($date, 0, 4);
         $month = substr($date, 4, -2);
         $day = substr($date, -2);
-        $birthdate = "$day.$month.$year";
+        return "$day.$month.$year";
     }
 
     public static function convertMsiInfo($data) {
+        /*
         echo "<pre>";
         var_dump(json_decode($data));
         echo "</pre>";
-
+        */
         $arrData = json_decode($data);
         return [
             'document_number' => $arrData->national_id_number,
