@@ -61,8 +61,11 @@ class UserController extends Controller
         return view('user.register', []);
     }
     public function registration(Request $request) {
-        User::create($request->all());
-        return 1;
+        if( User::create($request->all()) ) {
+            return redirect()->route('auth', []);
+        } else {
+            
+        }
     }
     public function passport() { 
         if(Auth::check()) {
