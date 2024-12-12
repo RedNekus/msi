@@ -65,7 +65,7 @@ class UserController extends Controller
         if( User::create($request->all()) ) {
             return redirect()->route('auth', []);
         } else {
-            //TODo
+            //TODO
         }
     }
     public function passport() { 

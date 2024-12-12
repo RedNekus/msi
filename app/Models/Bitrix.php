@@ -281,7 +281,7 @@ class Bitrix extends Model
         $genders= ['М' => 1, 'Ж' => 0];
         $birthdate = array_reverse(explode('.', $data['birthday']));
         $birthdate = implode('-', $birthdate) . ' 00:00:00';
-        User::create([
+        $userData = [
             'name' => $data['firstrname'],
             'phone' => $data['phone'],
             'lastname' => $data['lastname'],
@@ -289,8 +289,20 @@ class Bitrix extends Model
             'bitrix_id' => (int)($resObj->result),
             'gender' => $genders[$data['gender']] ?? 0,
             'birthdate' => $birthdate,
-            'password' => Hash::make('1p@ssWord2'),
-        ]);
+        ];
+        if (Auth::attempt([
+            'phone' => $data['phone'],
+            'password' => $data['password'] ?? '1p@ssWord2',
+        ])) {
+            $user = Auth::user();
+            foreach($userData as $property => $value) {
+                $user—>$property = $value;
+            }
+            $user->save();
+        } else {
+            $userData['password'] = Hash::make('1p@ssWord2');
+            User::create($userData);
+        }
         return $res;
     }
     public static function updateUser($data) {
