@@ -34,11 +34,6 @@
             <input class="lead-form__control" type="text" name="apartment" id="apartment" placeholder="№" value="{{$apartment ?? ''}}" readonly="readonly">
             <div class="messages"></div>
         </fieldset>
-        <div class="lead-form__bottom">
-            <div class="lead-form__back"><a id="back" href="/passport" data-href="/address">Назад</a></div>
-            <div class="lead-form__bottom">
-            <input class="lead-form__button" type="submit" value="Далее">
-        </div>
         <div class="lead-form__radio-block">
             <legend>Адрес регистрации совпадает с адресом проживания?</legend>
             <p class="lead-form__radio">
@@ -49,6 +44,11 @@
                 <input class="lead-form__radio-input" type="radio" name="matches" id="matches_1" value="1">
                 <label class="lead-form__radio-label" for="matches_1">Да</label>
             </p>
+        </div>
+        <div class="lead-form__bottom">
+            <div class="lead-form__back"><a id="back" href="/passport" data-href="/address">Назад</a></div>
+            <div class="lead-form__bottom">
+            <input class="lead-form__button" type="submit" value="Далее">
         </div>
     </form>
 </div>
