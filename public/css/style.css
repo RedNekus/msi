@@ -24,7 +24,7 @@ body {
   letter-spacing: 0.04em;
   font-weight: 300;
   color: #333333;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.2;
   padding: 0;
   margin: 0;
@@ -71,6 +71,10 @@ p {
   margin-top: 0 !important;
 }
 
+.logo__img {
+  max-width: 220px;
+}
+
 .steps {
   display: flex;
   flex-wrap: wrap;
@@ -78,9 +82,9 @@ p {
   gap: 8px;
   font-weight: 400;
   font-size: 16px;
-  line-height: 21px;
+  line-height: 20px;
   letter-spacing: 0.01em;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
   counter-reset: counter;
 }
 .steps__item {
@@ -106,7 +110,7 @@ p {
 }
 .steps__item:not(:last-child)::after {
   content: "";
-  width: 50px;
+  width: 40px;
   height: 1px;
   background-color: #E7E0E0;
   display: inline-block;
@@ -129,10 +133,10 @@ p {
 }
 .form-container {
   box-sizing: border-box;
-  min-width: 570px;
+  min-width: 420px;
   margin: 0 auto;
-  border-radius: 30px;
-  padding: 40px;
+  border-radius: 20px;
+  padding: 30px;
   background-color: #F9FAFD;
   max-width: 25vw;
   margin-bottom: 60px;
@@ -147,8 +151,8 @@ p {
 }
 .form-container__text {
   font-weight: 400;
-  font-size: 20px;
-  line-height: 24px;
+  font-size: 18px;
+  line-height: 22px;
   display: flex;
   align-items: center;
   text-align: center;
@@ -216,8 +220,8 @@ p {
   transform: rotate(180deg);
 }
 .cabinet__logo {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   background-color: #13AAF7;
   color: white;
@@ -365,7 +369,7 @@ input:checked + .lead-form__radio-label::after {
   position: absolute;
   display: none;
   background-color: #fff;
-  border-radius: 35px;
+  border-radius: 25px;
   border: 1px solid #B0B0B1;
   z-index: 1;
   width: 100%;
@@ -375,16 +379,16 @@ input:checked + .lead-form__radio-label::after {
 }
 .lead-form__select-items div {
   cursor: pointer;
-  height: 62px;
+  height: 42px;
   display: flex;
   align-items: center;
   font-style: normal;
   font-weight: 400;
-  font-size: 18px;
-  line-height: 22px;
+  font-size: 16px;
+  line-height: 20px;
   letter-spacing: 0.06em;
   color: #333333;
-  padding: 0 30px;
+  padding: 0 20px;
 }
 .lead-form__select-items div:hover {
   background-color: #F6F6F6;
@@ -406,7 +410,7 @@ input:checked + .lead-form__radio-label::after {
   background: linear-gradient(109.64deg, #13AAF7 16.49%, #5782F1 105.64%);
   box-shadow: inset 0px 0px 22px rgba(255, 255, 255, 0.25);
   border-radius: 41px;
-  height: 62px;
+  height: 52px;
   border: none;
   width: 100%;
   cursor: pointer;
@@ -423,8 +427,8 @@ input:checked + .lead-form__radio-label::after {
 }
 .lead-form__link a {
   font-weight: 500;
-  font-size: 20px;
-  line-height: 22px;
+  font-size: 18px;
+  line-height: 20px;
   letter-spacing: 0.03em;
   align-self: center;
 }
@@ -489,7 +493,6 @@ input:checked + .lead-form__radio-label::after {
 }
 .lead-form__back {
   margin-top: 1em;
-  font-size: 0.85em;
 }
 .lead-form__back a::before {
   margin-right: 1em;
