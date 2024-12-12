@@ -45,7 +45,6 @@ class MsiController extends Controller
             'phone' => $phone,
             'password' => 'pass',
         ])) {
-            SendSms::dispatch($phone, 'Hello world!');
             return redirect('/profile');
         }
         if( User::create($user_data) ) {
