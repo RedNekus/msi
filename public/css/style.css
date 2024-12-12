@@ -79,6 +79,11 @@ p {
   max-width: 220px;
 }
 
+.messages.error {
+  margin-top: 1rem;
+  color: #CB1F1F;
+}
+
 .steps {
   display: flex;
   flex-wrap: wrap;
@@ -129,7 +134,7 @@ p {
   content: counter(counter);
   background-color: #D2D2D2;
 }
-.steps__item--active {
+.steps__item--active span {
   color: #14ABF8;
 }
 .steps__item--active::before {

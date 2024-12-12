@@ -80,6 +80,8 @@ class MsiController extends Controller
                             $data = Bitrix::convertAddress($idata);
                         }
                     }
+                    $rawData = session()->get('data');
+                    $data = Msi::convertMsiAddress($rawData);
                 } else {
                     $rawData = session()->get('data');
                     $data = Msi::convertMsiAddress($rawData);
@@ -107,11 +109,11 @@ class MsiController extends Controller
                     }
                 } else {
                     $rawData = session()->get('data');
-                    $data = Msi::convertMsiAddress($rawData);
+                    $data = Msi::convertRegisterAddress($rawData);
                 }
             } else {
                 $rawData = session()->get('data');
-                $data = Msi::convertMsiAddress($rawData);
+                $data = Msi::convertRegisterAddress($rawData);
             }
             return view('msi.register-address', $data);
         } else {

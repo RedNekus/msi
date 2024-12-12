@@ -323,6 +323,7 @@ class Bitrix extends Model
         return $res;
     }
     public static function addUserAddress($data) {
+        $res = null;
         if(empty($data['contact_id'])) {
             $data['contact_id']= session()->get('contact_id') ?? 0;
         }
@@ -339,11 +340,13 @@ class Bitrix extends Model
                 $data['requisite_name'] = "Паспотные данные";
                 $params = self::prepareRequisiteData($data);
                 $resultRequisite = json_decode(self::BXQuery('crm.requisite.add.json', $params));
-                $data[ 'ENTITY_ID' ] = $resultRequisite->result;//id requisite
-                $data[ 'TYPE_ID' ] = $data['type_id'] ?? 1;
-                $data[ 'ENTITY_TYPE_ID' ] = 8;
-                $params = self::prepareAddrData($data);
-                $res = self::BXQuery('crm.address.add.json', $params);
+                if(!empty($resultRequisite->result)) {
+                    $data[ 'ENTITY_ID' ] = $resultRequisite->result;//id requisite
+                    $data[ 'TYPE_ID' ] = $data['type_id'] ?? 1;
+                    $data[ 'ENTITY_TYPE_ID' ] = 8;
+                    $params = self::prepareAddrData($data);
+                    $res = self::BXQuery('crm.address.add.json', $params);
+                }
             } else {
                 $data[ 'ENTITY_ID' ] = $requisites->result[0]->ID;//id requisite
                 $data[ 'TYPE_ID' ] = $data['type_id'] ?? 1;

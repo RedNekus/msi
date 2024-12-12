@@ -106,4 +106,17 @@ class Msi extends Model
             'apartment' => $arrData->contact->living_address->apartment,
         ];
     }
+
+    public static function convertRegisterAddress($data) {
+        $arrData = json_decode($data);
+        
+        return [
+            'zip_code' => $arrData->subject->address->postal_code,
+            'settlement' => $arrData->subject->address->locality,
+            'street' => $arrData->subject->address->street,
+            'house' => $arrData->subject->address->house,
+            'housing' => $arrData->subject->address->building,
+            'apartment' => $arrData->subject->address->apartment,
+        ];
+    }
 }

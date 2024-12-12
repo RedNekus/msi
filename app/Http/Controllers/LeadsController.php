@@ -110,6 +110,9 @@ class LeadsController extends Controller
                     $data[$key] = (int)$item;
                 }
             }
+            if( array_search(0,$data,true) ) {
+                return view('leads.agreements', $data);
+            }
             $data['contact_id'] = (int)$user->bitrix_id ?? 0;
             $res = json_decode(Bitrix::updateDeal($data));
             $request->session()->put('step-6', $data);
@@ -118,7 +121,7 @@ class LeadsController extends Controller
                 $code = bin2hex(random_bytes(3));
                 $request->session()->put('code', $code);
                 $phone= str_replace(['(',')',' ', '-'], '', $user->phone);
-                $res = SendSms::dispatch($phone, "Ваш код: {$code}");
+                SendSms::dispatch($phone, "Ваш код: {$code}");
             }
             return redirect()->route('step-7', []);
         } else {
