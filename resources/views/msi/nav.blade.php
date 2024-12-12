@@ -1,5 +1,8 @@
 <?php
-    $cur_uri =$_SERVER['REQUEST_URI'];
+    $cur_uri = $_SERVER['REQUEST_URI'];
+    if($cur_uri === '/address') {
+        $cur_uri = '/register-addres';
+    }
     //$step = session()->get('step') ?? 0;
     $step = 0;
     $links = [
