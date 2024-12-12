@@ -31,14 +31,15 @@ class UserController extends Controller
             if($user->bitrix_id) {
                 $data = $request->all();
                 $data['contact_id'] = $user->bitrix_id;
-                $res = json_decode(Bitrix::updateUser($data));
+                Bitrix::updateUser($data);
             } else {
-                $res = json_decode(Bitrix::creteUser($request->all()));
+               Bitrix::creteUser($request->all());
             }
         } else {
-            $res = json_decode(Bitrix::creteUser($request->all()));
+            Bitrix::creteUser($request->all());
         }
         $request->session()->put('step', 1);
+        return redirect()->route('step-2', []);
     }
     public function auth() {
         return view('user.auth', []);
@@ -64,7 +65,7 @@ class UserController extends Controller
         if( User::create($request->all()) ) {
             return redirect()->route('auth', []);
         } else {
-
+            //TODo
         }
     }
     public function passport() { 
