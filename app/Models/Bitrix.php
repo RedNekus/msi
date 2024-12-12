@@ -297,7 +297,7 @@ class Bitrix extends Model
         ])) {
             $user = Auth::user();
             foreach($userData as $property => $value) {
-                $user—>$property = $value;
+                $user->$property = $value;
             }
             $user->save();
         } else {
