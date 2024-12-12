@@ -56,9 +56,9 @@
             <input class="lead-form__control" type="text" name="phone" id="phone" readonly="readonly" value="{{$phone ?? ''}}">
             <div class="messages"></div>
         </fieldset>
-        <div class="lead-form__edit">
+        <!-- <div class="lead-form__edit">
             <a class="lead-form__edit-action" href="#" data-action="edit">Редактировать данные</a>
-        </div>
+        </div> -->
         <div class="lead-form__bottom">
             <input class="lead-form__button" type="submit" value="Далее">
         </div>

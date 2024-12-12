@@ -25,7 +25,7 @@
             <input class="lead-form__check-input" type="checkbox" name="agreement_politic" id="agreement_politic" value="1">
             <label class="lead-form__check-label" for="agreement_politic">Согласен с условиями политики конфиденциальности</label>
           </div>
-          <div class="lead-form__back"><a href="/lead/add/info">Назад</a></div>
+          <div class="lead-form__back"><a href="/register-address">Назад</a></div>
           <div class="lead-form__bottom">
             <input class="lead-form__button" type="submit" value="Далее">
           </div>

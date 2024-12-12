@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Leads;
 use App\Models\Bitrix;
-
+use App\Jobs\SendSMS;
 
 class LeadsController extends Controller
 {
@@ -70,7 +70,8 @@ class LeadsController extends Controller
     }
     public function confirmation(Request $request) {
         if(Auth::check()) {
-            return view('leads.confirmation', []);
+            $user = Auth::user();
+            return view('leads.confirmation', ['phone' => $user->phone ?? '']);
         } else {
             return redirect()->route('auth', []);
         }
@@ -113,6 +114,12 @@ class LeadsController extends Controller
             $res = json_decode(Bitrix::updateDeal($data));
             $request->session()->put('step-6', $data);
             $request->session()->put('step', 6);
+            if($user->phone) {
+                $code = bin2hex(random_bytes(3));
+                $request->session()->put('code', $code);
+                $phone= str_replace(['(',')',' ', '-'], '', $user->phone);
+                $res = SendSms::dispatch($phone, "Ваш код: {$code}");
+            }
             return redirect()->route('step-7', []);
         } else {
             return redirect()->route('auth', []);

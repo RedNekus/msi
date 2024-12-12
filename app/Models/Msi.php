@@ -90,4 +90,20 @@ class Msi extends Model
             'issuedby' => $arrData->id_document->authority
         ];
     }
+    public static function convertMsiAddress($data) {
+        $arrData = json_decode($data);
+        /*
+        echo "<pre>";
+        var_dump($arrData);
+        echo "</pre>";
+        */
+        return [
+            'zip_code' => $arrData->contact->living_address->postal_code,
+            'settlement' => $arrData->contact->living_address->locality,
+            'street' => $arrData->contact->living_address->street,
+            'house' => $arrData->contact->living_address->house,
+            'housing' => $arrData->contact->living_address->building,
+            'apartment' => $arrData->contact->living_address->apartment,
+        ];
+    }
 }

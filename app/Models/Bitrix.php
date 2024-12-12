@@ -201,15 +201,12 @@ class Bitrix extends Model
         return json_encode($queryParams);
     }
     private static function prepareRequisiteData($data) {
-        $queryParams = [
-            'fields' => [
-				'ENTITY_TYPE_ID' => 3,
-				'ENTITY_ID' => $data[ 'contact_id' ],//contact id
-				'PRESET_ID' => $data['PresetID'],
-				'ACTIVE' => 'Y',
-				'NAME' => $data['requisite_name']
-            ],
-            'params' => ['REGISTER_SONET_EVENT' => 'Y']
+        $fields = [
+			'ENTITY_TYPE_ID' => 3,
+			'ENTITY_ID' => $data[ 'contact_id' ],//contact id
+			'PRESET_ID' => $data['PresetID'],
+			'ACTIVE' => 'Y',
+			'NAME' => $data['requisite_name']
         ];
         $queryParams = [
             'fields' => $fields,

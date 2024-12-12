@@ -9,7 +9,6 @@ use App\Models\Msi;
 use App\Models\Yourls;
 use App\Models\Bitrix;
 use Illuminate\View\View;
-use App\Jobs\SendSMS;
 
 class MsiController extends Controller
 {
@@ -74,11 +73,21 @@ class MsiController extends Controller
         if(Auth::check()) {
             $data = [];
             $user = Auth::user();
-            $bxdata = Bitrix::getAddress((int)$user->bitrix_id ?? 0);
-            foreach($bxdata as $idata) {
-                if($idata->TYPE_ID === '1') {
-                    $data = Bitrix::convertAddress($idata);
+            if( isset($user->bitrix_id) && (int)$user->bitrix_id !==0 ) {
+                $bxdata = Bitrix::getAddress((int)$user->bitrix_id ?? 0);
+                if(is_array($bxdata) && count($bxdata)) {
+                    foreach($bxdata as $idata) {
+                        if($idata->TYPE_ID === '1') {
+                            $data = Bitrix::convertAddress($idata);
+                        }
+                    }
+                } else {
+                    $rawData = session()->get('data');
+                    $data = Msi::convertMsiAddress($rawData);
                 }
+            } else {
+                $rawData = session()->get('data');
+                $data = Msi::convertMsiAddress($rawData);
             }
             return view('msi.address', $data);
         } else {
@@ -89,13 +98,21 @@ class MsiController extends Controller
         if(Auth::check()) {
             $data = [];
             $user = Auth::user();
-            $bxdata = Bitrix::getAddress((int)$user->bitrix_id ?? 0);
-            if(isset($bxdata) && count($bxdata)) {
-                foreach($bxdata as $idata) {
-                    if($idata->TYPE_ID === '4') {
-                        $data = Bitrix::convertAddress($idata);
+            if( isset($user->bitrix_id) && (int)$user->bitrix_id !==0 ) {
+                $bxdata = Bitrix::getAddress((int)$user->bitrix_id ?? 0);
+                if(is_array($bxdata) && count($bxdata)) {
+                    foreach($bxdata as $idata) {
+                        if($idata->TYPE_ID === '4') {
+                            $data = Bitrix::convertAddress($idata);
+                        }
                     }
-                } 
+                } else {
+                    $rawData = session()->get('data');
+                    $data = Msi::convertMsiAddress($rawData);
+                }
+            } else {
+                $rawData = session()->get('data');
+                $data = Msi::convertMsiAddress($rawData);
             }
             return view('msi.register-address', $data);
         } else {
@@ -109,7 +126,7 @@ class MsiController extends Controller
             $data['type_id'] = 1;
             $data['contact_id'] = (int)$user->bitrix_id ?? 0;
             $res = json_decode(Bitrix::addUserAddress($data));
-            return redirect()->route('step-4', []);
+            return redirect()->route('step-6', []);
         } else {
             return redirect()->route('auth', []);
         }
@@ -122,8 +139,8 @@ class MsiController extends Controller
             $data['contact_id'] = (int)$user->bitrix_id ?? 21167;
             $res = json_decode(Bitrix::addUserAddress($data));
             $request->session()->put('step', 3);
-            if($data['matches']) {
-                return redirect()->route('step-4', []);
+            if(isset($data['matches']) && $data['matches']) {
+                return redirect()->route('step-6', []);
             } else {
                 return redirect()->route('step-3.5', []);
             }

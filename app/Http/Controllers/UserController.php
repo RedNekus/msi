@@ -76,6 +76,13 @@ class UserController extends Controller
                 $bxdata = Bitrix::getRequisite((int)$user->bitrix_id);
                 if(is_array($bxdata) && count($bxdata)) {
                     $data = Bitrix::convertPassport($bxdata[0]);
+                    if($data->document_series === '') {
+                        $rawData = session()->get('data');
+                        $data = Msi::convertMsiInfo($rawData);
+                    }
+                } else {
+                    $rawData = session()->get('data');
+                    $data = Msi::convertMsiInfo($rawData);
                 }
             } else {
                 $rawData = session()->get('data');
@@ -90,9 +97,10 @@ class UserController extends Controller
         if(Auth::check()) {
             $data = $request->all();
             $user = Auth::user();
-            $data['contact_id'] = (int)$user->bitrix_id ?? 21167;
+            $data['contact_id'] = (int)$user->bitrix_id ?? 0;
             $res = json_decode(Bitrix::addPassportData($data));
             $request->session()->put('step', 2);
+            return redirect()->route('step-3', []);
         } else {
             return redirect()->route('auth', []);
         }
