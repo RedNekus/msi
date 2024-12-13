@@ -31,26 +31,32 @@ class MsiController extends Controller
         $birthdate = "$year-$month-$day";
         $gender = $data->subject->sex === 'male' ? 0 : 1;
         $phone = "+" . trim($data->contact->phones[0]);
+        $userExists = User::where('phone', '=', $phone)->first();
+        $request->session()->put('data', $raw_data);
+        if($userExists) {
+            if (Auth::attempt([
+                'phone' => $phone,
+                'password' => '1p@ssWord2',
+            ])) {
+                return redirect('/profile');
+            }  else {
+                return redirect()->route('auth', []);
+            }
+        }
         $user_data = [
             'name' => $firstrname,
             'phone' => $phone,
             'lastname' => $lastname,
-            'middlename' => $birthdate,
+            'middlename' => $middlename,
             'gender' => $gender,
             'birthdate' => $birthdate,
-            'password' => 'pass'
+            'password' => '1p@ssWord2',
+            'document_number' => $data->national_id_number,
         ];
-        $request->session()->put('data', $raw_data);
-        if (Auth::attempt([
-            'phone' => $phone,
-            'password' => 'pass',
-        ])) {
-            return redirect('/profile');
-        }
         if( User::create($user_data) ) {
             if (Auth::attempt([
                 'phone' => $phone,
-                'password' => 'pass',
+                'password' => '1p@ssWord2',
             ])) {
                 return redirect('/profile');
             } else {

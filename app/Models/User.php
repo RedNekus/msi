@@ -26,7 +26,8 @@ class User extends Authenticatable
         'password',
         'bitrix_id',
         'gender',
-        'birthdate'
+        'birthdate',
+        'document_number'
     ];
 
     /**

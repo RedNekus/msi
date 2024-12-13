@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Yourls extends Model
 {
     use HasFactory;
-    const API_URL = 'http://msi.yoowills.local/s/yourls-api.php';
+    const API_URL = 'https://yoowills.by/s/yourls-api.php';
     const MSI_URL = 'https://ioauth.raschet.by/oauth/authorize';
     const CLIENT_ID = 'JUj8W1FvAoToCsDiaQPoQx1w2LmHFeeh';
     const REDIRECT_URL = 'https://msi.yoowills.by';

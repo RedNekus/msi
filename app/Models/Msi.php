@@ -76,11 +76,6 @@ class Msi extends Model
     }
 
     public static function convertMsiInfo($data) {
-        /*
-        echo "<pre>";
-        var_dump(json_decode($data));
-        echo "</pre>";
-        */
         $arrData = json_decode($data);
         return [
             'document_number' => $arrData->national_id_number,
@@ -92,11 +87,6 @@ class Msi extends Model
     }
     public static function convertMsiAddress($data) {
         $arrData = json_decode($data);
-        /*
-        echo "<pre>";
-        var_dump($arrData);
-        echo "</pre>";
-        */
         return [
             'zip_code' => $arrData->contact->living_address->postal_code,
             'settlement' => $arrData->contact->living_address->locality,
@@ -109,7 +99,6 @@ class Msi extends Model
 
     public static function convertRegisterAddress($data) {
         $arrData = json_decode($data);
-        
         return [
             'zip_code' => $arrData->subject->address->postal_code,
             'settlement' => $arrData->subject->address->locality,

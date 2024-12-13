@@ -76,7 +76,7 @@ class UserController extends Controller
                 $bxdata = Bitrix::getRequisite((int)$user->bitrix_id);
                 if(is_array($bxdata) && count($bxdata)) {
                     $data = Bitrix::convertPassport($bxdata[0]);
-                    if($data->document_series === '') {
+                    if($data->document_series === '' || true) {
                         $rawData = session()->get('data');
                         $data = Msi::convertMsiInfo($rawData);
                     }

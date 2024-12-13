@@ -2,7 +2,7 @@
 @section('content')
 <div class="form-container">
     <div class="form-container__title">Адрес регистрации</div>
-    <form class="lead-form" action="/register-address" method="POST">
+    <form class="lead-form" action="/register-address" method="POST" id="register_address">
         @csrf
         <fieldset class="lead-form__group lead-form__group--disabled">
             <legend class="lead-form__label" for="zip_code">Почтовый индекс</legend>
@@ -44,6 +44,7 @@
                 <input class="lead-form__radio-input" type="radio" name="matches" id="matches_1" value="1">
                 <label class="lead-form__radio-label" for="matches_1">Да</label>
             </p>
+            <div class="messages"></div>
         </div>
         <div class="lead-form__bottom">
             <div class="lead-form__back"><a id="back" href="/passport" data-href="/address">Назад</a></div>

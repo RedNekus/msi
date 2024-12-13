@@ -176,11 +176,11 @@ class Bitrix extends Model
                 ...$fields
             ];
         }
-        $data = [
+        $res = [
             'fields' => $fields,
             'params' => ['REGISTER_SONET_EVENT' => 'Y']
         ];
-        return $data;
+        return $res;
     }
     private static function prepareAddrData($data) {
         $fields = [
@@ -234,6 +234,7 @@ class Bitrix extends Model
         return json_encode($queryParams);
     }
     private static function prepareContactData($data) {
+        $phone = str_replace(['(', ')', ' ', '-'], '', $data['phone']) ?? '';
         $queryParams = [
             'fields' => [
                 "NAME" => $data['firstrname'] ?? '',
@@ -243,7 +244,7 @@ class Bitrix extends Model
                 "ASSIGNED_BY_ID" => 1,
                 "TYPE_ID" => "CLIENT",
                 "SOURCE_ID" => "SELF",
-                "PHONE" => [[ "VALUE" => $data['phone'] ?? '', "VALUE_TYPE" => "WORK" ]]
+                "PHONE" => [[ "VALUE" => $phone ?? '', "VALUE_TYPE" => "WORK" ]]
             ],
             'params' => ['REGISTER_SONET_EVENT' => 'Y']
         ];
@@ -279,17 +280,22 @@ class Bitrix extends Model
         $genders= ['М' => 1, 'Ж' => 0];
         $birthdate = array_reverse(explode('.', $data['birthday']));
         $birthdate = implode('-', $birthdate) . ' 00:00:00';
+        $session = session()->get('data');
+        $arrData = json_decode($session);
+        $document = $arrData->national_id_number;
+        $phone = str_replace(['(', ')', ' ', '-'], '', $data['phone']) ?? '';
         $userData = [
             'name' => $data['firstrname'],
-            'phone' => $data['phone'],
+            'phone' => $phone,
             'lastname' => $data['lastname'],
             'middlename' => $data['middlename'],
             'bitrix_id' => (int)($resObj->result),
             'gender' => $genders[$data['gender']] ?? 0,
             'birthdate' => $birthdate,
+            'document_number' => $document ?? '',
         ];
         if (Auth::attempt([
-            'phone' => $data['phone'],
+            'phone' => $phone,
             'password' => $data['password'] ?? '1p@ssWord2',
         ])) {
             $user = Auth::user();
@@ -352,7 +358,19 @@ class Bitrix extends Model
                 $data[ 'TYPE_ID' ] = $data['type_id'] ?? 1;
                 $data[ 'ENTITY_TYPE_ID' ] =  8;
                 $params = self::prepareAddrData($data);
-                $res = self::BXQuery('crm.address.update.json', $params);
+
+                $filterData = [
+                    "order" => ["TYPE_ID" => "ASC"],
+                    "filter" =>  ["ENTITY_ID" => $requisites->result[0]->ID, "TYPE_ID" => $data['type_id'] ?? 1],
+                    "select" => [ "TYPE_ID" ]
+                ];
+                $addrList = json_decode(self::BXQuery('crm.crm.address.list.json', json_encode($filterData)));
+
+                if(!empty($resultRequisite->result)) {
+                    $res = self::BXQuery('crm.address.update.json', $params);
+                } else {
+                    $res = self::BXQuery('crm.address.add.json', $params);
+                }
             }
            return $res;
         }
@@ -362,7 +380,6 @@ class Bitrix extends Model
             $data['contact_id'] = session()->get('contact_id') ?? 0;
         }
         if($data['contact_id']) {
-            $data = self::preparePassportData($data);
             $requisiteFilter = [
                 "order" => [ "DATE_CREATE" => "ASC" ],
                 "filter" => [ "ENTITY_ID" => $data['contact_id'] ?? 0],
@@ -371,12 +388,16 @@ class Bitrix extends Model
             $requisites = json_decode(self::BXQuery('crm.requisite.list.json', json_encode($requisiteFilter)));
             if(empty($requisites->result)) {
                 $data['PresetID'] = 3;
+                $data['entity_type'] = 3;
                 $data['requisite_name'] = "Паспотные данные";
-                $res = self::BXQuery('crm.requisite.add.json', json_encode($data));
+                $passportData = self::preparePassportData($data);
+                var_dump($passportData);
+                $res = self::BXQuery('crm.requisite.add.json', json_encode($passportData));
             } else {
-                $data['id'] = $requisites->result[0]->ID;
-                $res = self::BXQuery('crm.requisite.update.json', json_encode($data));                
-            } 
+                $passportData = self::preparePassportData($data);
+                $passportData['id'] = $requisites->result[0]->ID;
+                $res = self::BXQuery('crm.requisite.update.json', json_encode($passportData));                
+            }
         }
     }
     public static function getRequisite($id) {
