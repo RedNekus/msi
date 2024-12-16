@@ -31,6 +31,6 @@ $protocol = 'https';
     <main>
         @yield('content')
     </main>
-    <footer></footer>
+    @include('msi.footer')
   </body>
 </html>
