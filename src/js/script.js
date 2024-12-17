@@ -1,4 +1,5 @@
 import iMask from 'imask';
+import validate from 'validate.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const dropdowns = document.querySelectorAll(`[data-toggle="dropdown"]`);
@@ -56,12 +57,14 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-  if ('undefined' !== typeof form) {
-    elems = Object.values(form.elements).
-        filter((el) => el && el.classList.contains('is-editable'));
+  if ('undefined' !== typeof form && form.elements) {
+    elems = Object.values(form.elements);
+    if (elems) {
+      elems.filter((el) => el && el.classList.contains('is-editable'));
+    }
     const phone = form.elements.phone;
     if ('undefined' !== typeof phone) {
-      const newMask = iMask(phone,
+      iMask(phone,
           {
             mask: '+{375} (00) 000-00-00',
             lazy: true,
@@ -69,8 +72,86 @@ document.addEventListener('DOMContentLoaded', () => {
       ).on('complete', function() {
         // todo:
       });
-      console.log(newMask);
     }
+
+    Object.values(form.elements).forEach((el) =>{
+      el.addEventListener('change', () => {
+        el.classList.remove('invalid');
+        let msg = el.parentElement.querySelector('.messages');
+        if (!msg) {
+          msg = el.parentElement
+              .parentElement.querySelector('.messages');
+        }
+        if (msg) {
+          msg.classList.remove('error');
+          msg.innerHTML = '';
+        }
+      });
+    });
+    const checkFields = (constraints) => {
+      const errors = validate(form, constraints);
+      if (errors) {
+        Object.entries(errors).forEach(([id, error]) => {
+          let isRadio = 0;
+          let input = form.elements[id];
+          if (input instanceof Array || input instanceof RadioNodeList) {
+            input = input[0];
+            isRadio = 1;
+          }
+          if (input) {
+            input.classList.add('invalid');
+            let msg = input.parentElement.querySelector('.messages');
+            if (isRadio && !msg) {
+              msg = input.parentElement
+                  .parentElement.querySelector('.messages');
+            }
+            if (null !== msg) {
+              msg.innerHTML = error[0];
+              msg.classList.add('error');
+            }
+          }
+        });
+        return false;
+      } else {
+        return true;
+      }
+    };
+    form.addEventListener('submit', (e) => {
+      if (form.id === 'agreements') {
+        e.preventDefault();
+        // const data = new FormData(form);
+        const constraints = {
+          agreement_report: {
+            presence: {
+              message: `^Подтвердите согласие на предоставление
+              кредитного отчета`,
+            },
+          },
+          agreement_personal: {
+            presence: {
+              message: `^Подтвердите согласие на хранение и
+              обработку персональных данных`,
+            },
+          },
+        };
+        if (checkFields(constraints)) {
+          form.submit();
+        }
+      }
+      if (form.id === 'register_address') {
+        e.preventDefault();
+        const constraints = {
+          matches: {
+            presence: {
+              message: `^Выберетите значение!`,
+            },
+          },
+        };
+        if (checkFields(constraints)) {
+          form.submit();
+        }
+      }
+    });
   }
 
   if (null !== editLink) {
