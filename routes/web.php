@@ -25,6 +25,7 @@ Route::get('/profile', [UserController::class, 'index'])->name('step-1');
 Route::post('/profile', [UserController::class, 'add']);
 Route::get('/auth', [UserController::class, 'auth'])->name('auth');
 Route::post('/auth', [UserController::class, 'login']);
+Route::get('/logout', [UserController::class, 'logout']);
 Route::get('/register', [UserController::class, 'register']);
 Route::post('/register', [UserController::class, 'registration']);
 Route::get('/passport', [UserController::class, 'passport'])->name('step-2');

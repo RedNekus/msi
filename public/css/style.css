@@ -1,38 +1,64 @@
-.footer {
-  display: none;
+header .header-nav {
+  margin-bottom: 30px;
+}
+header .header-nav > .container {
+  border-bottom: 1px solid #E7E0E0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+}
+
+.footer > .container {
+  border-top: 1px solid #E7E0E0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.footer__map {
+  margin: 1.875em 0;
+  justify-self: end;
+  min-height: 272px;
+  max-width: 632px;
+  overflow: hidden;
+  border-radius: 30px;
+  width: 100%;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  grid-column-start: 2;
+}
+.footer__map iframe {
+  width: 100%;
+  height: 100%;
+}
+.footer__contacts {
+  padding: 1.875em 0;
+  display: grid;
+  gap: 0.66em;
+  align-self: start;
+}
+.footer__contacts-header {
+  font-weight: 700;
+  font-size: 1.3em;
+}
+.footer__bottom {
+  align-self: end;
+  color: #B0B0B1;
+  display: grid;
+  gap: 0.33em;
+  font-size: 0.8125em;
+  margin: 1.875em 0;
 }
 @media screen and (max-width: 768px) {
-  .footer {
-    display: grid;
-  }
-  .footer .container {
-    border-top: 1px solid #E7E0E0;
-    padding: 25px 0;
-  }
-  .footer__contacts {
-    display: grid;
-    gap: 8px;
-  }
-  .footer__contacts-header {
-    font-weight: 700;
-    font-size: 1.3em;
+  .footer > .container {
+    grid-template-columns: 1fr;
   }
   .footer__map {
-    width: 100%;
-    border-radius: 30px;
-    margin: 8px 0;
-    overflow: hidden;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 1;
   }
   .footer__map iframe {
-    width: 100%;
     min-height: 125px;
-  }
-  .footer__bottom {
-    margin: 15px 0;
-    color: #B0B0B1;
-    display: grid;
-    gap: 4px;
-    font-size: 0.8125em;
   }
 }
 
@@ -52,6 +78,7 @@
   font-family: "TT Norms Pro", sans-serif;
 }
 
+/*:root {}*/
 body, html {
   height: 100%;
 }
@@ -152,6 +179,7 @@ p {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  counter-increment: counter;
 }
 .steps__item span {
   color: #333;
@@ -165,7 +193,6 @@ p {
   background-color: #14ABF8;
   align-items: center;
   justify-content: center;
-  counter-increment: counter;
   color: #FFF;
   font-family: "Montserrat";
   font-weight: 500;
@@ -212,7 +239,8 @@ p {
   background-color: #F9FAFD;
   max-width: 25vw;
   margin-bottom: 60px;
-  background-image: radial-gradient(circle at bottom left, rgba(19, 170, 247, 0.25), transparent);
+  background-image: linear-gradient(212.82deg, #FFFFFF 40.31%, #EDF4FF 82.32%, #EAFEFF 90.29%);
+  border: 1px solid #E7E0E0;
 }
 .form-container__title {
   font-family: "Montserrat", "TT Norms";
@@ -224,8 +252,6 @@ p {
 .form-container__text {
   font-weight: 400;
   font-size: 1.125em;
-  display: flex;
-  align-items: center;
   text-align: center;
   letter-spacing: 0.02em;
   color: #333333;
@@ -257,6 +283,7 @@ p {
 .container {
   max-width: 1400px;
   margin: 0 auto;
+  width: calc(100% - 4em);
 }
 
 @media screen and (max-width: 768px) {
@@ -265,17 +292,6 @@ p {
     width: 85vw;
   }
 }
-.header-nav {
-  border-bottom: 1px solid #F5F5F5;
-  margin-bottom: 30px;
-}
-.header-nav > .container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 80px;
-}
-
 .nav-block {
   display: flex;
   align-items: center;
@@ -392,11 +408,14 @@ input:checked + .lead-form__radio-label::after {
 }
 .lead-form__group {
   border: 1px solid #B0B0B1;
-  height: 72px;
-  border-radius: 41px;
+  height: 3.125em;
+  border-radius: 3em;
   box-sizing: border-box;
   margin: 16px 0;
   padding: 0;
+}
+.lead-form__group:has(legend) {
+  height: 4.5em;
 }
 .lead-form__group:has(*:focus) {
   border-color: #13AAF7;
@@ -420,7 +439,7 @@ input:checked + .lead-form__radio-label::after {
   padding: 0 12px;
   font-weight: bold;
   font-family: "Montserrat", "TT Norms";
-  height: 22px;
+  height: 1.375em;
   font-size: 1em;
 }
 .lead-form legend.lead-form__label > p {
@@ -492,9 +511,9 @@ input:checked + .lead-form__radio-label::after {
   align-items: center;
   color: white;
   background: linear-gradient(109.64deg, #13AAF7 16.49%, #5782F1 105.64%);
-  box-shadow: inset 0px 0px 22px rgba(255, 255, 255, 0.25);
+  box-shadow: inset 0px 0px 1.375em rgba(255, 255, 255, 0.25);
   border-radius: 41px;
-  height: 52px;
+  height: 3.125em;
   border: none;
   width: 100%;
   cursor: pointer;

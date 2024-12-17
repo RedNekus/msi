@@ -6,10 +6,12 @@
         </div>
         <div class="cabinet" JS_cabinet>
         <div class="cabinet__title dropdown-toggle" data-toggle="dropdown" data-target="#cabinet">
-            <div class="cabinet__logo">AA</div>
-            <div class="cabinet__text">Ваш профиль</div>
+            <!-- <div class="cabinet__logo">AA</div>
+            <div class="cabinet__text">Ваш профиль</div> -->
+            <a class="cabinet__logout" href="/logout">Выйти</a>
         </div>
-        <div class="cabinet__content is-hidden" id="cabinet"><a class="cabinet__logout" href="#">Выйти</a></div>
+        <div class="cabinet__content is-hidden" id="cabinet">
+            <!-- <a class="cabinet__logout" href="/logout">Выйти</a> -->
         </div>
     </div>
     </nav>

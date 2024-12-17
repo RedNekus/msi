@@ -58,6 +58,10 @@ class UserController extends Controller
             }
         }
     }
+    public function logout() {
+        Auth::logout();
+        return redirect()->route('auth', []);
+    }
     public function register() {    
         return view('user.register', []);
     }

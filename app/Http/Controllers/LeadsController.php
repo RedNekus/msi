@@ -103,7 +103,6 @@ class LeadsController extends Controller
             $data = [
                 'agreement_report' => 0,
                 'agreement_personal' => 0,
-                'agreement_politic' => 0,
             ];
             foreach($rq as $key=>$item) {
                 if(isset($data[$key])) {
