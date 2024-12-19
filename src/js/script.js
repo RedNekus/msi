@@ -59,8 +59,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   if ('undefined' !== typeof form && form.elements) {
     elems = Object.values(form.elements);
+    // gg
+    console.log(elems);
     if (elems) {
-      elems.filter((el) => el && el.classList.contains('is-editable'));
+      elems.filter((el) => el && el.classList &&
+        el.classList.contains('is-editable'));
     }
     const phone = form.elements.phone;
     if ('undefined' !== typeof phone) {
@@ -151,6 +154,40 @@ document.addEventListener('DOMContentLoaded', () => {
           form.submit();
         }
       }
+    });
+  }
+
+  if (null !== form && form.id === 'confirmation') {
+    const timer = document.querySelector(`[data-timer]`);
+    const resend = document.querySelector(`[data-resend]`);
+    const timeEl = document.querySelector(`[data-time]`);
+    const timerFunc = () => {
+      const timerId = setInterval(() => {
+        let time = timeEl.dataset.time;
+        --time;
+        if (time >= 0) {
+          timeEl.innerHTML = time;
+          timeEl.dataset.time = time;
+        } else {
+          clearInterval(timerId);
+          timer.classList.add(`is-hidden`);
+          resend.classList.remove(`is-hidden`);
+        }
+      }, 1000);
+    };
+    timerFunc();
+    resend.addEventListener('click', async (e) => {
+      e.preventDefault();
+      timeEl.innerHTML = 59;
+      timeEl.dataset.time = 59;
+      timer.classList.remove(`is-hidden`);
+      resend.classList.add(`is-hidden`);
+      const response = await fetch('/lead/sendsms');
+      if (response.ok) {
+        const json = await response.json();
+        console.log(json);
+      }
+      timerFunc();
     });
   }
 
