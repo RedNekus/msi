@@ -143,9 +143,17 @@ class LeadsController extends Controller
         }
     }
     public function areementReport() {
-        return fPDF::getAreementReportFile();
+        if(Auth::check()) {
+            return fPDF::getAreementReportFile();
+        } else {
+            return redirect()->route('auth', []);
+        }
     }
     public function areementPersonal() {
-        return fPDF::getAreementPersonalFile();
+        if(Auth::check()) {
+            return fPDF::getAreementPersonalFile();
+        } else {
+            return redirect()->route('auth', []);
+        }
     }
 }

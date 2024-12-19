@@ -1,0 +1,121 @@
+[19-Dec-2024 14:50:32 Europe/Minsk] PHP Fatal error:  Uncaught BadMethodCallException: Method Illuminate\Foundation\Application::configure does not exist. in /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php:112
+Stack trace:
+#0 /home/yowhlsru/cabinet.yoowills.by/bootstrap/app.php(54): Illuminate\Foundation\Application->__call()
+#1 /home/yowhlsru/cabinet.yoowills.by/public/index.php(47): require_once('/home/yowhlsru/...')
+#2 {main}
+  thrown in /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php on line 112
+[19-Dec-2024 14:57:15 Europe/Minsk] PHP Fatal error:  Uncaught BadMethodCallException: Method Illuminate\Foundation\Application::configure does not exist. in /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php:112
+Stack trace:
+#0 /home/yowhlsru/cabinet.yoowills.by/bootstrap/app.php(44): Illuminate\Foundation\Application->__call()
+#1 /home/yowhlsru/cabinet.yoowills.by/public/index.php(47): require_once('/home/yowhlsru/...')
+#2 {main}
+  thrown in /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php on line 112
+[19-Dec-2024 15:02:05 Europe/Minsk] PHP Fatal error:  Uncaught ReflectionException: Class "config" does not exist in /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Container/Container.php:912
+Stack trace:
+#0 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Container/Container.php(912): ReflectionClass->__construct()
+#1 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#2 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(963): Illuminate\Container\Container->resolve()
+#3 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Container/Container.php(731): Illuminate\Foundation\Application->resolve()
+#4 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(948): Illuminate\Container\Container->make()
+#5 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Support/ServiceProvider.php(135): Illuminate\Foundation\Application->make()
+#6 /home/yowhlsru/cabinet.yoowills.by/vendor/barryvdh/laravel-dompdf/src/ServiceProvider.php(28): Illuminate\Support\ServiceProvider->mergeConfigFrom()
+#7 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(794): Barryvdh\DomPDF\ServiceProvider->register()
+#8 /home/yowhlsru/cabinet.yoowills.by/bootstrap/app.php(17): Illuminate\Foundation\Application->register()
+#9 /home/yowhlsru/cabinet.yoowills.by/public/index.php(47): require_once('/home/yowhlsru/...')
+#10 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [config] does not exist. in /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Container/Container.php:914
+Stack trace:
+#0 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#1 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(963): Illuminate\Container\Container->resolve()
+#2 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Container/Container.php(731): Illuminate\Foundation\Application->resolve()
+#3 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(948): Illuminate\Container\Container->make()
+#4 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Support/ServiceProvider.php(135): Illuminate\Foundation\Application->make()
+#5 /home/yowhlsru/cabinet.yoowills.by/vendor/barryvdh/laravel-dompdf/src/ServiceProvider.php(28): Illuminate\Support\ServiceProvider->mergeConfigFrom()
+#6 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(794): Barryvdh\DomPDF\ServiceProvider->register()
+#7 /home/yowhlsru/cabinet.yoowills.by/bootstrap/app.php(17): Illuminate\Foundation\Application->register()
+#8 /home/yowhlsru/cabinet.yoowills.by/public/index.php(47): require_once('/home/yowhlsru/...')
+#9 {main}
+  thrown in /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 914
+[19-Dec-2024 15:03:08 Europe/Minsk] PHP Fatal error:  Uncaught ReflectionException: Class "config" does not exist in /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Container/Container.php:912
+Stack trace:
+#0 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Container/Container.php(912): ReflectionClass->__construct()
+#1 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#2 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(963): Illuminate\Container\Container->resolve()
+#3 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Container/Container.php(731): Illuminate\Foundation\Application->resolve()
+#4 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(948): Illuminate\Container\Container->make()
+#5 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Support/ServiceProvider.php(135): Illuminate\Foundation\Application->make()
+#6 /home/yowhlsru/cabinet.yoowills.by/vendor/barryvdh/laravel-dompdf/src/ServiceProvider.php(28): Illuminate\Support\ServiceProvider->mergeConfigFrom()
+#7 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(794): Barryvdh\DomPDF\ServiceProvider->register()
+#8 /home/yowhlsru/cabinet.yoowills.by/bootstrap/app.php(17): Illuminate\Foundation\Application->register()
+#9 /home/yowhlsru/cabinet.yoowills.by/public/index.php(47): require_once('/home/yowhlsru/...')
+#10 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [config] does not exist. in /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Container/Container.php:914
+Stack trace:
+#0 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#1 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(963): Illuminate\Container\Container->resolve()
+#2 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Container/Container.php(731): Illuminate\Foundation\Application->resolve()
+#3 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(948): Illuminate\Container\Container->make()
+#4 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Support/ServiceProvider.php(135): Illuminate\Foundation\Application->make()
+#5 /home/yowhlsru/cabinet.yoowills.by/vendor/barryvdh/laravel-dompdf/src/ServiceProvider.php(28): Illuminate\Support\ServiceProvider->mergeConfigFrom()
+#6 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(794): Barryvdh\DomPDF\ServiceProvider->register()
+#7 /home/yowhlsru/cabinet.yoowills.by/bootstrap/app.php(17): Illuminate\Foundation\Application->register()
+#8 /home/yowhlsru/cabinet.yoowills.by/public/index.php(47): require_once('/home/yowhlsru/...')
+#9 {main}
+  thrown in /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 914
+[19-Dec-2024 15:03:09 Europe/Minsk] PHP Fatal error:  Uncaught ReflectionException: Class "config" does not exist in /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Container/Container.php:912
+Stack trace:
+#0 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Container/Container.php(912): ReflectionClass->__construct()
+#1 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#2 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(963): Illuminate\Container\Container->resolve()
+#3 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Container/Container.php(731): Illuminate\Foundation\Application->resolve()
+#4 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(948): Illuminate\Container\Container->make()
+#5 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Support/ServiceProvider.php(135): Illuminate\Foundation\Application->make()
+#6 /home/yowhlsru/cabinet.yoowills.by/vendor/barryvdh/laravel-dompdf/src/ServiceProvider.php(28): Illuminate\Support\ServiceProvider->mergeConfigFrom()
+#7 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(794): Barryvdh\DomPDF\ServiceProvider->register()
+#8 /home/yowhlsru/cabinet.yoowills.by/bootstrap/app.php(17): Illuminate\Foundation\Application->register()
+#9 /home/yowhlsru/cabinet.yoowills.by/public/index.php(47): require_once('/home/yowhlsru/...')
+#10 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [config] does not exist. in /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Container/Container.php:914
+Stack trace:
+#0 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#1 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(963): Illuminate\Container\Container->resolve()
+#2 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Container/Container.php(731): Illuminate\Foundation\Application->resolve()
+#3 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(948): Illuminate\Container\Container->make()
+#4 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Support/ServiceProvider.php(135): Illuminate\Foundation\Application->make()
+#5 /home/yowhlsru/cabinet.yoowills.by/vendor/barryvdh/laravel-dompdf/src/ServiceProvider.php(28): Illuminate\Support\ServiceProvider->mergeConfigFrom()
+#6 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(794): Barryvdh\DomPDF\ServiceProvider->register()
+#7 /home/yowhlsru/cabinet.yoowills.by/bootstrap/app.php(17): Illuminate\Foundation\Application->register()
+#8 /home/yowhlsru/cabinet.yoowills.by/public/index.php(47): require_once('/home/yowhlsru/...')
+#9 {main}
+  thrown in /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 914
+[19-Dec-2024 15:03:49 Europe/Minsk] PHP Fatal error:  Uncaught ReflectionException: Class "config" does not exist in /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Container/Container.php:912
+Stack trace:
+#0 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Container/Container.php(912): ReflectionClass->__construct()
+#1 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#2 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(963): Illuminate\Container\Container->resolve()
+#3 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Container/Container.php(731): Illuminate\Foundation\Application->resolve()
+#4 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(948): Illuminate\Container\Container->make()
+#5 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Support/ServiceProvider.php(135): Illuminate\Foundation\Application->make()
+#6 /home/yowhlsru/cabinet.yoowills.by/vendor/barryvdh/laravel-dompdf/src/ServiceProvider.php(28): Illuminate\Support\ServiceProvider->mergeConfigFrom()
+#7 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(794): Barryvdh\DomPDF\ServiceProvider->register()
+#8 /home/yowhlsru/cabinet.yoowills.by/bootstrap/app.php(17): Illuminate\Foundation\Application->register()
+#9 /home/yowhlsru/cabinet.yoowills.by/public/index.php(47): require_once('/home/yowhlsru/...')
+#10 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [config] does not exist. in /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Container/Container.php:914
+Stack trace:
+#0 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#1 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(963): Illuminate\Container\Container->resolve()
+#2 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Container/Container.php(731): Illuminate\Foundation\Application->resolve()
+#3 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(948): Illuminate\Container\Container->make()
+#4 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Support/ServiceProvider.php(135): Illuminate\Foundation\Application->make()
+#5 /home/yowhlsru/cabinet.yoowills.by/vendor/barryvdh/laravel-dompdf/src/ServiceProvider.php(28): Illuminate\Support\ServiceProvider->mergeConfigFrom()
+#6 /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(794): Barryvdh\DomPDF\ServiceProvider->register()
+#7 /home/yowhlsru/cabinet.yoowills.by/bootstrap/app.php(17): Illuminate\Foundation\Application->register()
+#8 /home/yowhlsru/cabinet.yoowills.by/public/index.php(47): require_once('/home/yowhlsru/...')
+#9 {main}
+  thrown in /home/yowhlsru/cabinet.yoowills.by/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 914
+[19-Dec-2024 12:25:35 UTC] PHP Fatal error:  Cannot redeclare App\Models\fPDF::getAreementReportFile() in /home/yowhlsru/cabinet.yoowills.by/app/Models/fPDF.php on line 17

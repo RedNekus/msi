@@ -11,7 +11,7 @@
     </div>
     <div class="footer__bottom">
       <p>ООО “Ювилс Лизинг”, УНП 192825384</p>
-      <p><a href="/uploads/Privacy_Policy.pdf">Политика конфиденциальности</a></p>
+      <p><a href="/uploads/Privacy_Policy.pdf" target="_blank">Политика конфиденциальности</a></p>
     </div>
   </div>
 </footer>

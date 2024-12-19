@@ -94,6 +94,7 @@ class Msi extends Model
             'house' => $arrData->contact->living_address->house,
             'housing' => $arrData->contact->living_address->building,
             'apartment' => $arrData->contact->living_address->apartment,
+            'country' => $arrData->contact->living_address->country,
         ];
     }
 
@@ -106,6 +107,7 @@ class Msi extends Model
             'house' => $arrData->subject->address->house,
             'housing' => $arrData->subject->address->building,
             'apartment' => $arrData->subject->address->apartment,
+            'country' => $arrData->subject->address->country,
         ];
     }
 }
