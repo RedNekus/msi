@@ -143,9 +143,9 @@ class LeadsController extends Controller
         }
     }
     public function areementReport() {
-        fPDF::getAreementReportFile();
+        return fPDF::getAreementReportFile();
     }
     public function areementPersonal() {
-        fPDF::getAreementPersonalFile();
+        return fPDF::getAreementPersonalFile();
     }
 }
