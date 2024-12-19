@@ -5,8 +5,8 @@
     //var_dump($data);
 ?>
 </pre>
-<div class="form-container form-container--auth">
-    <div class="form-container__title mb-0">Отчет успешно<br>сформирован!</div>
-    <div class="form-container__text">Ожидайте обратной связи<br> от нашего специалиста</div>
+<div class="form-container form-container--transparent">
+    <div class="form-container__title form-container__title--center">Документы успешно<br> подписаны!</div>
+    <div class="form-container__text">Спасибо за обращение в нашу<br> компанию</div>
 </div>
 @endsection

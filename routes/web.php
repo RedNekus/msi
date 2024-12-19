@@ -44,6 +44,7 @@ Route::get('/lead/add/confirmation', [LeadsController::class, 'confirmation'])->
 Route::post('/lead/add/confirmation', [LeadsController::class, 'addConfirmation']);
 
 Route::get('/lead/add/success', [LeadsController::class, 'success'])->name('success');
+Route::any('/lead/sendsms', [LeadsController::class, 'sendSms']);
 
 Route::get('/leads', [LeadsController::class, 'get']);
 Route::get('/lead/{id}', [LeadsController::class, 'lead']);

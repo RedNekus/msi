@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use App\Jobs\SMS;
 
 class User extends Authenticatable
 {
@@ -49,8 +48,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
-    public static function sendSms($phone) {
-        SMS::dispatch((new SMS( '+71234567890', 'Hello world!')))->delay(5);
-    }
 }

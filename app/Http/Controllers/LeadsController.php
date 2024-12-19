@@ -116,12 +116,7 @@ class LeadsController extends Controller
             $res = json_decode(Bitrix::updateDeal($data));
             $request->session()->put('step-6', $data);
             $request->session()->put('step', 6);
-            if($user->phone) {
-                $code = bin2hex(random_bytes(3));
-                $request->session()->put('code', $code);
-                $phone= str_replace(['(',')',' ', '-'], '', $user->phone);
-                SendSms::dispatch($phone, "Ваш код: {$code}");
-            }
+            self::sendSms();
             return redirect()->route('step-7', []);
         } else {
             return redirect()->route('auth', []);
@@ -134,6 +129,16 @@ class LeadsController extends Controller
             return redirect()->route('success', []);
         } else {
             return redirect()->route('auth', []);
+        }
+    }
+    public function sendSms() {
+        $user = Auth::user();
+        if($user->phone) {
+            $code = rand( 10000 , 99999 );
+            session()->put('code', $code);
+            $phone = str_replace(['(',')',' ', '-'], '', $user->phone);
+            SendSms::dispatch($phone, "Ваш код: {$code}");
+            return true;
         }
     }
 }
