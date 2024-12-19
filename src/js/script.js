@@ -59,10 +59,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   if ('undefined' !== typeof form && form.elements) {
     elems = Object.values(form.elements);
-    // gg
-    console.log(elems);
     if (elems) {
-      elems.filter((el) => el && el.classList &&
+      elems.filter((el) => el.nodeName === 'INPUT' &&
         el.classList.contains('is-editable'));
     }
     const phone = form.elements.phone;
@@ -78,18 +76,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     Object.values(form.elements).forEach((el) =>{
-      el.addEventListener('change', () => {
-        el.classList.remove('invalid');
-        let msg = el.parentElement.querySelector('.messages');
-        if (!msg) {
-          msg = el.parentElement
-              .parentElement.querySelector('.messages');
-        }
-        if (msg) {
-          msg.classList.remove('error');
-          msg.innerHTML = '';
-        }
-      });
+      if (el.nodeName === 'INPUT') {
+        el.addEventListener('change', () => {
+          el.classList.remove('invalid');
+          let msg = el.parentElement.querySelector('.messages');
+          if (!msg) {
+            msg = el.parentElement
+                .parentElement.querySelector('.messages');
+          }
+          if (msg) {
+            msg.classList.remove('error');
+            msg.innerHTML = '';
+          }
+        });
+      }
     });
     const checkFields = (constraints) => {
       const errors = validate(form, constraints);
