@@ -12,10 +12,10 @@ class fPDF extends Model
 
     public static function getAreementReportFile() {
         $pdf = Pdf::loadView('pdf.areement-report', []);
-        return $pdf->download('areement-report.pdf');
+        return $pdf->stream();
     }
     public static function getAreementPersonalFile() {
         $pdf = Pdf::loadView('pdf.areement-personal', []);
-        return $pdf->download('areement-personal.pdf');
+        return $pdf->stream();
     }
 }
