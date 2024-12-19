@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Leads;
 use App\Models\Bitrix;
+use App\Models\fPDF;
 use App\Jobs\SendSMS;
 
 class LeadsController extends Controller
@@ -140,5 +141,11 @@ class LeadsController extends Controller
             SendSms::dispatch($phone, "Ваш код: {$code}");
             return true;
         }
+    }
+    public function areementReport() {
+        fPDF::getAreementReportFile();
+    }
+    public function areementPersonal() {
+        fPDF::getAreementPersonalFile();
     }
 }
