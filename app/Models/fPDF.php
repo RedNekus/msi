@@ -10,12 +10,12 @@ class fPDF extends Model
 {
     use HasFactory;
 
-    public function getAreementReportFile() {
-        $pdf = Pdf::loadView('pdf.areement-report', $data);
+    public static function getAreementReportFile() {
+        $pdf = Pdf::loadView('pdf.areement-report', []);
         return $pdf->download('areement-report.pdf');
     }
-    public function getAreementPersonalFile() {
-        $pdf = Pdf::loadView('pdf.areement-personal', $data);
+    public static function getAreementPersonalFile() {
+        $pdf = Pdf::loadView('pdf.areement-personal', []);
         return $pdf->download('areement-personal.pdf');
     }
 }
