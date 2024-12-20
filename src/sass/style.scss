@@ -188,6 +188,9 @@ p {
       text-align: center;
       letter-spacing: 0.02em;
       color: #333333;
+      &.error {
+        color: #CB1F1F
+      }
     }
     @media screen and (max-width: $breakpoint-tablet) {
       &--transparent {
