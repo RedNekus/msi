@@ -33,6 +33,7 @@ class MsiController extends Controller
         $phone = "+" . trim($data->contact->phones[0]);
         $userExists = User::where('phone', '=', $phone)->first();
         $request->session()->put('data', $raw_data);
+        $request->session()->put('state',  $request->input('state') ?? "");
         if($userExists) {
             if (Auth::attempt([
                 'phone' => $phone,
@@ -69,8 +70,12 @@ class MsiController extends Controller
         $state = $request->input('state');
         if(isset($state) && '' !== $state) 
         {
-            $yourlsData = Yourls::setShort($state);
-            return ['data' => $yourlsData];
+            $stateArr = explode(':', $state);
+            if($stateArr[0]) {
+                $yourlsData = Yourls::setShort($state);
+                Bitrix::addShortLink($yourlsData, $stateArr[0]);
+                return ['data' => $yourlsData];
+            }
         }
     }
     public function address() {

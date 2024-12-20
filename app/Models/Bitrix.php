@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\fPDF;
 
 class Bitrix extends Model
 {
@@ -132,14 +133,16 @@ class Bitrix extends Model
         return $res;
     }
     private static function prepareDealData($data) {
-        $fields = [
-            "TITLE" => "Заполнена анкета",
-            "TYPE_ID" => "GOODS", 
-            "STAGE_ID" => "NEW",
-            "OPENED" => "Y",
-            "CURRENCY_ID" => "USD",
-            "ASSIGNED_BY_ID" => 135,
-        ];
+        if(empty($data['deal_id']) || $data['deal_id'] === '0') {
+            $fields = [
+                "TITLE" => "Заполнена анкета",
+                "TYPE_ID" => "GOODS", 
+                "STAGE_ID" => "NEW",
+                "OPENED" => "Y",
+                "CURRENCY_ID" => "USD",
+                "ASSIGNED_BY_ID" => 135,
+            ];
+        }
         foreach(self::DEAL_FIELDS as $name=>$field) {
             if(isset($data[$field]) && '' !== $data[$field]) {
                 $fields[$name] = $data[$field];
@@ -272,6 +275,20 @@ class Bitrix extends Model
         $params = self::prepareDealData($data);
         $res = self::BXQuery('crm.deal.update.json', $params);
         return $res;
+    }
+    public static function addShortLink($link, $id) {
+        if($link) {
+            $queryParams = [
+                'id' => $id,
+                'fields' => [
+                    "UF_CRM_1734680149" => $link,
+                ],
+                'params' => ['REGISTER_SONET_EVENT' => 'Y']
+            ];
+            $params = json_encode($queryParams);
+            $res = self::BXQuery('crm.deal.update.json', $params);
+            return $res;
+        }
     }
     public static function creteUser($data) {
         $params = self::prepareContactData($data);
@@ -437,5 +454,26 @@ class Bitrix extends Model
             $resAddr = json_decode(self::BXQuery('crm.address.list.json', json_encode($addrData)));
             return $resAddr->result;
         }
+    }
+    public static function addDealComment($deal_id) {
+        $fields = [
+            "ENTITY_ID" => $deal_id,
+            "ENTITY_TYPE" => "deal",
+            "COMMENT" => 'Загружены файлы согласий',
+            "FILES" => [
+                [
+                    "Согласие_на_предоставление_кредитного_отчета.pdf", 
+                    base64_encode(fPDF::getAreementReportFile()),
+                ],
+                [
+                    "Согласие_на_обработку_персональных_данных.pdf",
+                    base64_encode(fPDF::getAreementPersonalFile()),
+                ],
+            ],
+        ];
+        $commentData = [
+            "fields" => $fields
+        ];
+        return self::BXQuery('crm.timeline.comment.add.json', json_encode($commentData));
     }
 }

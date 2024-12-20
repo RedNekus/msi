@@ -259,6 +259,9 @@ p {
   letter-spacing: 0.02em;
   color: #333333;
 }
+.form-container__text.error {
+  color: #CB1F1F;
+}
 @media screen and (max-width: 768px) {
   .form-container--transparent {
     border: none;

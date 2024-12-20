@@ -75,6 +75,30 @@ class Msi extends Model
         return "$day.$month.$year";
     }
 
+    public static function prepareDocumentData() {
+        $data = json_decode(session()->get('data'));
+        if(empty($data)) {
+            $data = [];  
+        }
+        
+        if(isset($data->subject)) {
+            return [
+                'firstrname' => $data->subject->name_ru->given_name_ru ?? "",
+                'lastname' => $data->subject->name_ru->family_name_ru ?? "",
+                'middlename' => $data->subject->name_ru->middle_name_ru ?? "",
+                'birthdate' => self::formatDate($data->subject->birthdate),
+                'addr' => self::convertRegisterAddress(json_encode($data)) ?? [],
+                'livingAddr' => self::convertMsiAddress(json_encode($data)) ?? [],
+                'issueDate' => self::formatDate($data->id_document->issueDate),
+                'gender' => isset($data->subject->sex) && $data->subject->sex === 'male' ? "М" : "Ж",
+                'authority' => $data->id_document->authority,
+                'national_id_number' => $data->national_id_number,
+                'seriesNumber' => $data->id_document->seriesNumber,
+                'citizenship' => $data->subject->citizenship,
+            ];
+        }
+    }
+
     public static function convertMsiInfo($data) {
         $arrData = json_decode($data);
         return [

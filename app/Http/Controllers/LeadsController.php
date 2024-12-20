@@ -79,7 +79,14 @@ class LeadsController extends Controller
     }
     public function success(Request $request) {
         if(Auth::check()) {
-            return view('leads.success', ['data' => $request->session()->except(['_token'])]);
+            if($request->input('code') == $request->session()->get('code')) {
+                $state =  session()->get('state');
+                $stateArr = explode(':', $state);
+                $res = Bitrix::addDealComment($stateArr[0]);
+                return view('leads.success', ['data' => $request->session()->except(['_token'])]);
+            } else {
+                return redirect()->route('step-7', ['error' => "Веден неверный код!"]);
+            }
         } else {
             return redirect()->route('auth', []);
         }
@@ -125,9 +132,13 @@ class LeadsController extends Controller
     }
     public function addConfirmation(Request $request) {
         if(Auth::check()) {
-            $request->session()->put('step', 6);
-            $request->session()->put('step-7', $request->all());
-            return redirect()->route('success', []);
+            if($request->input('code') == $request->session()->get('code')) {
+                $request->session()->put('step', 6);
+                $request->session()->put('step-7', $request->all());
+                return redirect()->route('success', $request->all());
+            } else {
+                return view('leads.confirmation', ['error' => 'Неверый код поддтверждения!']);
+            }
         } else {
             return redirect()->route('auth', []);
         }
