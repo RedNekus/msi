@@ -67,9 +67,15 @@ class LeadsController extends Controller
         }  
     }
     public function agreements(Request $request) {
+        if((int)$request->session()->get('success') === 1) {
+            return redirect()->route('success', []);
+        }
         return view('leads.agreements', []);
     }
     public function confirmation(Request $request) {
+        if((int)$request->session()->get('success') === 1) {
+            return redirect()->route('success', []);
+        }
         if(Auth::check()) {
             $user = Auth::user();
             return view('leads.confirmation', ['phone' => $user->phone ?? '']);
@@ -78,12 +84,16 @@ class LeadsController extends Controller
         }
     }
     public function success(Request $request) {
+        if((int)$request->session()->get('success') === 1) {
+            return view('leads.success', []);
+        }
         if(Auth::check()) {
             if($request->input('code') == $request->session()->get('code')) {
-                $state =  session()->get('state');
+                $state =  $request->session()->get('state');
                 $stateArr = explode(':', $state);
                 $res = Bitrix::addDealComment($stateArr[0]);
-                return view('leads.success', ['data' => $request->session()->except(['_token'])]);
+                $request->session()->put('success', 1);
+                return view('leads.success', []);
             } else {
                 return redirect()->route('step-7', ['error' => "Веден неверный код!"]);
             }
@@ -155,14 +165,14 @@ class LeadsController extends Controller
     }
     public function areementReport() {
         if(Auth::check()) {
-            return fPDF::getAreementReportFile();
+            return fPDF::getAreementReportFile(0);
         } else {
             return redirect()->route('auth', []);
         }
     }
     public function areementPersonal() {
         if(Auth::check()) {
-            return fPDF::getAreementPersonalFile();
+            return fPDF::getAreementPersonalFile(0);
         } else {
             return redirect()->route('auth', []);
         }

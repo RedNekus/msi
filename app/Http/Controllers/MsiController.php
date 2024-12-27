@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 use App\Models\User;
 use App\Models\Msi;
 use App\Models\Yourls;
 use App\Models\Bitrix;
-use Illuminate\View\View;
+use App\Jobs\SendSMS;
+
 
 class MsiController extends Controller
 {
@@ -34,6 +36,7 @@ class MsiController extends Controller
         $userExists = User::where('phone', '=', $phone)->first();
         $request->session()->put('data', $raw_data);
         $request->session()->put('state',  $request->input('state') ?? "");
+        $request->session()->put('success', 0);
         if($userExists) {
             if (Auth::attempt([
                 'phone' => $phone,
@@ -74,12 +77,17 @@ class MsiController extends Controller
             if($stateArr[0]) {
                 $yourlsData = Yourls::setShort($state);
                 Bitrix::addShortLink($yourlsData, $stateArr[0]);
+                if(isset($stateArr[2])) {
+                    SendSms::dispatch($stateArr[2], "Ваша ссылка для авторизации: {$yourlsData}");
+                }
                 return ['data' => $yourlsData];
             }
         }
     }
-    public function address() {
-        
+    public function address(Request $request) {
+        if((int)$request->session()->get('success') === 1) {
+            return redirect()->route('success', []);
+        }
         if(Auth::check()) {
             $data = [];
             $user = Auth::user();
@@ -106,7 +114,10 @@ class MsiController extends Controller
             return redirect()->route('auth', []);
         }
     }
-    public function registerAddress() {
+    public function registerAddress(Request $request) {
+        if((int)$request->session()->get('success') === 1) {
+            return redirect()->route('success', []);
+        }
         if(Auth::check()) {
             $data = [];
             $user = Auth::user();

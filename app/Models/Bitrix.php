@@ -456,24 +456,36 @@ class Bitrix extends Model
         }
     }
     public static function addDealComment($deal_id) {
-        $fields = [
-            "ENTITY_ID" => $deal_id,
-            "ENTITY_TYPE" => "deal",
-            "COMMENT" => 'Загружены файлы согласий',
-            "FILES" => [
-                [
-                    "Согласие_на_предоставление_кредитного_отчета.pdf", 
-                    base64_encode(fPDF::getAreementReportFile()),
-                ],
-                [
-                    "Согласие_на_обработку_персональных_данных.pdf",
-                    base64_encode(fPDF::getAreementPersonalFile()),
-                ],
+        $data = [
+            "filter" => [
+                "ENTITY_ID" => $deal_id,
+                "ENTITY_TYPE" => "deal",
+                "COMMENT" => 'Загружены файлы согласий',
             ],
+            "select" => ["ID"],
         ];
-        $commentData = [
-            "fields" => $fields
-        ];
-        return self::BXQuery('crm.timeline.comment.add.json', json_encode($commentData));
+        $res = self::BXQuery('crm.timeline.comment.list', json_encode($data));
+        $comments = json_decode($res);
+        if(empty($comments->result)) {
+            $fields = [
+                "ENTITY_ID" => $deal_id,
+                "ENTITY_TYPE" => "deal",
+                "COMMENT" => 'Загружены файлы согласий',
+                "FILES" => [
+                    [
+                        "Согласие_на_предоставление_кредитного_отчета.pdf", 
+                        base64_encode(fPDF::getAreementReportFile(1)),
+                    ],
+                    [
+                        "Согласие_на_обработку_персональных_данных.pdf",
+                        base64_encode(fPDF::getAreementPersonalFile(1)),
+                    ],
+                ],
+            ];
+            $commentData = [
+                "fields" => $fields
+            ];
+            return self::BXQuery('crm.timeline.comment.add.json', json_encode($commentData));
+        }
     }
 }

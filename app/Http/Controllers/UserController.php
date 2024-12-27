@@ -26,6 +26,9 @@ class UserController extends Controller
         return view('user.profile', ['data' => $data]);
     }
     public function add(Request $request) {
+        if((int)$request->session()->get('success') === 1) {
+            return redirect()->route('success', []);
+        }
         if(Auth::check()) {
             $user = Auth::user();
             if($user->bitrix_id) {
@@ -72,7 +75,10 @@ class UserController extends Controller
             //TODO
         }
     }
-    public function passport() { 
+    public function passport(Request $request) { 
+        if((int)$request->session()->get('success') === 1) {
+            return redirect()->route('success', []);
+        }
         if(Auth::check()) {
             $data = [];
             $user = Auth::user();

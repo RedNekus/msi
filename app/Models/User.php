@@ -26,7 +26,8 @@ class User extends Authenticatable
         'bitrix_id',
         'gender',
         'birthdate',
-        'document_number'
+        'document_number',
+        'msi_link',
     ];
 
     /**
