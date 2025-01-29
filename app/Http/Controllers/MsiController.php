@@ -24,19 +24,24 @@ class MsiController extends Controller
     public function set(Request $request) {
         $raw_data = $request->input('data') ?? "";
         $data = json_decode($raw_data);
-        $firstrname = $data->subject->name_ru->given_name_ru;
-        $lastname = $data->subject->name_ru->family_name_ru;
-        $middlename = $data->subject->name_ru->middle_name_ru;
-        $year = substr($data->subject->birthdate, 0, 4);
-        $month = substr($data->subject->birthdate, 4, -2);
-        $day = substr($data->subject->birthdate, -2);
-        $birthdate = "$year-$month-$day";
-        $gender = $data->subject->sex === 'male' ? 0 : 1;
-        $phone = "+" . trim($data->contact->phones[0]);
-        $userExists = User::where('phone', '=', $phone)->first();
         $request->session()->put('data', $raw_data);
         $request->session()->put('state',  $request->input('state') ?? "");
         $request->session()->put('success', 0);
+        if(isset($data->subject)) {
+            $firstrname = $data->subject->name_ru->given_name_ru;
+            $lastname = $data->subject->name_ru->family_name_ru;
+            $middlename = $data->subject->name_ru->middle_name_ru;
+            $year = substr($data->subject->birthdate, 0, 4);
+            $month = substr($data->subject->birthdate, 4, -2);
+            $day = substr($data->subject->birthdate, -2);
+            $birthdate = "$year-$month-$day";
+            $gender = $data->subject->sex === 'male' ? 0 : 1;
+            $phone = "+" . trim($data->contact->phones[0]);   
+        } else {
+            return redirect()->route('auth', []);
+        }
+
+        $userExists = User::where('phone', '=', $phone)->first();
         if($userExists) {
             if (Auth::attempt([
                 'phone' => $phone,
