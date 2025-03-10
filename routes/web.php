@@ -51,3 +51,5 @@ Route::get('/lead/{id}', [LeadsController::class, 'lead']);
 
 Route::get('/areement-report', [LeadsController::class, 'areementReport']);
 Route::get('/areement-personal', [LeadsController::class, 'areementPersonal']);
+
+Route::get('/error', [LeadsController::class, 'error'])->name('error');
