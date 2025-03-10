@@ -115,4 +115,7 @@ class UserController extends Controller
             return redirect()->route('auth', []);
         }
     }
+    public function getPDN() {
+        return view('user.pdn', []);
+    }
 }
