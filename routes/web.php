@@ -53,3 +53,4 @@ Route::get('/areement-report', [LeadsController::class, 'areementReport']);
 Route::get('/areement-personal', [LeadsController::class, 'areementPersonal']);
 
 Route::get('/user/pdn', [UserController::class, 'getPDN']);
+Route::get('/error', [LeadsController::class, 'error'])->name('error');

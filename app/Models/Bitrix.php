@@ -456,36 +456,61 @@ class Bitrix extends Model
         }
     }
     public static function addDealComment($deal_id) {
-        $data = [
-            "filter" => [
-                "ENTITY_ID" => $deal_id,
-                "ENTITY_TYPE" => "deal",
-                "COMMENT" => 'Загружены файлы согласий',
-            ],
-            "select" => ["ID"],
-        ];
-        $res = self::BXQuery('crm.timeline.comment.list', json_encode($data));
-        $comments = json_decode($res);
-        if(empty($comments->result)) {
-            $fields = [
-                "ENTITY_ID" => $deal_id,
-                "ENTITY_TYPE" => "deal",
-                "COMMENT" => 'Загружены файлы согласий',
-                "FILES" => [
-                    [
-                        "Согласие_на_предоставление_кредитного_отчета.pdf", 
-                        base64_encode(fPDF::getAreementReportFile(1)),
-                    ],
-                    [
-                        "Согласие_на_обработку_персональных_данных.pdf",
-                        base64_encode(fPDF::getAreementPersonalFile(1)),
-                    ],
+        if((int)$deal_id > 0) {
+            $data = [
+                "filter" => [
+                    "ENTITY_ID" => $deal_id,
+                    "ENTITY_TYPE" => "deal"
                 ],
+                'select' => [
+                    'ID',
+                    'COMMENT'
+                ]
             ];
-            $commentData = [
-                "fields" => $fields
-            ];
-            return self::BXQuery('crm.timeline.comment.add.json', json_encode($commentData));
+            $res = self::BXQuery('crm.timeline.comment.list', json_encode($data));
+            $comments = json_decode($res);
+            if(!empty($comments->result)) {
+                $comments->result = array_filter($comments->result, fn($comm) => str_contains($comm->COMMENT, 'Загружены файлы согласий'));
+            }
+            if(empty($comments->result)) {
+                self::uploadToSite($deal_id, 'report', fPDF::getAreementReportFile(1) ?? []);
+                self::uploadToSite($deal_id, 'personal', fPDF::getAreementPersonalFile(1) ?? []);
+                $fields = [
+                    "ENTITY_ID" => $deal_id,
+                    "ENTITY_TYPE" => "deal",
+                    "COMMENT" => 'Загружены файлы согласий',
+                    "FILES" => [
+                        [
+                            "Согласие_на_предоставление_кредитного_отчета.pdf", 
+                            base64_encode(fPDF::getAreementReportFile(1)),
+                        ],
+                        [
+                            "Согласие_на_обработку_персональных_данных.pdf",
+                            base64_encode(fPDF::getAreementPersonalFile(1)),
+                        ],
+                    ],
+                ];
+                $commentData = [
+                    "fields" => $fields
+                ];
+                return self::BXQuery('crm.timeline.comment.add.json', json_encode($commentData));
+            } else {
+                return $res;
+            }
+        } else {
+            return "{'error' : 'empty deal id'}";
         }
+    }
+    private static function uploadToSite($deal_id, $type = 'report', $data = []) {
+        $url = "https://lk.yowheels.by/index.php?option=com_pcpartners&task=upload_file&format=json";
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, ['deal_id' => $deal_id, 'type' => $type, 'file' => $data]);
+
+        $content = curl_exec($ch);
+
+        $err = curl_errno($ch);
+        $errmsg = curl_error($ch);
+        $header = curl_getinfo($ch);
     }
 }

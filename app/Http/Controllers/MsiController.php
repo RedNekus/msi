@@ -31,10 +31,6 @@ class MsiController extends Controller
             $firstrname = $data->subject->name_ru->given_name_ru;
             $lastname = $data->subject->name_ru->family_name_ru;
             $middlename = $data->subject->name_ru->middle_name_ru;
-            $year = substr($data->subject->birthdate, 0, 4);
-            $month = substr($data->subject->birthdate, 4, -2);
-            $day = substr($data->subject->birthdate, -2);
-            $birthdate = "$year-$month-$day";
             $gender = $data->subject->sex === 'male' ? 0 : 1;
             $phone = "+" . trim($data->contact->phones[0]);   
         } else {
@@ -58,10 +54,19 @@ class MsiController extends Controller
             'lastname' => $lastname,
             'middlename' => $middlename,
             'gender' => $gender,
-            'birthdate' => $birthdate,
             'password' => '1p@ssWord2',
             'document_number' => $data->national_id_number,
         ];
+        $birthdate = null;
+        if(!empty($data->subject->birthdate)) {
+            $year = substr($data->subject->birthdate, 0, 4);
+            $month = substr($data->subject->birthdate, 4, -2);
+            $day = substr($data->subject->birthdate, -2);
+            $birthdate = "$year-$month-$day";
+        }
+        if(!empty($birthdate) && preg_match("/^\d{4}-\d{2}-\d{2}$/", $birthdate)) {
+            $user_data['birthdate'] = $birthdate;
+        }
         if( User::create($user_data) ) {
             if (Auth::attempt([
                 'phone' => $phone,
@@ -69,7 +74,7 @@ class MsiController extends Controller
             ])) {
                 return redirect('/profile');
             } else {
-                return redirect()->route('auth', []);
+                return redirect()->route('error', []);
             }
         }
     }
@@ -83,7 +88,7 @@ class MsiController extends Controller
                 $yourlsData = Yourls::setShort($state);
                 Bitrix::addShortLink($yourlsData, $stateArr[0]);
                 if(isset($stateArr[2])) {
-                    SendSms::dispatch($stateArr[2], "Ваша ссылка для авторизации: {$yourlsData}");
+                    SendSms::dispatch($stateArr[2], "Ваша ссылка на предоставление данных ООО «Ювилс Лизинг» на приобретение товаров в лизинг: {$yourlsData}");
                 }
                 return ['data' => $yourlsData];
             }

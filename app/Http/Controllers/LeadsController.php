@@ -91,9 +91,21 @@ class LeadsController extends Controller
             if($request->input('code') == $request->session()->get('code')) {
                 $state =  $request->session()->get('state');
                 $stateArr = explode(':', $state);
-                $res = Bitrix::addDealComment($stateArr[0]);
-                $request->session()->put('success', 1);
-                return view('leads.success', []);
+                if(isset($stateArr[0]) && $stateArr[0] > 0) {
+                    $rawRes = Bitrix::addDealComment($stateArr[0]);
+                    $res = null;
+                    if(is_string($rawRes)) {
+                        $res = json_decode($rawRes);
+                    }
+                    if(!empty($res->result)) {
+                        $request->session()->put('success', 1);
+                        return view('leads.success', []);
+                    } else {
+                        return redirect()->route('step-7', ['error' => "Что-то пошло нет так!"]);
+                    }
+                } else {
+                    return redirect()->route('auth', []);
+                }
             } else {
                 return redirect()->route('step-7', ['error' => "Веден неверный код!"]);
             }
@@ -176,5 +188,8 @@ class LeadsController extends Controller
         } else {
             return redirect()->route('auth', []);
         }
+    }
+    public function error(Request $request) {
+        return view('leads.error', []);
     }
 }

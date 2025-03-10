@@ -110,28 +110,34 @@ class Msi extends Model
         ];
     }
     public static function convertMsiAddress($data) {
+        if(empty($data)) {
+            $data = json_decode(session()->get('data'));
+        }
         $arrData = json_decode($data);
         return [
-            'zip_code' => $arrData->contact->living_address->postal_code,
-            'settlement' => $arrData->contact->living_address->locality,
-            'street' => $arrData->contact->living_address->street,
-            'house' => $arrData->contact->living_address->house,
-            'housing' => $arrData->contact->living_address->building,
-            'apartment' => $arrData->contact->living_address->apartment,
-            'country' => $arrData->contact->living_address->country,
+            'zip_code' => $arrData->contact->living_address->postal_code ?? ($arrData->subject->address->postal_code ?? ""),
+            'settlement' => $arrData->contact->living_address->locality ?? ($arrData->subject->address->locality ?? ''),
+            'street' => $arrData->contact->living_address->street ?? ($arrData->subject->address->street ?? ''),
+            'house' => $arrData->contact->living_address->house ?? ($arrData->subject->address->house ?? ''),
+            'housing' => $arrData->contact->living_address->building ?? ($arrData->subject->address->building ?? ''),
+            'apartment' => $arrData->contact->living_address->apartment ?? ($arrData->subject->address->apartment ?? ''),
+            'country' => $arrData->contact->living_address->country ?? ($arrData->subject->address->country ?? ''),
         ];
     }
 
     public static function convertRegisterAddress($data) {
+        if(empty($data)) {
+            $data = json_decode(session()->get('data'));
+        }
         $arrData = json_decode($data);
         return [
-            'zip_code' => $arrData->subject->address->postal_code,
-            'settlement' => $arrData->subject->address->locality,
-            'street' => $arrData->subject->address->street,
-            'house' => $arrData->subject->address->house,
-            'housing' => $arrData->subject->address->building,
-            'apartment' => $arrData->subject->address->apartment,
-            'country' => $arrData->subject->address->country,
+            'zip_code' => $arrData->subject->address->postal_code ?? '',
+            'settlement' => $arrData->subject->address->locality ?? '',
+            'street' => $arrData->subject->address->street ?? '',
+            'house' => $arrData->subject->address->house ?? '',
+            'housing' => $arrData->subject->address->building ?? '',
+            'apartment' => $arrData->subject->address->apartment ?? '',
+            'country' => $arrData->subject->address->country ?? '',
         ];
     }
 }
