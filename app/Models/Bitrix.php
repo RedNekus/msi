@@ -501,6 +501,18 @@ class Bitrix extends Model
             return "{'error' : 'empty deal id'}";
         }
     }
+    public static function getActivitiesList() {
+        $data = [
+            "id" => 1319,
+            "moduleId" => "crm",
+        ];
+        $url = "userfieldconfig.get";
+        $activities = json_decode(self::BXQuery($url, json_encode($data)));
+        $activities = $activities->result->field->enum;
+        $keys = array_map(fn($x) => $x->id, $activities);
+        $activities = array_map(fn($x) => $x->value, $activities);
+        return array_combine($keys, $activities);
+    }
     private static function uploadToSite($deal_id, $type = 'report', $data = []) {
         $url = "https://lk.yowheels.by/index.php?option=com_pcpartners&task=upload_file&format=json";
         $ch = curl_init($url);

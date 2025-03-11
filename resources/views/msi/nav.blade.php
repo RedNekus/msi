@@ -9,8 +9,8 @@
         1 => ['/profile', 'Личные данные', 'steps__item'],
         ['/passport', 'Документ, удостоверяющий личность', 'steps__item'],
         ['/register-address', 'Адрес регистрации', 'steps__item'],
-        //['/lead/add', 'Предмет лизинга', 'steps__item'],
-        //['/lead/add/info', 'Дополнительная информация', 'steps__item'],
+        ['/user/income', 'Личный доход', 'steps__item'],
+        ['/user/pdn', 'Кредитная нагрузка', 'steps__item'],
         ['/lead/add/agreements', 'Подписание согласий', 'steps__item'],
         ['/lead/add/confirmation', 'Подтверждение данных', 'steps__item']
     ];

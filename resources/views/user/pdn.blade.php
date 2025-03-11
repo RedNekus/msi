@@ -5,7 +5,7 @@
 <div class="form-container">
     <div class="form-title">Кредитная нагрузка</div>
     <p class="lead-form__info">Укажите сумму ежемесячных платежей по действующим кредитам, займам, картам рассрочки, лизингам, факторингам или иным обязтельствам в банках, микрофинансовых, лизинговых организациях, организациях торговли (сервиса), а так же суммарную текущую просроченную задолженность по данным обязательствам (основной долг и проценты).</p>
-    <form class="lead-form" action="/profile" method="POST">
+    <form class="lead-form" action="/user/pdn" method="POST">
         @csrf
         <fieldset class="lead-form__group">
             <legend class="lead-form__label" for="firstrname">Размер ежемесячных платежей</legend>
@@ -34,6 +34,7 @@
             <input class="lead-form__control" type="text" name="firstrname" id="firstrname" value="">
             <div class="messages"></div>
         </fieldset>
+        <div class="lead-form__back"><a href="/user/income">Назад</a></div>
         <div class="lead-form__bottom">
             <input class="lead-form__button" type="submit" value="Далее">
         </div>

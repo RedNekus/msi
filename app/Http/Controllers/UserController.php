@@ -118,4 +118,14 @@ class UserController extends Controller
     public function getPDN() {
         return view('user.pdn', []);
     }
+    public function income() {
+        return view('user.income', []);
+    }
+    public function setPDN(Request $request) {
+        
+        return redirect()->route('step-6', []);
+    }
+    public function setIncome(Request $request) {
+        return redirect()->route('pdn', []);
+    }
 }

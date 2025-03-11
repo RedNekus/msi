@@ -498,7 +498,7 @@ input:checked + .lead-form__radio-label::after {
 }
 .lead-form__select-items div {
   cursor: pointer;
-  height: 42px;
+  min-height: 42px;
   display: flex;
   align-items: center;
   font-style: normal;
@@ -506,7 +506,8 @@ input:checked + .lead-form__radio-label::after {
   font-size: 1em;
   letter-spacing: 0.06em;
   color: #333333;
-  padding: 0 20px;
+  padding: 10px 20px;
+  box-sizing: border-box;
 }
 .lead-form__select-items div:hover {
   background-color: #F6F6F6;
