@@ -428,9 +428,10 @@ p {
     border: 1px solid #B0B0B1;
     z-index: 1;
     width: 100%;
-    overflow: hidden;
     margin-top: .5em;
     left: -1px;
+    max-height: 320px;
+    overflow: scroll;
     div {
       cursor: pointer;
       min-height: 42px;
