@@ -132,8 +132,8 @@ class UserController extends Controller
     public function setPDN(Request $request) {
         $data = $request->all();
         $res = json_decode(Bitrix::addPdnData($data));
-        file_put_contents('test.log', "addPdnData: " . $res . "\n", FILE_APPEND);
-        if($res) {
+        file_put_contents('test.log', "addPdnData: " . json_encode($res->result) . "\n", FILE_APPEND);
+        if($res->result) {
             return redirect()->route('step-6', []); 
         } else {
             return redirect()->route('step-6', []);
@@ -142,9 +142,9 @@ class UserController extends Controller
     public function setIncome(Request $request) {
         $user = Auth::user();
         $data = $request->all();
-        $res = Bitrix::addIncomeData($data);
-        file_put_contents('test.log', "addIncomeData: " . $res . "\n", FILE_APPEND);
-        if($res) {
+        $res = json_decode(Bitrix::addIncomeData($data));
+        file_put_contents('test.log', "addIncomeData: " . json_encode($res->result) . "\n", FILE_APPEND);
+        if($res->result) {
            return redirect()->route('pdn', []); 
         } else {
             return redirect()->route('pdn', []);
