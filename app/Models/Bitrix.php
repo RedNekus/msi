@@ -548,7 +548,7 @@ class Bitrix extends Model
             'fields' => $fields,
             'params' => ['REGISTER_SONET_EVENT' => 'Y']
         ];
-        return self::BXQuery('crm.deal.update.json', $queryParams);
+        return self::BXQuery('crm.deal.update.json', json_encode($queryParams));
     }
 
     public static function addPdnData($data) {
@@ -571,6 +571,6 @@ class Bitrix extends Model
             'fields' => $fields,
             'params' => ['REGISTER_SONET_EVENT' => 'Y']
         ];
-        return self::BXQuery('crm.deal.update.json', $queryParams);
+        return self::BXQuery('crm.deal.update.json', json_encode($queryParams));
     }
 }
