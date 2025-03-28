@@ -532,6 +532,8 @@ class Bitrix extends Model
     public static function addIncomeData($data) {
         $data['deal_id'] = session()->get('deal_id') ?? 0;
         if(!$data['deal_id']) {
+            $state = session()->get('state');
+            file_put_contents('test.log', "addIncomeData not deal id: {$state}\n", FILE_APPEND);
             return 0;
         }
         if(!$data['contact_id']) {
@@ -548,12 +550,14 @@ class Bitrix extends Model
             'fields' => $fields,
             'params' => ['REGISTER_SONET_EVENT' => 'Y']
         ];
+        file_put_contents('test.log', "addIncomeData: " .json_encode($queryParams) . "\n", FILE_APPEND);
         return self::BXQuery('crm.deal.update.json', json_encode($queryParams));
     }
 
     public static function addPdnData($data) {
         $data['deal_id'] = session()->get('deal_id') ?? 0;
         if(!$data['deal_id']) {
+            file_put_contents('test.log', "addPdnData not deal id\n", FILE_APPEND);
             return 0;
         }
         if(!$data['contact_id']) {
@@ -571,6 +575,7 @@ class Bitrix extends Model
             'fields' => $fields,
             'params' => ['REGISTER_SONET_EVENT' => 'Y']
         ];
+        file_put_contents('test.log', "addPdnData: " .json_encode($queryParams) . "\n", FILE_APPEND);
         return self::BXQuery('crm.deal.update.json', json_encode($queryParams));
     }
 }
