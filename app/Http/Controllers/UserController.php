@@ -145,7 +145,8 @@ class UserController extends Controller
     public function setIncome(Request $request) {
         $user = Auth::user();
         $data = $request->all();
-        $res = json_decode(Bitrix::addIncomeData($data));
+        $res = Bitrix::addIncomeData($data);
+        file_put_contents('test.log', $res . "\n", FILE_APPEND);
         if($res) {
            return redirect()->route('pdn', []); 
         } else {
