@@ -42,11 +42,11 @@
             <div class="messages"></div>
         </fieldset>
         <fieldset class="lead-form__group">
-            <legend class="lead-form__label" for="firstrname">Вид экономической деятельности</legend>
-            <select class="lead-form__select" name="employment_type" id="employment_type">
+            <legend class="lead-form__label" for="activity_type">Вид экономической деятельности</legend>
+            <select class="lead-form__select" name="activity_type" id="activity_type">
                 <option value="">Выбрать…</option>
                 @foreach($activities as $key=>$val)
-                <option value="{{$key}}" @if($key === $employment_type) selected @endif>{{$val}}</option>
+                <option value="{{$key}}" @if($key === $activity_type) selected @endif>{{$val}}</option>
                 @endforeach
             </select>
             <div class="lead-form__custom-select">
@@ -63,13 +63,13 @@
             <div class="messages"></div>
         </fieldset>
         <fieldset class="lead-form__group">
-            <legend class="lead-form__label" for="firstrname">Среднемесячный доход</legend>
-            <input class="lead-form__control" type="text" name="firstrname" id="firstrname" value="">
+            <legend class="lead-form__label" for="income">Среднемесячный доход</legend>
+            <input class="lead-form__control" type="text" name="income" id="income" value="">
             <div class="messages"></div>
         </fieldset>
         <fieldset class="lead-form__group">
-            <legend class="lead-form__label" for="firstrname">Размер пенсии</legend>
-            <input class="lead-form__control" type="text" name="firstrname" id="firstrname" value="">
+            <legend class="lead-form__label" for="pension">Размер пенсии</legend>
+            <input class="lead-form__control" type="text" name="pension" id="pension" value="">
             <div class="messages"></div>
         </fieldset>
         <div class="lead-form__back"><a href="/address">Назад</a></div>

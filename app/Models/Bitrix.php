@@ -525,4 +525,51 @@ class Bitrix extends Model
         $errmsg = curl_error($ch);
         $header = curl_getinfo($ch);
     }
+
+    public static function addIncomeData($data) {
+        $data['deal_id'] = session()->get('deal_id') ?? 0;
+        if(!$data['deal_id']) {
+            return 0;
+        }
+        if(!$data['contact_id']) {
+            $data['contact_id']= session()->get('contact_id') ?? 0;
+        }
+        $fields = [
+            'UF_CRM_1740664813' => $data['employment_type'], //Тип занятости
+            'UF_CRM_1740662642' => $data['activity_type'], //Виды экономической деятельности
+            'UF_CRM_1740664946' => $data['income'], //Среднемесячный доход
+            'UF_CRM_1743162678' => $data['pension'] //Размер пенсии
+        ];
+        $queryParams = [
+            'id' => $data['deal_id'],
+            'fields' => $fields,
+            'params' => ['REGISTER_SONET_EVENT' => 'Y']
+        ];
+        $res = self::BXQuery('crm.deal.update.json', $queryParams);
+        return $res;
+    }
+
+    public static function addPdnData($data) {
+        $data['deal_id'] = session()->get('deal_id') ?? 0;
+        if(!$data['deal_id']) {
+            return 0;
+        }
+        if(!$data['contact_id']) {
+            $data['contact_id']= session()->get('contact_id') ?? 0;
+        }
+        $fields = [
+            'UF_CRM_1740664616' => $data['current_payment'], //Размер ежемесячных платежей
+            'UF_CRM_1740664677' => $data['overdue_amount'], //Размер текущей просрочки
+            'UF_CRM_1740664701' => $data['utility_payment'], //Коммунальные платежи
+            'UF_CRM_1740664741' => $data['alimony'], //Алименты
+            'UF_CRM_1740664762' => $data['writs_of_execution'] //Исполнительные листы
+        ];
+        $queryParams = [
+            'id' => $data['deal_id'],
+            'fields' => $fields,
+            'params' => ['REGISTER_SONET_EVENT' => 'Y']
+        ];
+        $res = self::BXQuery('crm.deal.update.json', $queryParams);
+        return $res;
+    }
 }

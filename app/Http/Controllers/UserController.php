@@ -119,13 +119,37 @@ class UserController extends Controller
         return view('user.pdn', []);
     }
     public function income() {
-        return view('user.income', []);
+        if(Auth::check()) {
+            $data = [];
+            $user = Auth::user();
+            if(isset($user->bitrix_id) && (int)$user->bitrix_id !==0 ) {
+                echo "<pre>";
+                var_dump( session()->get('deal_id') ?? 0 );
+                var_dump($user->bitrix_id);
+                echo "</pre>";
+                return view('user.income', []);
+            }
+        } else {
+            return redirect()->route('auth', []);
+        }
     }
     public function setPDN(Request $request) {
-        
-        return redirect()->route('step-6', []);
+        $data = $request->all();
+        $res = json_decode(Bitrix::addPdnData($data));
+        if($res) {
+            return redirect()->route('step-6', []); 
+        } else {
+
+        }
     }
     public function setIncome(Request $request) {
-        return redirect()->route('pdn', []);
+        $user = Auth::user();
+        $data = $request->all();
+        $res = json_decode(Bitrix::addIncomeData($data));
+        if($res) {
+           return redirect()->route('pdn', []); 
+        } else {
+            
+        }
     }
 }

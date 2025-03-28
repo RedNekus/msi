@@ -492,9 +492,10 @@ input:checked + .lead-form__radio-label::after {
   border: 1px solid #B0B0B1;
   z-index: 1;
   width: 100%;
-  overflow: hidden;
   margin-top: 0.5em;
   left: -1px;
+  max-height: 320px;
+  overflow: scroll;
 }
 .lead-form__select-items div {
   cursor: pointer;
