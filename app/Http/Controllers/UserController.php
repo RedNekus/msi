@@ -139,7 +139,7 @@ class UserController extends Controller
         if($res) {
             return redirect()->route('step-6', []); 
         } else {
-
+            return redirect()->route('step-6', []);
         }
     }
     public function setIncome(Request $request) {
@@ -149,7 +149,7 @@ class UserController extends Controller
         if($res) {
            return redirect()->route('pdn', []); 
         } else {
-            
+            return redirect()->route('pdn', []);
         }
     }
 }
