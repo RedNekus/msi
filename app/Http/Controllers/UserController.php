@@ -123,10 +123,6 @@ class UserController extends Controller
             $data = [];
             $user = Auth::user();
             if(isset($user->bitrix_id) && (int)$user->bitrix_id !==0 ) {
-                echo "<pre>";
-                var_dump( session()->get('deal_id') ?? 0 );
-                var_dump($user->bitrix_id);
-                echo "</pre>";
                 return view('user.income', []);
             }
         } else {
@@ -136,6 +132,7 @@ class UserController extends Controller
     public function setPDN(Request $request) {
         $data = $request->all();
         $res = json_decode(Bitrix::addPdnData($data));
+        file_put_contents('test.log', "addPdnData: " . $res . "\n", FILE_APPEND);
         if($res) {
             return redirect()->route('step-6', []); 
         } else {
@@ -146,7 +143,7 @@ class UserController extends Controller
         $user = Auth::user();
         $data = $request->all();
         $res = Bitrix::addIncomeData($data);
-        file_put_contents('test.log', $res . "\n", FILE_APPEND);
+        file_put_contents('test.log', "addIncomeData: " . $res . "\n", FILE_APPEND);
         if($res) {
            return redirect()->route('pdn', []); 
         } else {
