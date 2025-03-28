@@ -15,6 +15,9 @@ class LeadsController extends Controller
         return view('leads.list', ['leads' => $leads]);
     }
     public function lead($id = 0) {
+        if(empty($id)) {
+            return redirect()->route('auth', []);
+        }
         if(Auth::check()) {
             $leadData = [];
             if($id) {
@@ -28,27 +31,34 @@ class LeadsController extends Controller
         } 
     }
     public function add(Request $request) {
+        if(empty($request)) {
+            return false;
+        }
         if(Auth::check()) {
             $user = Auth::user();
-            $data = $request->all();
-            $data['contact_id'] = (int)$user->bitrix_id ?? 0;
-            if(isset($data['id']) && $data['id'] > 0) {
-                $lead = Leads::find($data['id']);
-                if($user->id === $lead->user_id) {
-                    $data['deal_id'] = $lead->bx_lead_id;
-                    $request->session()->put('deal_id', $lead->bx_lead_id);
-                    $res = json_decode(Bitrix::updateDeal($data));
+            $data = $request->all() ?? [];
+            if(!empty($data) && is_array($data)) {
+                $data['contact_id'] = (int)$user->bitrix_id ?? 0;
+                if(isset($data['id']) && $data['id'] > 0) {
+                    $lead = Leads::find($data['id']);
+                    if($user->id === $lead->user_id) {
+                        $data['deal_id'] = $lead->bx_lead_id;
+                        $request->session()->put('deal_id', $lead->bx_lead_id);
+                        $res = json_decode(Bitrix::updateDeal($data));
+                    }
+                } else {
+                    $res = json_decode(Bitrix::creteDeal($data));
+                    $lead = new Leads;
+                    $lead->user_id = (int)$user->id;
+                    $lead->bx_lead_id = (int)$res->result;
+                    $lead->save();
                 }
+                $request->session()->put('step', 4);
+                $request->session()->put('step-4', $request->all());
+                return redirect()->route('step-5', []);
             } else {
-                $res = json_decode(Bitrix::creteDeal($data));
-                $lead = new Leads;
-                $lead->user_id = (int)$user->id;
-                $lead->bx_lead_id = (int)$res->result;
-                $lead->save();
+                return false;
             }
-            $request->session()->put('step', 4);
-            $request->session()->put('step-4', $request->all());
-            return redirect()->route('step-5', []);
         } else {
             return redirect()->route('auth', []);
         }

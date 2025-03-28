@@ -19,4 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/short/', [MsiController::class, 'short']);
+Route::match(['get', 'post'], '/short/', [MsiController::class, 'short']);

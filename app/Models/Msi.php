@@ -91,10 +91,10 @@ class Msi extends Model
                 'livingAddr' => self::convertMsiAddress(json_encode($data)) ?? [],
                 'issueDate' => self::formatDate($data->id_document->issueDate),
                 'gender' => isset($data->subject->sex) && $data->subject->sex === 'male' ? "М" : "Ж",
-                'authority' => $data->id_document->authority,
-                'national_id_number' => $data->national_id_number,
-                'seriesNumber' => $data->id_document->seriesNumber,
-                'citizenship' => $data->subject->citizenship,
+                'authority' => $data->id_document->authority ?? "",
+                'national_id_number' => $data->national_id_number ?? "",
+                'seriesNumber' => $data->id_document->seriesNumber ?? "",
+                'citizenship' => $data->subject->citizenship ?? "",
             ];
         }
     }
@@ -102,11 +102,11 @@ class Msi extends Model
     public static function convertMsiInfo($data) {
         $arrData = json_decode($data);
         return [
-            'document_number' => $arrData->national_id_number,
-            'document_series' => $arrData->id_document->seriesNumber,
-            'document_date' => self::formatDate($arrData->id_document->issueDate),
-            'document_validity' => self::formatDate($arrData->id_document->expireDate),
-            'issuedby' => $arrData->id_document->authority
+            'document_number' => $arrData->national_id_number ?? "",
+            'document_series' => $arrData->id_document->seriesNumber ?? "",
+            'document_date' => self::formatDate($arrData->id_document->issueDate) ?? "",
+            'document_validity' => self::formatDate($arrData->id_document->expireDate) ?? "",
+            'issuedby' => $arrData->id_document->authority ?? ""
         ];
     }
     public static function convertMsiAddress($data) {

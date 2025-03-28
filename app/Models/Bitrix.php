@@ -257,6 +257,9 @@ class Bitrix extends Model
         return json_encode($queryParams);
     }
     public static function creteDeal($data) {
+        if(!empty($data)) {
+            return 0;
+        }
         if(!$data['contact_id']) {
             $data['contact_id'] = $request->session()->get('contact_id');
         }
