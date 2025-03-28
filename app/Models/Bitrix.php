@@ -534,7 +534,8 @@ class Bitrix extends Model
         if(!$data['deal_id']) {
             $state = session()->get('state');
             if(!$state) return 0;
-            $data['deal_id'] = array_shift(explode(':', $state));
+            $stateArr = explode(':', $state);
+            $data['deal_id'] = array_shift($stateArr);
             file_put_contents('test.log', "addIncomeData not deal id: {$data['deal_id']}\n", FILE_APPEND);
         }
         if(!$data['contact_id']) {
@@ -560,7 +561,8 @@ class Bitrix extends Model
         if(!$data['deal_id']) {
             $state = session()->get('state');
             if(!$state) return 0;
-            $data['deal_id'] = array_shift(explode(':', $state));
+            $stateArr = explode(':', $state);
+            $data['deal_id'] = array_shift($stateArr);
         }
         if(!$data['contact_id']) {
             $data['contact_id']= session()->get('contact_id') ?? 0;
