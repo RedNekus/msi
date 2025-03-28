@@ -17,7 +17,7 @@
             <label class="lead-form__check-label" for="agreement_personal">Выражаю согласие Обществу с ограниченной ответственностью «Ювилс Лизинг» на хранение и обработку персональных данных</label>
             <div class="messages"></div>
           </div>
-          <div class="lead-form__back"><a href="/register-address">Назад</a></div>
+          <div class="lead-form__back"><a href="/user/pdn">Назад</a></div>
           <div class="lead-form__bottom">
             <input class="lead-form__button" type="submit" value="Далее">
           </div>
