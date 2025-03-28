@@ -533,8 +533,9 @@ class Bitrix extends Model
         $data['deal_id'] = session()->get('deal_id') ?? 0;
         if(!$data['deal_id']) {
             $state = session()->get('state');
-            file_put_contents('test.log', "addIncomeData not deal id: {$state}\n", FILE_APPEND);
-            return 0;
+            if(!$state) return 0;
+            $data['deal_id'] = array_shift(explode(':', $state));
+            file_put_contents('test.log', "addIncomeData not deal id: {$data['deal_id']}\n", FILE_APPEND);
         }
         if(!$data['contact_id']) {
             $data['contact_id']= session()->get('contact_id') ?? 0;
@@ -557,8 +558,9 @@ class Bitrix extends Model
     public static function addPdnData($data) {
         $data['deal_id'] = session()->get('deal_id') ?? 0;
         if(!$data['deal_id']) {
-            file_put_contents('test.log', "addPdnData not deal id\n", FILE_APPEND);
-            return 0;
+            $state = session()->get('state');
+            if(!$state) return 0;
+            $data['deal_id'] = array_shift(explode(':', $state));
         }
         if(!$data['contact_id']) {
             $data['contact_id']= session()->get('contact_id') ?? 0;
