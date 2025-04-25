@@ -542,11 +542,17 @@ class Bitrix extends Model
             $data['contact_id']= session()->get('contact_id') ?? 0;
         }
         $fields = [
-            'UF_CRM_1740664813' => $data['employment_type'], //Тип занятости
-            'UF_CRM_1740662642' => $data['activity_type'], //Виды экономической деятельности
-            'UF_CRM_1740664946' => $data['income'], //Среднемесячный доход
-            'UF_CRM_1743162678' => $data['pension'] //Размер пенсии
+            'UF_CRM_1740664946' => $data['income'] ?? 0, //Среднемесячный доход
+            'UF_CRM_1743162678' => $data['pension'] ?? 0 //Размер пенсии
         ];
+        //Тип занятости
+        if(!empty($data['employment_type'])) {
+            $fields['UF_CRM_1740664813'] = $data['employment_type'];
+        }
+        //Виды экономической деятельности
+        if(!empty($data['activity_type'])) {
+            $fields['UF_CRM_1740662642'] = $data['activity_type'];
+        }
         $queryParams = [
             'id' => $data['deal_id'],
             'fields' => $fields,
@@ -568,11 +574,11 @@ class Bitrix extends Model
             $data['contact_id']= session()->get('contact_id') ?? 0;
         }
         $fields = [
-            'UF_CRM_1740664616' => $data['current_payment'], //Размер ежемесячных платежей
-            'UF_CRM_1740664677' => $data['overdue_amount'], //Размер текущей просрочки
-            'UF_CRM_1740664701' => $data['utility_payment'], //Коммунальные платежи
-            'UF_CRM_1740664741' => $data['alimony'], //Алименты
-            'UF_CRM_1740664762' => $data['writs_of_execution'] //Исполнительные листы
+            'UF_CRM_1740664616' => $data['current_payment'] ?? 0, //Размер ежемесячных платежей
+            'UF_CRM_1740664677' => $data['overdue_amount'] ?? 0, //Размер текущей просрочки
+            'UF_CRM_1740664701' => $data['utility_payment'] ?? 0, //Коммунальные платежи
+            'UF_CRM_1740664741' => $data['alimony'] ?? 0, //Алименты
+            'UF_CRM_1740664762' => $data['writs_of_execution'] ?? 0 //Исполнительные листы
         ];
         $queryParams = [
             'id' => $data['deal_id'],

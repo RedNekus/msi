@@ -131,22 +131,34 @@ class UserController extends Controller
     }
     public function setPDN(Request $request) {
         $data = $request->all();
-        $res = json_decode(Bitrix::addPdnData($data));
-        file_put_contents('test.log', "addPdnData: " . json_encode($res->result) . "\n", FILE_APPEND);
-        if($res->result) {
-            return redirect()->route('step-6', []); 
-        } else {
-            return redirect()->route('step-6', []);
+        $data = array_map(fn($item) => $item ?? 0, $data);
+        if(!empty($data)) {
+            $res = json_decode(Bitrix::addPdnData($data));
+            if(!empty($res->result)) {
+                file_put_contents('test-pdn.log', "setPDN Data: " . json_encode($data) . "\n", FILE_APPEND);
+                file_put_contents('test-pdn.log', "setPDN: " . json_encode($res->result) . "\n", FILE_APPEND);
+                return redirect()->route('step-6', []); 
+            } else {
+                file_put_contents('test-pdn.log', "setPDN Err: " . json_encode($data) . "\n", FILE_APPEND);
+                file_put_contents('test-pdn.log', "setPDN Err: " . json_encode($res) . "\n", FILE_APPEND);
+                return redirect()->route('step-6', []);
+            }
         }
     }
     public function setIncome(Request $request) {
         $user = Auth::user();
         $data = $request->all();
-        $res = json_decode(Bitrix::addIncomeData($data));
-        file_put_contents('test.log', "addIncomeData: " . json_encode($res->result) . "\n", FILE_APPEND);
-        if($res->result) {
-           return redirect()->route('pdn', []); 
+        if(!empty($data)) {
+            $res = json_decode(Bitrix::addIncomeData($data));
+            if(!empty($res->result)) {
+                file_put_contents('test-income.log', "addIncomeData: " . json_encode($res->result) . "\n", FILE_APPEND);
+                return redirect()->route('pdn', []); 
+            } else {
+                file_put_contents('test-income.log', "no Income set \n", FILE_APPEND);
+                return redirect()->route('pdn', []);
+            }
         } else {
+            file_put_contents('test-income.log', "no Income data \n", FILE_APPEND);
             return redirect()->route('pdn', []);
         }
     }

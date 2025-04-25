@@ -18,7 +18,8 @@ yarn-error.log
 /.idea
 /.vscode
 /public/s
-
+*.log
+*.txt
 /assets
 /auth
 index.html
