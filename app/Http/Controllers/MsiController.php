@@ -170,7 +170,8 @@ class MsiController extends Controller
             $data['type_id'] = 1;
             $data['contact_id'] = (int)$user->bitrix_id ?? 0;
             $res = json_decode(Bitrix::addUserAddress($data));
-            return redirect()->route('income', []);
+            //return redirect()->route('income', []);
+            return redirect()->route('step-6', []);
         } else {
             return redirect()->route('auth', []);
         }
@@ -184,7 +185,8 @@ class MsiController extends Controller
             $res = json_decode(Bitrix::addUserAddress($data));
             $request->session()->put('step', 3);
             if(isset($data['matches']) && $data['matches']) {
-                return redirect()->route('income', []);
+                //return redirect()->route('income', []);
+                return redirect()->route('step-6', []);
             } else {
                 return redirect()->route('step-3.5', []);
             }
