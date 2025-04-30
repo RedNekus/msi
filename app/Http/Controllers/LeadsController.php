@@ -182,7 +182,7 @@ class LeadsController extends Controller
             session()->put('code', $code);
             $phone = str_replace(['(',')',' ', '-'], '', $user->phone);
             $res = SendSms::dispatch($phone, "Ваш код: {$code}");
-            file_put_contents('sms_code.log', $phone . ": " .json_encode($res) . "\n", FILE_APPEND);
+            file_put_contents('sms_code.log', $phone . ": " . json_encode($res) . "\n", FILE_APPEND);
             return true;
         }
     }
