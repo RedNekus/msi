@@ -181,7 +181,8 @@ class LeadsController extends Controller
             $code = rand( 10000 , 99999 );
             session()->put('code', $code);
             $phone = str_replace(['(',')',' ', '-'], '', $user->phone);
-            SendSms::dispatch($phone, "Ваш код: {$code}");
+            $res = SendSms::dispatch($phone, "Ваш код: {$code}");
+            file_put_contents('sms_code.log', $phone . ": " .json_encode($res) . "\n", FILE_APPEND);
             return true;
         }
     }
