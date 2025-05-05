@@ -136,6 +136,11 @@ document.addEventListener('DOMContentLoaded', () => {
               обработку персональных данных`,
             },
           },
+          agreement_fszn: {
+            presence: {
+              message: `^Подтвердите согласие на получение данных из ФСЗН`,
+            },
+          },
         };
         if (checkFields(constraints)) {
           form.submit();
