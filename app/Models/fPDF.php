@@ -28,4 +28,8 @@ class fPDF extends Model
         return $pdf->stream();
         //return $pdf->download('areement-personal.pdf');
     }
+    public static function getAreementFSZNFile($sign = 0) {
+        $pdf = Pdf::loadView('pdf.areement-fszn', [...Msi::prepareDocumentData(), 'sign' => $sign]);
+        return $pdf->stream();
+    }
 }

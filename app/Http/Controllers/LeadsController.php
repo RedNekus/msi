@@ -200,6 +200,13 @@ class LeadsController extends Controller
             return redirect()->route('auth', []);
         }
     }
+    public function areementFSZN() {
+        if(Auth::check()) {
+            return fPDF::getAreementFSZNFile(0);
+        } else {
+            return redirect()->route('auth', []);
+        }
+    }
     public function error(Request $request) {
         return view('leads.error', []);
     }

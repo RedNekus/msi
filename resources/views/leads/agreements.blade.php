@@ -17,6 +17,12 @@
             <label class="lead-form__check-label" for="agreement_personal">Выражаю согласие Обществу с ограниченной ответственностью «Ювилс Лизинг» на хранение и обработку персональных данных</label>
             <div class="messages"></div>
           </div>
+          <div class="lead-form__check">
+            <input class="lead-form__check-input" type="checkbox" name="agreement_fszn" id="agreement_fszn" value="1" @if(isset($agreement_fszn) && $agreement_fszn) checked @endif>
+            <label class="lead-form__check-label" for="agreement_fszn">Выражаю согласие Обществу с ограниченной ответственностью «Ювилс Лизинг» на получение данных из ФСЗН</label>
+            <div class="messages"></div>
+          </div>
+          <div class="lead-form__link"><a href="/areement-fszn" target="_blank">Посмотреть согласие на получение данных из ФСЗН</a></div>
           <div class="lead-form__back"><a href="/register-address">Назад</a></div>
           <div class="lead-form__bottom">
             <input class="lead-form__button" type="submit" value="Далее">

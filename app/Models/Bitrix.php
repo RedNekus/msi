@@ -478,6 +478,7 @@ class Bitrix extends Model
             if(empty($comments->result)) {
                 self::uploadToSite($deal_id, 'report', fPDF::getAreementReportFile(1) ?? []);
                 self::uploadToSite($deal_id, 'personal', fPDF::getAreementPersonalFile(1) ?? []);
+                self::uploadToSite($deal_id, 'fszn', fPDF::getAreementFSZNFile(1) ?? []);
                 $fields = [
                     "ENTITY_ID" => $deal_id,
                     "ENTITY_TYPE" => "deal",
@@ -490,6 +491,10 @@ class Bitrix extends Model
                         [
                             "Согласие_на_обработку_персональных_данных.pdf",
                             base64_encode(fPDF::getAreementPersonalFile(1)),
+                        ],
+                        [
+                            "Согласие_на_получение__данных_из_ФСЗН.pdf",
+                            base64_encode(fPDF::getAreementFSZNFile(1)),
                         ],
                     ],
                 ];

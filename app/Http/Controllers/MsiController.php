@@ -97,10 +97,10 @@ class MsiController extends Controller
                     Bitrix::addShortLink($yourlsData, $stateArr[0]);
                     sleep(1);
                     $res = SendSms::dispatch($stateArr[2], "Ваша ссылка на предоставление данных ООО «Ювилс Лизинг» на приобретение товаров в лизинг: {$yourlsData}");
-                    //file_put_contents('sms-log.log', $stateArr[2] . ": " . json_encode($res) . "\n", FILE_APPEND);
+                    file_put_contents('sms-log.log', $stateArr[2] . ": " . json_encode($res) . "\n", FILE_APPEND);
                 }
                 if(empty($yourlsData)) {
-                    file_put_contents('sms-log.log', "Нет короткой ссылки\n", FILE_APPEND);
+                    file_put_contents('sms-log.log', "Нет короткой ссылки {$stateArr[2]}\n", FILE_APPEND);
                 }
                 return ['data' => $yourlsData];
             } else {

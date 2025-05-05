@@ -51,6 +51,7 @@ Route::get('/lead/{id}', [LeadsController::class, 'lead']);
 
 Route::get('/areement-report', [LeadsController::class, 'areementReport']);
 Route::get('/areement-personal', [LeadsController::class, 'areementPersonal']);
+Route::get('/areement-fszn', [LeadsController::class, 'areementFSZN']);
 
 Route::get('/user/pdn', [UserController::class, 'getPDN'])->name('pdn');
 Route::get('/user/income', [UserController::class, 'income'])->name('income');
