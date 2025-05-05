@@ -93,10 +93,14 @@ class MsiController extends Controller
             if($stateArr[0]) {
                 $yourlsData = Yourls::setShort($state);
                 sleep(5);
-                Bitrix::addShortLink($yourlsData, $stateArr[0]);
                 if(isset($stateArr[2]) && $yourlsData) {
+                    Bitrix::addShortLink($yourlsData, $stateArr[0]);
+                    sleep(1);
                     $res = SendSms::dispatch($stateArr[2], "Ваша ссылка на предоставление данных ООО «Ювилс Лизинг» на приобретение товаров в лизинг: {$yourlsData}");
-                    file_put_contents('sms-log.log', $stateArr[2] . ": " . json_encode($res) . "\n", FILE_APPEND);
+                    //file_put_contents('sms-log.log', $stateArr[2] . ": " . json_encode($res) . "\n", FILE_APPEND);
+                }
+                if(empty($yourlsData)) {
+                    file_put_contents('sms-log.log', "Нет короткой ссылки\n", FILE_APPEND);
                 }
                 return ['data' => $yourlsData];
             } else {
@@ -106,6 +110,10 @@ class MsiController extends Controller
             file_put_contents('test.txt', "TEST: " . $state . "\n", FILE_APPEND);
             return ['data' => 'err 2'];
         }
+    }
+    public function send_sms(Request $request)
+    {
+
     }
     public function address(Request $request) {
         if((int)$request->session()->get('success') === 1) {
