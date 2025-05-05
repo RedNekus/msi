@@ -92,9 +92,9 @@ class MsiController extends Controller
             }
             if($stateArr[0]) {
                 $yourlsData = Yourls::setShort($state);
-                usleep(100000);
+                sleep(5);
                 Bitrix::addShortLink($yourlsData, $stateArr[0]);
-                if(isset($stateArr[2])) {
+                if(isset($stateArr[2]) && $yourlsData) {
                     $res = SendSms::dispatch($stateArr[2], "Ваша ссылка на предоставление данных ООО «Ювилс Лизинг» на приобретение товаров в лизинг: {$yourlsData}");
                     file_put_contents('sms-log.log', $stateArr[2] . ": " . json_encode($res) . "\n", FILE_APPEND);
                 }
