@@ -195,14 +195,14 @@ class LeadsController extends Controller
     }
     public function areementPersonal() {
         if(Auth::check()) {
-            return fPDF::getAreementPersonalFile(0);
+            return fPDF::getPDFDocument('areement-personal', 0);
         } else {
             return redirect()->route('auth', []);
         }
     }
     public function areementFSZN() {
         if(Auth::check()) {
-            return fPDF::getAreementFSZNFile(0);
+            return fPDF::getPDFDocument('areement-fszn', 0);
         } else {
             return redirect()->route('auth', []);
         }
