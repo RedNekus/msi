@@ -22,15 +22,15 @@ class fPDF extends Model
         $stateArr = explode(':', $state);
         $type = array_pop($stateArr); 
         if($type === 'Договорпоручительсва') {
-            return getPDFDocument("agreenment-guarantee", $sign);
+            return self::getPDFDocument("agreenment-guarantee", $sign);
         } else {
-            return getPDFDocument("areement-report", $sign);
+            return self::getPDFDocument("areement-report", $sign);
         }
     }
     public static function getAreementPersonalFile($sign = 0) {
-        return getPDFDocument("areement-personal", $sign);
+        return self::getPDFDocument("areement-personal", $sign);
     }
     public static function getAreementFSZNFile($sign = 0) {
-        return getPDFDocument("areement-fszn", $sign);
+        return self::getPDFDocument("areement-fszn", $sign);
     }
 }
