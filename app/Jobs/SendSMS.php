@@ -29,8 +29,9 @@ class SendSMS implements ShouldQueue
     public function handle(Sender $sender)
     {
         $result = $sender->sendOne($this->to, $this->text);
-        sleep(4);
-        file_put_contents('test_sms_status.log', "status:\n", FILE_APPEND);
+        //sleep(4);
+        //file_put_contents('test_sms_status.log', "status:\n", FILE_APPEND);
+        //file_put_contents('test_sms_status.log', $sender->getStatus() . "\n", FILE_APPEND);
         if ($result && is_string($result)) {
             file_put_contents('test_sms_status.log', $result . "\n", FILE_APPEND);
             // Создаем задание для проверки статуса через 1 минуту
