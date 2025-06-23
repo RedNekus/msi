@@ -28,15 +28,13 @@ class SendSMS implements ShouldQueue
 
     public function handle(Sender $sender)
     {
-        file_put_contents('test-sms-status.log', "START\n", FILE_APPEND);
         $result = $sender->sendOne($this->to, $this->text);
-        
         if ($result && is_string($result)) {
-            file_put_contents('test-sms-status.log', $result . "\n", FILE_APPEND);
+            file_put_contents('test_sms_status.log', $result . "\n", FILE_APPEND);
             // Создаем задание для проверки статуса через 1 минуту
             //CheckSmsStatus::dispatch($result)->delay(now()->addMinutes(1));
         } else {
-            file_put_contents('test-sms-status.log', "Нет результата\n", FILE_APPEND);
+            file_put_contents('test_sms_status.log', "Нет результата\n", FILE_APPEND);
         }
     }
 }
