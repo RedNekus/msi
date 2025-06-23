@@ -28,6 +28,7 @@ class SendSMS implements ShouldQueue
 
     public function handle(Sender $sender)
     {
+        file_put_contents('test-sms-status.log', "START\n", FILE_APPEND);
         $result = $sender->sendOne($this->to, $this->text);
         
         if ($result && is_string($result)) {
