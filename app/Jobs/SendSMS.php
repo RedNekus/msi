@@ -34,6 +34,7 @@ class SendSMS implements ShouldQueue
         //file_put_contents('test_sms_status.log', $sender->getStatus() . "\n", FILE_APPEND);
         if ($result && is_string($result)) {
             file_put_contents('test_sms_status.log', $result . "\n", FILE_APPEND);
+            file_put_contents('test_sms_status.log', "Статус: " . $sender->getStatus() . "\n", FILE_APPEND);
             // Создаем задание для проверки статуса через 1 минуту
             //CheckSmsStatus::dispatch($result)->delay(now()->addMinutes(1));
         } else {
