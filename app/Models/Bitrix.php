@@ -101,18 +101,27 @@ class Bitrix extends Model
         return self::convert($data, 'INFO_FIELDS');
     }
     public static function convertAddress($data) {
-        $res = self::convert($data, 'ADDR_FIELDS');
-        if($data->ADDRESS_1) {
-            $arrAddr = explode(',', $data->ADDRESS_1);
-            $arrAddr = array_map('trim', $arrAddr);
-            $arrAddr = array_filter($arrAddr, fn($item) => '' !== $item);
-            $res->street = $arrAddr[0];
-            $res->house = $arrAddr[1];
-            if(count($arrAddr) === 3) {
-                $res->housing = $arrAddr[2];
-            }
+        try {
+            $res = self::convert($data, 'ADDR_FIELDS');
+            if($data->ADDRESS_1) {
+                $arrAddr = explode(',', $data->ADDRESS_1);
+                $arrAddr = array_map('trim', $arrAddr);
+                $arrAddr = array_filter($arrAddr, fn($item) => '' !== $item);
+                if(is_array($arrAddr) && count($arrAddr)) {
+                    $res->street = $arrAddr[0];
+                    $res->house = $arrAddr[1];
+                    if(count($arrAddr) === 3) {
+                        $res->housing = $arrAddr[2];
+                    }
+                }
+                return (array)$res;
+            } else{
+                return [];
+            }    
+        } catch (Exception $e) {
+            file_put_contents('error.log', date('d.m.Y H:i:s') . ": Ошибка при конвертации адреса {$e->getMessage()}\n", FILE_APPEND);
+            return [];
         }
-        return (array)$res;
     }
     public static function convertPassport($data) {
         $res = self::convert($data, 'PASSPORT_FIELDS');
@@ -527,11 +536,17 @@ class Bitrix extends Model
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, ['deal_id' => $deal_id, 'type' => $type, 'file' => $data]);
 
-        $content = curl_exec($ch);
+        $err = curl_exec($ch);
 
         $err = curl_errno($ch);
         $errmsg = curl_error($ch);
         $header = curl_getinfo($ch);
+
+        if($err) {
+            file_put_contents('test-upload.log', date('d.m.Y H:i:s') . " {$deal_id} >> Ошибка {$err}: {$errmsg}\n", FILE_APPEND);
+        } else {
+            file_put_contents('test-upload.log', date('d.m.Y H:i:s') . " {$deal_id} >> Успешная загрузка!\n", FILE_APPEND);
+        }
     }
 
     public static function addIncomeData($data) {

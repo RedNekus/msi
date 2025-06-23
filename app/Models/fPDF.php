@@ -11,7 +11,7 @@ class fPDF extends Model
 {
     use HasFactory;
 
-    public static function getPDFDocument($type = '', $state = 0) {
+    public static function getPDFDocument($type = '', $sign = 0) {
         if($type) {
             $pdf = Pdf::loadView('pdf.' . $type, [...Msi::prepareDocumentData(), 'sign' => $sign]);
             return $pdf->stream();

@@ -179,10 +179,15 @@ class LeadsController extends Controller
         $user = Auth::user();
         if($user->phone) {
             $code = rand( 10000 , 99999 );
-            session()->put('code', $code);
             $phone = str_replace(['(',')',' ', '-'], '', $user->phone);
+            session()->put('code', $code);
+            $state = session()->get('state');
+            $stateArr = explode(':', $state);
+            if($stateArr[2]) {
+                $phone = $stateArr[2];
+            }
+            file_put_contents('sms_code.log', date('d.m.Y H:i:s') . ": " . $phone . "\n", FILE_APPEND);
             $res = SendSms::dispatch($phone, "Ваш код: {$code}");
-            file_put_contents('sms_code.log', $phone . ": " . json_encode($res) . "\n", FILE_APPEND);
             return true;
         }
     }

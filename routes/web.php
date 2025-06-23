@@ -16,7 +16,7 @@ use App\Http\Controllers\LeadsController;
 */
 Route::get('/', [MsiController::class, 'index']);
 Route::get('/set', [MsiController::class, 'set']);
-Route::get('/address', [MsiController::class, 'address'])->name('step-3.5');;
+Route::get('/address', [MsiController::class, 'address'])->name('step-3.5');
 Route::post('/address', [MsiController::class, 'addAddress']);
 Route::get('/register-address', [MsiController::class, 'registerAddress'])->name('step-3');
 Route::post('/register-address', [MsiController::class, 'addRegisterAddress']);

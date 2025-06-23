@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\QueryException;
 use App\Models\Bitrix;
 use Illuminate\View\View;
 use App\Models\User;
@@ -69,10 +70,14 @@ class UserController extends Controller
         return view('user.register', []);
     }
     public function registration(Request $request) {
-        if( User::create($request->all()) ) {
-            return redirect()->route('auth', []);
-        } else {
-            //TODO
+        try {
+            if( User::create($request->all()) ) {
+                return redirect()->route('auth', []);
+            }
+        } catch (QueryException $e) {
+            file_put_contents('error.log', date('d.m.Y H:i:s') . ": Ошибка при регистрации пользователя: {$e->getMessage()}\n", FILE_APPEND);
+            //return response()->json(['error' => 'Ошибка при сохранении пользователя'], 500);
+            return view('error', ['text' => 'Ошибка при сохранении пользователя']);
         }
     }
     public function passport(Request $request) { 
