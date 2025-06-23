@@ -106,7 +106,7 @@ class MsiController extends Controller
                 if(empty($yourlsData)) {
                     file_put_contents('sms-log.log', "Нет короткой ссылки {$stateArr[2]}\n", FILE_APPEND);
                 }
-                return ['data' => $yourlsData];
+                return ['data' => $yourlsData, 'sms' => $res];
             } else {
                 return ['data' => 'err 1'];
             }
