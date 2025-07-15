@@ -10,7 +10,11 @@ use App\Models\Msi;
 use App\Models\Yourls;
 use App\Models\Bitrix;
 use App\Jobs\SendSMS;
-
+use App\Jobs\CheckSmsStatus;
+use App\Jobs\SuperSender;
+use App\Jobs\CheckStatus;
+use Illuminate\Support\Facades\Dispatch;
+use SmsAssistent\Sender\Sender;
 
 class MsiController extends Controller
 {
@@ -101,12 +105,17 @@ class MsiController extends Controller
                     if(str_contains($workphone, ',')) {
                         $workphone = array_shift(explode(',', $workphone));
                     }
-                    $res = SendSms::dispatch($workphone, "Ваша ссылка на предоставление данных ООО «Ювилс Лизинг» на приобретение товаров в лизинг: {$yourlsData}");
+ 
+                    if(isset($stateArr[4])) {
+                      $res = SuperSender::dispatch($workphone, "Ваша ссылка на предоставление данных ООО «Ювилс Лизинг» на приобретение товаров в лизинг: {$yourlsData}", $stateArr[4] ?? 0);
+                    } else {
+                      $res = SendSms::dispatch($workphone, "Ваша ссылка на предоставление данных ООО «Ювилс Лизинг» на приобретение товаров в лизинг: {$yourlsData}");
+                    }
                 }
                 if(empty($yourlsData)) {
                     file_put_contents('sms-log.log', "Нет короткой ссылки {$stateArr[2]}\n", FILE_APPEND);
                 }
-                return ['data' => $yourlsData, 'sms' => $res, 'test' => 666];
+                return ['data' => $yourlsData];
             } else {
                 return ['data' => 'err 1'];
             }
@@ -115,9 +124,12 @@ class MsiController extends Controller
             return ['data' => 'err 2'];
         }
     }
-    public function send_sms(Request $request)
+    public function check(Request $request)
     {
-
+        CheckStatus::dispatch($request->input('id'), $request->input('lead_id'));
+        $sender = new Sender();
+        $status = $sender->getStatus($request->input('id'));
+        return $status[0];
     }
     public function address(Request $request) {
         if((int)$request->session()->get('success') === 1) {

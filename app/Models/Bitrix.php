@@ -108,8 +108,16 @@ class Bitrix extends Model
                 $arrAddr = array_map('trim', $arrAddr);
                 $arrAddr = array_filter($arrAddr, fn($item) => '' !== $item);
                 if(is_array($arrAddr) && count($arrAddr)) {
-                    $res->street = $arrAddr[0];
-                    $res->house = $arrAddr[1];
+                    if(isset($arrAddr[0])) {
+                        $res->street = $arrAddr[0];
+                    } else {
+                        $res->street = '';
+                    }
+                    if(isset($arrAddr[1])) {
+                        $res->house = $arrAddr[1];
+                    } else {
+                        $res->house = '';
+                    }
                     if(count($arrAddr) === 3) {
                         $res->housing = $arrAddr[2];
                     }

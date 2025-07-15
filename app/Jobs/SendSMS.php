@@ -28,18 +28,19 @@ class SendSMS implements ShouldQueue
 
     public function handle(Sender $sender)
     {
+        //file_put_contents('test_sms.log', "Дата: " . date('d.m.Y H:i:s') . "\n", FILE_APPEND);
+        //file_put_contents('test_sms.log', date('d.m.Y H:i:s') . " START " . $this->to . "\n", FILE_APPEND);
         $result = $sender->sendOne($this->to, $this->text);
-        //sleep(4);
-        file_put_contents('test_sms_status.log', "status\n", FILE_APPEND);
-        //file_put_contents('test_sms_status.log', $sender->getStatus() . "\n", FILE_APPEND);
-        if ($result && is_string($result)) {
-            file_put_contents('test_sms_status.log', "Есть результат\n", FILE_APPEND);
-            //file_put_contents('test_sms_status.log', $result . "\n", FILE_APPEND);
+        //$testVar = var_export($result, true);
+        //file_put_contents('test_sms.log', date('d.m.Y H:i:s') . " ТЕСТ " . json_encode($testVar) . "\n", FILE_APPEND);
+        sleep(2);
+        if ( $result && isset($result[0]) ) {
+            file_put_contents('test_sms.log', date('d.m.Y H:i:s') . " Есть результат:\n" . json_encode($result) . "\n", FILE_APPEND);
             //file_put_contents('test_sms_status.log', "Статус: " . $sender->getStatus() . "\n", FILE_APPEND);
             // Создаем задание для проверки статуса через 1 минуту
             //CheckSmsStatus::dispatch($result)->delay(now()->addMinutes(1));
         } else {
-            file_put_contents('test_sms_status.log', "Нет результата\n", FILE_APPEND);
+            file_put_contents('test_sms.log', date('d.m.Y H:i:s') . " Нет результата", FILE_APPEND);
         }
     }
 }
