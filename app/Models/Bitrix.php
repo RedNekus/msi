@@ -23,7 +23,6 @@ class Bitrix extends Model
         'UF_CRM_664C94A742925' => 'term', //срок лизинга
         'UF_CRM_65DDB202BF4AA' => 'down_payment', //первоначальный взнос (Авансовый платеж)
         "UF_CRM_1733757327" => 'agreement_report', //Cогласие на предоставление кредитного отчета
-        "UF_CRM_1733757480" => 'agreement_personal', //Cогласие на хранение и обработку персональных данных
         "UF_CRM_1733757560" => 'agreement_politic', //Согласен с условиями политики конфиденциальности
     ];
     const INFO_FIELDS = [
@@ -494,7 +493,6 @@ class Bitrix extends Model
             }
             if(empty($comments->result)) {
                 self::uploadToSite($deal_id, 'report', fPDF::getAreementReportFile(1) ?? []);
-                self::uploadToSite($deal_id, 'personal', fPDF::getPDFDocument('areement-personal', 1) ?? []);
                 self::uploadToSite($deal_id, 'fszn', fPDF::getPDFDocument("areement-fszn", 1) ?? []);
                 $fields = [
                     "ENTITY_ID" => $deal_id,
@@ -504,10 +502,6 @@ class Bitrix extends Model
                         [
                             "Согласие_на_предоставление_кредитного_отчета.pdf", 
                             base64_encode(fPDF::getAreementReportFile(1)),
-                        ],
-                        [
-                            "Согласие_на_обработку_персональных_данных.pdf",
-                            base64_encode(fPDF::getPDFDocument('areement-personal', 1)),
                         ],
                         [
                             "Согласие_на_получение__данных_из_ФСЗН.pdf",

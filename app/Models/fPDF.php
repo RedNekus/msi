@@ -27,9 +27,6 @@ class fPDF extends Model
             return self::getPDFDocument("areement-report", $sign);
         }
     }
-    public static function getAreementPersonalFile($sign = 0) {
-        return self::getPDFDocument("areement-personal", $sign);
-    }
     public static function getAreementFSZNFile($sign = 0) {
         return self::getPDFDocument("areement-fszn", $sign);
     }

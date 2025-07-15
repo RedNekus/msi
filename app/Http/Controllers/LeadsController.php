@@ -142,7 +142,6 @@ class LeadsController extends Controller
             $rq = $request->all();
             $data = [
                 'agreement_report' => 0,
-                'agreement_personal' => 0,
             ];
             foreach($rq as $key=>$item) {
                 if(isset($data[$key])) {
@@ -194,13 +193,6 @@ class LeadsController extends Controller
     public function areementReport() {
         if(Auth::check()) {
             return fPDF::getAreementReportFile(0);
-        } else {
-            return redirect()->route('auth', []);
-        }
-    }
-    public function areementPersonal() {
-        if(Auth::check()) {
-            return fPDF::getPDFDocument('areement-personal', 0);
         } else {
             return redirect()->route('auth', []);
         }
