@@ -4,11 +4,9 @@ $protocol = 'https';
 
 // Генерация версий для файлов
 function asset_version($path) {
-    $fullPath = public_path($path);
-    if (file_exists($fullPath)) {
-        return $path . '?v=' . filemtime($fullPath); // можно заменить на md5_file($fullPath)
-    }
-    return $path;
+  $fullPath = public_path($path);
+  $version = file_exists($fullPath) ? filemtime($fullPath) : time();
+  return asset($path) . '?v=' . $version;
 }
 ?>
 <!DOCTYPE html>
@@ -25,7 +23,7 @@ function asset_version($path) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="{{ asset_version('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset_version('css/style.css') }}">
 
     <base href="{{$protocol}}://{{$domain}}">
     @hasSection('styles')
